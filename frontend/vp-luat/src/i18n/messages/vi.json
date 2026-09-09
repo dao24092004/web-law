@@ -342,6 +342,7 @@
       "searchLabel": "Tìm kiếm bài viết",
       "search": "Tìm kiếm",
       "sidebarSearchPlaceholder": "Tìm kiếm bài viết...",
+      "loading": "Đang tải tin tức...",
       "empty": "Không có bài viết nào phù hợp.", "hot": "Nổi bật", "views": "lượt xem", "minutes": "phút", "categoriesTitle": "Danh mục", "ctaTitle": "Đặt lịch tư vấn ngay", "ctaSubtitle": "Đội ngũ luật sư sẵn sàng tư vấn miễn phí lần đầu.", "ctaButton": "Đặt lịch tư vấn", "newsletterTitle": "Nhận tin pháp luật mới", "newsletterSubtitle": "Đăng ký nhận bản tin hàng tuần về cập nhật pháp luật và blog chuyên môn.", "newsletterPlaceholder": "Nhập email của bạn...", "newsletterEmailLabel": "Email đăng ký nhận tin", "newsletterSubmitting": "Đang đăng ký...", "newsletterSuccess": "Đã đăng ký!", "newsletterError": "Đăng ký thất bại", "newsletterSubmit": "Đăng ký ngay", "backToList": "Quay lại tin tức", "minutesRead": "phút đọc", "tags": "Thẻ:", "share": "Chia sẻ:", "shareFacebook": "Chia sẻ lên Facebook", "shareTwitter": "Chia sẻ lên Twitter", "shareLinkedIn": "Chia sẻ lên LinkedIn", "related": "Bài viết liên quan", "categories": { "tin-tuc": "Tin tức", "nghi-dinh": "Nghị định", "blog": "Blog", "case-study": "Case study", "huong-dan": "Hướng dẫn", "other": "Khác" }
     },
     "lawyers": {
