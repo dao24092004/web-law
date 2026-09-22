@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Cormorant_Garamond, Plus_Jakarta_Sans } from 'next/font/google';
-import { getLocale, getMessages } from 'next-intl/server';
+import { getLocale, getMessages, getTimeZone } from 'next-intl/server';
 import { Providers } from '@/providers';
 import { cn } from '@/lib/utils';
 import '@/app/globals.css';
@@ -38,11 +38,12 @@ export default async function RootLayout({
 }>) {
   const locale = await getLocale();
   const messages = await getMessages();
+  const timeZone = await getTimeZone();
 
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className={cn(headingFont.variable, bodyFont.variable, 'font-body antialiased')}>
-        <Providers locale={locale} messages={messages}>
+        <Providers locale={locale} messages={messages} timeZone={timeZone}>
           {children}
         </Providers>
       </body>

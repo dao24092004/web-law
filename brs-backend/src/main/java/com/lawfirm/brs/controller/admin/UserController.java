@@ -32,6 +32,7 @@ public class UserController {
     private final UserManagementService userService;
     private final DashboardErpService dashboardService;
     private final AuditLogRepository auditLogRepository;
+    private final com.lawfirm.brs.controller.admin.RoleController roleController;
 
     @GetMapping
     @Operation(summary = "Get all users with pagination (Admin)")
@@ -42,6 +43,18 @@ public class UserController {
             @RequestParam(required = false) Boolean isActive) {
         PageResponse<UserDTO> users = userService.getAllUsers(page, size, role, isActive);
         return ResponseEntity.ok(ApiResponse.success(users));
+    }
+
+    /**
+     * Dedicated route to list all system roles.
+     * Declared BEFORE the {@code /{id}} mapping so it is matched first
+     * and the "roles" path segment is not treated as a UUID.
+     */
+    @GetMapping("/roles")
+    @Operation(summary = "List all system roles (Admin)")
+    public ResponseEntity<ApiResponse<List<com.lawfirm.brs.dto.response.RoleDTO>>> listRoles() {
+        // Delegate to RoleController implementation by reusing the bean
+        return roleController.getAllRoles();
     }
 
     @GetMapping("/{id}")

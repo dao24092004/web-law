@@ -6,5 +6,6 @@ public enum SettingsNamespace {
     SMTP,
     THEME,
     INTEGRATIONS,
-    PUBLIC_SITE
+    PUBLIC_SITE,
+    LANDING_PAGES
 }

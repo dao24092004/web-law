@@ -41,14 +41,28 @@
       "bookings": "Bookings",
       "crm": "Lead / CRM management",
       "blog": "Articles and Blog",
+      "case_studies": "Case Studies",
       "services": "Services and Lawyers",
       "reviews": "Client reviews",
       "chatbot": "Chatbot logs",
+      "newsletter": "Newsletter",
+      "landing_pages": "Landing Pages",
+      "jobs": "Jobs",
       "users": "Users and Permissions",
+      "roles": "Roles and Permissions",
+      "files": "File Manager",
+      "lawyer_schedules": "Lawyer Schedules",
+      "site_content": "Site Content",
       "notifications": "Notifications",
       "audit": "Audit log",
-      "settings": "System settings"
+      "settings": "System settings",
+      "reports": "Detailed Reports"
     }
+  },
+  "sections": {
+    "management": "Management",
+    "system": "System",
+    "reports": "Reports"
   },
   "nav": {
     "home": "Home",

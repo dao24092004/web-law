@@ -353,7 +353,7 @@ export interface NewsletterTemplate {
 
 // ─── Users ─────────────────────────────────────────────────────────────
 
-export type UserRole = 'SUPER_ADMIN' | 'ADMIN' | 'EDITOR' | 'CSKH' | 'LAWYER' | 'USER' | 'VIEWER';
+export type UserRole = 'SUPER_ADMIN' | 'ADMIN' | 'EDITOR' | 'CSKH' | 'LAWYER' | 'USER' | 'VIEWER' | 'MANAGER';
 
 export interface AdminUser {
   id: string;

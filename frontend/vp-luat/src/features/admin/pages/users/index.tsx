@@ -34,12 +34,19 @@ import {
   useDeleteUserWithAudit,
   useResetPassword,
   useToggleUserStatus,
+  useBulkChangeRole,
+  useBulkToggleStatus,
+  useBulkDeleteUsers,
   useAuditLogs,
   ROLE_LABELS,
 } from './hooks/use-users';
 import type { AdminUser, Role, UserRole } from '@/features/admin/types';
 import type { UserFormValues } from '@/features/admin/schema';
 import type { AdminUser as ApiAdminUser, Role as ApiRole } from '@/lib/api/admin-core';
+import { UserStats } from './components/user-stats';
+import { BulkActionsBar } from './components/bulk-actions-bar';
+import { ExportUsersButton } from './components/export-users-button';
+import { UserActivityDrawer } from './components/user-activity-drawer';
 
 /** Normalise the API AdminUser (fullName) into the legacy UI AdminUser (name). */
 function toUiUser(u: ApiAdminUser): AdminUser {
@@ -191,6 +198,9 @@ function UsersTab() {
   const deleteUser = useDeleteUserWithAudit();
   const resetPassword = useResetPassword();
   const toggleStatus = useToggleUserStatus();
+  const bulkChangeRole = useBulkChangeRole();
+  const bulkToggleStatus = useBulkToggleStatus();
+  const bulkDelete = useBulkDeleteUsers();
   const { startImpersonate, currentUser, isImpersonating } = useAdminAuth();
 
   const [search, setSearch] = useState('');
@@ -203,6 +213,7 @@ function UsersTab() {
   const [confirmDelete, setConfirmDelete] = useState<AdminUser | null>(null);
   const [confirmReset, setConfirmReset] = useState<AdminUser | null>(null);
   const [impersonateTarget, setImpersonateTarget] = useState<AdminUser | null>(null);
+  const [viewingActivityUser, setViewingActivityUser] = useState<AdminUser | null>(null);
   const LIMIT = 20;
 
   const filtered = useMemo(() => {
@@ -237,6 +248,14 @@ function UsersTab() {
 
   return (
     <>
+      {/* Stats summary */}
+      <UserStats
+        total={counts.total}
+        active={counts.active}
+        inactive={counts.inactive}
+        byRole={counts.byRole}
+      />
+
       <div
         style={{
           display: 'flex',
@@ -279,13 +298,16 @@ function UsersTab() {
             />
           </div>
         </div>
-        {canWrite && (
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-            }}
-          >
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            gap: 6,
+            flexWrap: 'wrap',
+          }}
+        >
+          <ExportUsersButton users={filtered} />
+          {canWrite && (
             <button
               type="button"
               className="action-btn action-btn--primary"
@@ -303,9 +325,35 @@ function UsersTab() {
             >
               <Plus size={12} /> Tạo người dùng
             </button>
-          </div>
-        )}
+          )}
+        </div>
       </div>
+
+      {/* Bulk actions appear when at least one row is selected. */}
+      <BulkActionsBar
+        selectedIds={selectedIds}
+        users={users}
+        currentUserId={currentUser?.id ?? ''}
+        canDelete={canDelete}
+        canWrite={canWrite}
+        onClearSelection={() => setSelectedIds([])}
+        onBulkActivate={async (ids) => {
+          await bulkToggleStatus(ids, true);
+          setSelectedIds([]);
+        }}
+        onBulkDeactivate={async (ids) => {
+          await bulkToggleStatus(ids, false);
+          setSelectedIds([]);
+        }}
+        onBulkDelete={async (ids) => {
+          await bulkDelete(ids);
+          setSelectedIds([]);
+        }}
+        onBulkChangeRole={async (ids, role) => {
+          await bulkChangeRole(ids, role as Parameters<typeof bulkChangeRole>[1]);
+          setSelectedIds([]);
+        }}
+      />
 
       <div className="admin-card">
         <div
@@ -364,6 +412,7 @@ function UsersTab() {
             onResetPassword={(u) => setConfirmReset(u)}
             onToggleStatus={(u) => toggleStatus(u as unknown as Parameters<typeof toggleStatus>[0])}
             onImpersonate={(u) => setImpersonateTarget(u)}
+            onViewActivity={(u) => setViewingActivityUser(u)}
             currentUserId={currentUser?.id ?? ''}
             canWrite={canWrite}
             canDelete={canDelete}
@@ -452,6 +501,11 @@ function UsersTab() {
           }
         }}
         onClose={() => setImpersonateTarget(null)}
+      />
+
+      <UserActivityDrawer
+        user={viewingActivityUser as unknown as ApiAdminUser}
+        onClose={() => setViewingActivityUser(null)}
       />
 
       {void roles}

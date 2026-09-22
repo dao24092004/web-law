@@ -119,4 +119,20 @@ export const adminDashboardApi = {
 
   exportCsvUrl: (range: string) =>
     `${API_BASE}/admin/dashboard/export/csv?range=${range}`,
+
+  // Reports (ERP)
+  reportsRevenue: (range = 'week', groupBy = 'day') =>
+    api.get<TimeSeriesPoint[]>(`/admin/reports/revenue`, { range, groupBy }),
+
+  reportsConversion: (range = 'month') =>
+    api.get<Record<string, unknown>>(`/admin/reports/conversion`, { range }),
+
+  reportsLawyerPerformance: (from?: string, to?: string) =>
+    api.get<Record<string, unknown>[]>(`/admin/reports/lawyer-performance`, {
+      ...(from ? { from } : {}),
+      ...(to ? { to } : {}),
+    }),
+
+  reportsServiceTrends: (range = 'month') =>
+    api.get<DistributionSlice[]>(`/admin/reports/service-trends`, { range }),
 };

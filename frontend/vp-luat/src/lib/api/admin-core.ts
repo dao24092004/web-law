@@ -14,7 +14,7 @@ export interface AdminUser {
   fullName?: string;
   name?: string;        // alias of fullName for legacy UI
   phone?: string;
-  role: 'SUPER_ADMIN' | 'ADMIN' | 'EDITOR' | 'CSKH' | 'LAWYER' | 'USER';
+  role: 'SUPER_ADMIN' | 'ADMIN' | 'EDITOR' | 'CSKH' | 'LAWYER' | 'USER' | 'VIEWER' | 'MANAGER';
   avatarUrl?: string;
   isActive: boolean;
   createdAt?: string;

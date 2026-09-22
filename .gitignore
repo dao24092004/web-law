@@ -145,6 +145,34 @@ secrets.yaml
 /private/
 /credentials/
 
+# Auth capture / API smoke artifacts (local only — dành riêng cho root)
+/login*.json
+/login_resp*.json
+/login*.txt
+
+# Local shell/PowerShell smoke scripts (portable tests live in tests/e2e)
+/test_all.sh
+/test_all*.ps1
+/test_apis*.sh
+/test_apis*.ps1
+/test_apis_inline*.sh
+/test_apis_inline*.ps1
+/quick_test*.sh
+/quick_test*.ps1
+/api_test_results*.csv
+
+# Playwright output (HTML reports & test artifacts)
+playwright-report/
+test-results/
+
+# Local runtime directories (uploads by app, runtime logs)
+/uploads/
+
+# Node / Next.js misc
+/.cache/
+/.tmp/
+/tmp/
+
 # Database files
 *.db
 *.sqlite
