@@ -61,10 +61,6 @@ export function ChatbotWidget() {
     };
   }, []);
 
-  if (pathname?.startsWith('/admin') || pathname?.startsWith('/login')) {
-    return null;
-  }
-
   // Restore persisted UI state (popup dismissed, etc.) on first mount.
   // The store hydrates automatically from sessionStorage; this effect is
   // intentionally a no-op placeholder for future client-side bootstrapping
@@ -100,6 +96,15 @@ export function ChatbotWidget() {
       document.body.classList.remove(className);
     };
   }, [isOpen]);
+
+  // All hooks above must run on every render — including on /admin and /login.
+  // The early return below is the *last* statement so React's hook order stays
+  // stable across navigations. Without this, mounting on /public and then
+  // navigating to /admin would unmount the chatbot mid-hook sequence and React
+  // would throw "Rendered fewer hooks than expected".
+  if (pathname?.startsWith('/admin') || pathname?.startsWith('/login')) {
+    return null;
+  }
 
   return (
     <>

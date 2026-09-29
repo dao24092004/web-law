@@ -304,25 +304,49 @@ export default function ReportsPage() {
 
 function DonutChart({ segments, size = 160 }: { segments: DonutSegment[]; size?: number }) {
   const total = segments.reduce((sum, s) => sum + s.value, 0);
-  let currentAngle = -90;
+
+  // Guard against degenerate input (empty segments or all-zero values) — the
+  // SVG arc math below divides by `total`, so a zero total would emit NaN
+  // coordinates and React would log a warning about non-finite attributes.
+  if (total <= 0 || segments.length === 0) {
+    return (
+      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+        <circle cx={size / 2} cy={size / 2} r={size / 2 - 10} fill="var(--gray-100)" />
+        <circle cx={size / 2} cy={size / 2} r={size * 0.25} fill="white" />
+      </svg>
+    );
+  }
+
+  // Pre-compute the cumulative angles up-front so the JSX render is a pure
+  // projection. Mutating a `let` inside `.map` worked, but it made the
+  // component harder to reason about and tripped up Strict-Mode double
+  // rendering on data with zero-value segments.
+  const radius = size / 2 - 10;
+  const slices = segments.reduce<
+    Array<{ segment: DonutSegment; startAngle: number; endAngle: number; angle: number }>
+  >((acc, segment, i) => {
+    const angle = (segment.value / total) * 360;
+    const startAngle = i === 0 ? -90 : acc[i - 1].endAngle;
+    acc.push({ segment, startAngle, endAngle: startAngle + angle, angle });
+    return acc;
+  }, []);
 
   return (
     <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
-      {segments.map((seg, i) => {
-        const angle = (seg.value / total) * 360;
-        const startAngle = currentAngle;
-        currentAngle += angle;
-        const endAngle = currentAngle;
+      {slices.map(({ segment, startAngle, endAngle, angle }, i) => {
+        // Skip degenerate slices (zero-value segments) — they collapse to a
+        // single point and just add visual noise.
+        if (angle === 0) return null;
 
-        const x1 = size / 2 + (size / 2 - 10) * Math.cos((startAngle * Math.PI) / 180);
-        const y1 = size / 2 + (size / 2 - 10) * Math.sin((startAngle * Math.PI) / 180);
-        const x2 = size / 2 + (size / 2 - 10) * Math.cos((endAngle * Math.PI) / 180);
-        const y2 = size / 2 + (size / 2 - 10) * Math.sin((endAngle * Math.PI) / 180);
+        const x1 = size / 2 + radius * Math.cos((startAngle * Math.PI) / 180);
+        const y1 = size / 2 + radius * Math.sin((startAngle * Math.PI) / 180);
+        const x2 = size / 2 + radius * Math.cos((endAngle * Math.PI) / 180);
+        const y2 = size / 2 + radius * Math.sin((endAngle * Math.PI) / 180);
 
         const largeArc = angle > 180 ? 1 : 0;
-        const pathD = `M ${size / 2} ${size / 2} L ${x1} ${y1} A ${size / 2 - 10} ${size / 2 - 10} 0 ${largeArc} 1 ${x2} ${y2} Z`;
+        const pathD = `M ${size / 2} ${size / 2} L ${x1} ${y1} A ${radius} ${radius} 0 ${largeArc} 1 ${x2} ${y2} Z`;
 
-        return <path key={i} d={pathD} fill={seg.color} />;
+        return <path key={i} d={pathD} fill={segment.color} />;
       })}
       <circle cx={size / 2} cy={size / 2} r={size * 0.25} fill="white" />
     </svg>

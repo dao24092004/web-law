@@ -97,8 +97,8 @@ class DashboardErpServiceTest {
     @Test
     @DisplayName("visitorSeries returns N days of buckets")
     void visitorSeries_buckets() {
-        when(cacheService.getOrLoad(anyString(), anyString(), any(), any()))
-            .thenAnswer(inv -> ((java.util.function.Supplier<?>) inv.getArgument(2)).get());
+        when(cacheService.getOrLoad(anyString(), anyString(), any(com.fasterxml.jackson.core.type.TypeReference.class), any(), any(java.time.Duration.class)))
+            .thenAnswer(inv -> ((java.util.function.Supplier<?>) inv.getArgument(3)).get());
         when(leadRepository.findAll()).thenReturn(List.of());
 
         var result = service.visitorSeries(7);

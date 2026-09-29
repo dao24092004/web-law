@@ -30,18 +30,22 @@ public class NewsletterService {
     public NewsletterSubscriber subscribe(NewsletterSubscribeRequest request, String ipAddress) {
         log.info("Processing newsletter subscription for: {}", request.email());
 
-        subscriberRepository.findByEmail(request.email())
-            .ifPresent(subscriber -> {
-                if (subscriber.getUnsubscribedAt() != null) {
-                    subscriber.setUnsubscribedAt(null);
-                    subscriber.setStatus("PENDING");
-                    subscriber.setVerificationToken(UUID.randomUUID().toString());
-                    subscriberRepository.save(subscriber);
-                } else {
-                    throw new BusinessException("NEWSLETTER_ALREADY_SUBSCRIBED", 
-                        "Email is already subscribed");
-                }
-            });
+        // Re-subscription path: if the email already exists but was unsubscribed,
+        // reactivate it in-place and return. Without the early return the code
+        // would continue to the "create new record" branch below and insert a
+        // duplicate row that violates the email unique constraint.
+        var existing = subscriberRepository.findByEmail(request.email());
+        if (existing.isPresent()) {
+            NewsletterSubscriber subscriber = existing.get();
+            if (subscriber.getUnsubscribedAt() != null) {
+                subscriber.setUnsubscribedAt(null);
+                subscriber.setStatus("PENDING");
+                subscriber.setVerificationToken(UUID.randomUUID().toString());
+                return subscriberRepository.save(subscriber);
+            }
+            throw new BusinessException("NEWSLETTER_ALREADY_SUBSCRIBED",
+                "Email is already subscribed");
+        }
 
         NewsletterSubscriber subscriber = NewsletterSubscriber.builder()
             .email(request.email())

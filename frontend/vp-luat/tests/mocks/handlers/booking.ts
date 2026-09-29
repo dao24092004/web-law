@@ -21,19 +21,31 @@ function createSlots(date: string) {
 }
 
 export const bookingHandlers = [
-  http.get('http://localhost:8080/api/availability', ({ request }) => {
+  // Matches the real backend path used by fetchAvailability:
+  //   GET /api/bookings/availability/{lawyerId}?fromDate=...&toDate=...
+  http.get('http://localhost:8080/api/bookings/availability/:lawyerId', ({ request, params }) => {
     const url = new URL(request.url);
-    const lawyerId = url.searchParams.get('lawyerId') ?? 'lawyer-nguyen-van-hung';
-    const date = url.searchParams.get('date') ?? '2026-06-10';
+    const date = url.searchParams.get('fromDate') ?? '2026-06-10';
+    const lawyerId = (params.lawyerId as string) ?? 'lawyer-nguyen-van-hung';
 
     return HttpResponse.json({
-      date,
-      lawyerId,
-      slots: createSlots(date),
+      success: true,
+      data: createSlots(date).map((slot) => ({
+        id: slot.slotId,
+        lawyerId,
+        slotDate: date,
+        startTime: `${slot.startTime}:00`,
+        endTime: `${slot.endTime}:00`,
+        isAvailable: slot.status === 'available',
+        appointmentId: null,
+      })),
+      timestamp: new Date().toISOString(),
     });
   }),
 
-  http.post('http://localhost:8080/api/availability/reserve', async ({ request }) => {
+  // Matches the real backend path used by reserveSlot:
+  //   POST /api/bookings/availability/reserve
+  http.post('http://localhost:8080/api/bookings/availability/reserve', async ({ request }) => {
     const body = (await request.json()) as {
       lawyerId: string;
       date: string;
@@ -57,44 +69,59 @@ export const bookingHandlers = [
     reservationStore.set(reservationId, { expiresAt });
 
     return HttpResponse.json({
-      reservationId,
-      slotId: body.slotId,
-      lawyerId: body.lawyerId,
-      date,
-      startTime,
-      endTime: `${String(endHours).padStart(2, '0')}:${String(endMinutes).padStart(2, '0')}`,
-      expiresAt,
+      success: true,
+      data: {
+        reservationId,
+        slotId: body.slotId,
+        lawyerId: body.lawyerId,
+        date,
+        startTime,
+        endTime: `${String(endHours).padStart(2, '0')}:${String(endMinutes).padStart(2, '0')}`,
+        expiresAt,
+      },
+      timestamp: new Date().toISOString(),
     });
   }),
 
-  http.post('http://localhost:8080/api/availability/release', async ({ request }) => {
+  // Matches the real backend path used by releaseReservation:
+  //   POST /api/bookings/availability/release
+  http.post('http://localhost:8080/api/bookings/availability/release', async ({ request }) => {
     const body = (await request.json()) as { reservationId: string };
     reservationStore.delete(body.reservationId);
-    return HttpResponse.json({ success: true });
+    return HttpResponse.json({ success: true, data: null, timestamp: new Date().toISOString() });
   }),
 
-  http.get('http://localhost:8080/api/availability/reservations/:reservationId', ({ params }) => {
+  // Matches the real backend path used by verifyReservation:
+  //   GET /api/bookings/availability/reservations/{reservationId}
+  http.get('http://localhost:8080/api/bookings/availability/reservations/:reservationId', ({ params }) => {
     const reservationId = params.reservationId as string;
     const reservation = reservationStore.get(reservationId);
 
     if (!reservation) {
-      return HttpResponse.json(
-        {
+      return HttpResponse.json({
+        success: true,
+        data: {
           reservationId,
           status: 'expired',
           expiresAt: new Date(Date.now() - 1000).toISOString(),
         },
-        { status: 200 },
-      );
+        timestamp: new Date().toISOString(),
+      });
     }
 
     return HttpResponse.json({
-      reservationId,
-      status: 'active',
-      expiresAt: reservation.expiresAt,
+      success: true,
+      data: {
+        reservationId,
+        status: 'active',
+        expiresAt: reservation.expiresAt,
+      },
+      timestamp: new Date().toISOString(),
     });
   }),
 
+  // Matches the real backend path used by submitBooking:
+  //   POST /api/bookings
   http.post('http://localhost:8080/api/bookings', async ({ request }) => {
     const body = (await request.json()) as {
       reservationId: string;
@@ -120,9 +147,13 @@ export const bookingHandlers = [
 
     return HttpResponse.json(
       {
-        bookingId: 'LC123456',
-        status: 'confirmed',
-        createdAt: new Date().toISOString(),
+        success: true,
+        data: {
+          id: 'LC123456',
+          status: 'CONFIRMED',
+          createdAt: new Date().toISOString(),
+        },
+        timestamp: new Date().toISOString(),
       },
       { status: 201 },
     );

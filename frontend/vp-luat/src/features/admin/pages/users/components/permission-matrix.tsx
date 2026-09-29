@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Save, RefreshCw, Check } from 'lucide-react';
 import { ALL_PERMISSIONS } from '@/features/admin/types';
 import type { Role } from '@/features/admin/types';
@@ -30,14 +30,27 @@ export function PermissionMatrix({ roles, onSave, isLoading, readOnly = false }:
   const [dirty, setDirty] = useState<Set<string>>(new Set());
   const [savingId, setSavingId] = useState<string | null>(null);
 
-  // Khi roles thay đổi, đồng bộ state nếu chưa dirty
-  useMemo(() => {
+  // When `roles` changes, re-sync the matrix — but only for roles that the
+  // user hasn't edited yet. We previously did this in a `useMemo` which was
+  // unsafe: `useMemo` must be pure, and calling `setMatrix` from inside it
+  // could trigger an infinite re-render when the parent re-creates the
+  // `roles` array on every render. `useEffect` runs after commit and gives
+  // React a chance to short-circuit if the next state is referentially equal.
+  useEffect(() => {
     setMatrix((prev) => {
       const next: Record<string, Set<string>> = {};
+      let changed = false;
       for (const r of roles) {
-        next[r.id] = dirty.has(r.id) ? prev[r.id] ?? new Set(r.permissions) : new Set(r.permissions);
+        const fromServer = new Set(r.permissions);
+        const existing = prev[r.id];
+        const value = dirty.has(r.id) ? existing ?? fromServer : fromServer;
+        next[r.id] = value;
+        // Bail out early if nothing actually changed to keep this effect idempotent.
+        if (!existing || existing.size !== value.size || ![...existing].every((p) => value.has(p))) {
+          changed = true;
+        }
       }
-      return next;
+      return changed ? next : prev;
     });
   }, [roles, dirty]);
 
