@@ -9,7 +9,6 @@ const NEWS_ICONS = [Building2, Home, Scale];
 
 export function NewsSection() {
   const t = useTranslations('homeSections.news');
-  const news = useTranslations('public.news');
   const { data: posts = [], isLoading } = useFeaturedPosts();
   const items = posts.slice(0, 3);
 
@@ -23,8 +22,8 @@ export function NewsSection() {
         </div>
 
         <div className="news__grid">
-          {isLoading && <p>{news('loading')}</p>}
-          {!isLoading && items.length === 0 && <p>{news('empty')}</p>}
+          {isLoading && <p>{t('loading')}</p>}
+          {!isLoading && items.length === 0 && <p>{t('empty')}</p>}
           {items.map((content, index) => {
             const Icon = NEWS_ICONS[index % NEWS_ICONS.length];
             const href = `/news/${content.slug}`;

@@ -129,7 +129,7 @@ export function LandingPageEditor({ page, onClose, onSave }: Props) {
 
             {blocks.length === 0 ? (
               <div style={{ padding: 32, textAlign: 'center', border: '2px dashed var(--gray-200)', borderRadius: 8, color: 'var(--gray-400)', fontSize: '0.82rem' }}>
-                Chưa có block nào. Nhấn "Thêm Block" để bắt đầu.
+                Chưa có block nào. Nhấn &quot;Thêm Block&quot; để bắt đầu.
               </div>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -303,7 +303,7 @@ function BlockConfig({ block, onUpdate }: { block: LandingPageBlock; onUpdate: (
 
   return (
     <div style={{ color: 'var(--gray-500)', fontSize: '0.78rem', textAlign: 'center', padding: 16 }}>
-      Block "{block.type}" chưa có form cấu hình riêng.
+      Block &quot;{block.type}&quot; chưa có form cấu hình riêng.
       <div style={{ marginTop: 8, fontSize: '0.7rem', background: 'var(--gray-50)', padding: 6, borderRadius: 4, fontFamily: 'monospace', textAlign: 'left' }}>
         {JSON.stringify(p).slice(0, 150)}...
       </div>
