@@ -59,7 +59,7 @@ export function UserForm({ isOpen, onClose, onSubmit, initial, isLoading, hidePa
       reset({
         name: initial.name,
         email: initial.email,
-        role: initial.role,
+        role: (initial.role as UserRole) || 'USER',
         isActive: initial.isActive,
         phone: initial.phone ?? '',
         password: '',

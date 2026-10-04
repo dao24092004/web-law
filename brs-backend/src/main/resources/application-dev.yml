@@ -51,11 +51,11 @@ spring:
 # Development-specific app config
 app:
   seed:
-    enabled: ${APP_SEED_ENABLED:false}
+    enabled: false
     key: ${APP_SEED_KEY:initial-content-v1}
     mode: ${APP_SEED_MODE:IF_EMPTY}
-    admin-email: ${APP_SEED_ADMIN_EMAIL:}
-    admin-password: ${APP_SEED_ADMIN_PASSWORD:}
+    admin-email: ${APP_SEED_ADMIN_EMAIL:admin@lawfirm.vn}
+    admin-password: ${APP_SEED_ADMIN_PASSWORD:Admin@123456}
     admin-name: ${APP_SEED_ADMIN_NAME:Quan tri vien}
     admin-phone: ${APP_SEED_ADMIN_PHONE:}
   jwt:

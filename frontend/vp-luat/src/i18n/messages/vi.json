@@ -41,14 +41,28 @@
       "bookings": "Lịch hẹn và Booking",
       "crm": "Quản lý Lead / CRM",
       "blog": "Bài viết và Blog",
+      "case_studies": "Case Studies",
       "services": "Dịch vụ và Luật sư",
       "reviews": "Đánh giá khách hàng",
       "chatbot": "Chatbot Logs",
-      "users": "Người dùng và Phân quyền",
-      "notifications": "Thông báo",
-      "audit": "Nhật ký kiểm toán",
-      "settings": "Cài đặt hệ thống"
+      "newsletter": "Newsletter",
+      "landing_pages": "Landing Pages",
+      "jobs": "Tuyển dụng",
+      "users": "Nguoi dung va Phan quyen",
+      "roles": "Roles va Permissions",
+      "files": "Quan ly File",
+      "lawyer_schedules": "Lich Luat su",
+      "site_content": "Noi dung Site",
+      "notifications": "Thong bao",
+      "audit": "Nhat ky kiem toan",
+      "settings": "Cai dat he thong",
+      "reports": "Bao cao chi tiet"
     }
+  },
+  "sections": {
+    "management": "Quản lý",
+    "system": "Hệ thống",
+    "reports": "Báo cáo"
   },
   "nav": {
     "home": "Trang chủ",
@@ -246,6 +260,8 @@
       "label": "Tin tức pháp luật",
       "title": "Tin tức và kiến thức pháp luật mới nhất",
       "subtitle": "Cập nhật thông tin pháp luật mới nhất, giúp bạn nắm bắt quyền lợi của mình",
+      "loading": "Đang tải tin tức mới nhất...",
+      "empty": "Chưa có bài viết nào.",
       "readMore": "Đọc thêm",
       "items": [
         { "category": "Luật Doanh nghiệp", "date": "20/05/2026", "title": "Nghị định mới về đăng ký doanh nghiệp: 5 điểm cần lưu ý trong năm 2026", "excerpt": "Những thay đổi quan trọng trong thủ tục đăng ký kinh doanh, giấy phép con và nghĩa vụ báo cáo mà doanh nghiệp cần nắm rõ..." },

@@ -54,3 +54,27 @@ export type {
   SystemSettings,
   AuditLogEntry,
 } from './admin-core';
+
+export { landingPageApi } from './admin-landing-pages';
+export type { LandingPage, LandingPageBlock, LandingPageStats } from './admin-landing-pages';
+
+export { jobsApi } from './admin-jobs';
+export type { JobPosting, JobApplication } from './admin-jobs';
+
+export { rolesApi, PERMISSION_GROUPS } from './admin-roles';
+export type { Role as RoleWithPermissions, PermissionGroup } from './admin-roles';
+
+export { emailApi } from './admin-email';
+export type { EmailStatus, TestEmailResponse } from './admin-email';
+
+export { leadDetailApi } from './crm-leads';
+export type { LeadNote as LeadNoteDetail, ActivityLog as ActivityLogDetail, AppointmentForLead } from './crm-leads';
+
+export { fileApi } from './admin-files';
+export type { FileUploadResult, FileItem } from './admin-files';
+
+export { lawyerScheduleApi as adminLawyerScheduleApi } from './admin-lawyers';
+export type { LawyerScheduleSlot, LawyerScheduleDTO, LawyerScheduleOverrideDTO, LawyerScheduleResponse } from './admin-lawyers';
+
+export { siteContentApi } from './admin-site-content';
+export type { SiteContent } from './admin-site-content';

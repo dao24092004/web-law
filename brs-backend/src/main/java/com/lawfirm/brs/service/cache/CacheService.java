@@ -1,5 +1,6 @@
 package com.lawfirm.brs.service.cache;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -35,12 +36,20 @@ public class CacheService {
     }
 
     public <T> T getOrLoad(String cacheName, String key,
+                           Class<T> type,
                            Supplier<T> loader,
                            Duration ttl) {
-        return getOrLoad(cacheName, key, loader, ttl, Duration.ofMinutes(1));
+        return getOrLoad(cacheName, key, type, loader, ttl, Duration.ofMinutes(1));
     }
 
+    /**
+     * Typed cache read/load. The {@code type} is required so Jackson can
+     * deserialize back into the caller's concrete class — calling
+     * {@code readValue(json, Object.class)} produces a {@code LinkedHashMap}
+     * which silently breaks any caller that expects a typed list or DTO.
+     */
     public <T> T getOrLoad(String cacheName, String key,
+                           Class<T> type,
                            Supplier<T> loader,
                            Duration ttl,
                            Duration staleTtl) {
@@ -48,7 +57,12 @@ public class CacheService {
         String cached = redis.opsForValue().get(fullKey);
 
         if (cached != null) {
-            return deserialize(cached);
+            T hit = deserialize(cached, type);
+            if (hit != null) {
+                return hit;
+            }
+            // Corrupt or stale format — fall through and rebuild.
+            log.warn("Cache deserialize returned null for {}, reloading", fullKey);
         }
 
         T result = loader.get();
@@ -56,6 +70,29 @@ public class CacheService {
         if (serialized != null) {
             redis.opsForValue().set(fullKey, serialized, ttl);
             redis.opsForValue().set(fullKey + ":stale", serialized, ttl.plus(staleTtl));
+        }
+        return result;
+    }
+
+    public <T> T getOrLoad(String cacheName, String key,
+                           TypeReference<T> typeRef,
+                           Supplier<T> loader,
+                           Duration ttl) {
+        String fullKey = CACHE_PREFIX + cacheName + ":" + key;
+        String cached = redis.opsForValue().get(fullKey);
+
+        if (cached != null) {
+            T hit = deserialize(cached, typeRef);
+            if (hit != null) {
+                return hit;
+            }
+            log.warn("Cache deserialize returned null for {}, reloading", fullKey);
+        }
+
+        T result = loader.get();
+        String serialized = serialize(result);
+        if (serialized != null) {
+            redis.opsForValue().set(fullKey, serialized, ttl);
         }
         return result;
     }
@@ -114,13 +151,22 @@ public class CacheService {
         }
     }
 
-    @SuppressWarnings("unchecked")
-    private <T> T deserialize(String json) {
+    private <T> T deserialize(String json, Class<T> type) {
         if (json == null) return null;
         try {
-            return (T) objectMapper.readValue(json, Object.class);
+            return objectMapper.readValue(json, type);
         } catch (Exception e) {
-            log.error("Deserialization failed", e);
+            log.error("Deserialization failed for type {}", type.getSimpleName(), e);
+            return null;
+        }
+    }
+
+    private <T> T deserialize(String json, TypeReference<T> typeRef) {
+        if (json == null) return null;
+        try {
+            return objectMapper.readValue(json, typeRef);
+        } catch (Exception e) {
+            log.error("Deserialization failed for type {}", typeRef.getType().getTypeName(), e);
             return null;
         }
     }

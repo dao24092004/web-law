@@ -1,6 +1,6 @@
 'use client';
 
-import { Edit3, Trash2, KeyRound, Lock, Unlock, LogIn, CheckSquare, Square } from 'lucide-react';
+import { Edit3, Trash2, KeyRound, Lock, Unlock, LogIn, CheckSquare, Square, Activity } from 'lucide-react';
 import { DataTableV2, type DataTableColumn } from '@/features/admin/components';
 import { StatusBadge, type StatusVariant } from '@/features/admin/shared';
 import type { AdminUser } from '@/features/admin/types';
@@ -16,6 +16,7 @@ interface UsersTableProps {
   onResetPassword: (u: AdminUser) => void;
   onToggleStatus: (u: AdminUser) => void;
   onImpersonate: (u: AdminUser) => void;
+  onViewActivity: (u: AdminUser) => void;
   currentUserId: string;
   canWrite: boolean;
   canDelete: boolean;
@@ -43,6 +44,7 @@ export function UsersTable({
   onResetPassword,
   onToggleStatus,
   onImpersonate,
+  onViewActivity,
   currentUserId,
   canWrite,
   canDelete,
@@ -193,12 +195,21 @@ export function UsersTable({
               type="button"
               className="action-btn"
               style={{ padding: '4px 6px' }}
-              title="Sửa"
+              title="Sua"
               onClick={() => onEdit(u)}
             >
               <Edit3 size={11} />
             </button>
           )}
+          <button
+            type="button"
+            className="action-btn"
+            style={{ padding: '4px 6px' }}
+            title="Xem hoat dong"
+            onClick={() => onViewActivity(u)}
+          >
+            <Activity size={11} />
+          </button>
           {canWrite && u.id !== currentUserId && (
             <button
               type="button"

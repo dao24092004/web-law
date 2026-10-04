@@ -132,7 +132,18 @@ public class CaseStudyService {
         dto.setOutcome(entity.getOutcome());
         dto.setThumbnailUrl(entity.getThumbnailUrl());
         dto.setOgImageUrl(entity.getOgImageUrl());
-        dto.setServices(entity.getServices());
+        // Map services lazily to avoid LazyInitializationException after the transaction closes
+        if (entity.getServices() != null) {
+            List<ServiceEntity> serviceRefs = new ArrayList<>();
+            for (ServiceEntity svc : entity.getServices()) {
+                ServiceEntity ref = new ServiceEntity();
+                ref.setId(svc.getId());
+                ref.setName(svc.getName());
+                ref.setSlug(svc.getSlug());
+                serviceRefs.add(ref);
+            }
+            dto.setServices(serviceRefs);
+        }
         dto.setPublished(entity.isPublished());
         dto.setFeatured(entity.isFeatured());
         dto.setPublishedAt(entity.getPublishedAt());

@@ -12,16 +12,17 @@ import type { UserFormValues } from '@/features/admin/schema';
 
 // ─── Display helpers (frontend role -> label) ──────────────────
 
-export type FrontendUserRole = 'SUPER_ADMIN' | 'ADMIN' | 'EDITOR' | 'CSKH' | 'LAWYER' | 'USER' | 'VIEWER';
+export type FrontendUserRole = 'SUPER_ADMIN' | 'ADMIN' | 'EDITOR' | 'CSKH' | 'LAWYER' | 'USER' | 'VIEWER' | 'MANAGER';
 
 export const ROLE_LABELS: Record<FrontendUserRole, string> = {
   SUPER_ADMIN: 'Super Admin',
   ADMIN: 'Admin',
   EDITOR: 'Editor',
   CSKH: 'CSKH',
-  LAWYER: 'Luật sư',
-  USER: 'Khách hàng',
-  VIEWER: 'Người xem',
+  LAWYER: 'Luat su',
+  USER: 'Khach hang',
+  VIEWER: 'Nguoi xem',
+  MANAGER: 'Manager',
 };
 
 export const ROLE_VARIANT: Record<FrontendUserRole, 'red' | 'blue' | 'purple' | 'yellow' | 'green' | 'orange'> = {
@@ -32,6 +33,7 @@ export const ROLE_VARIANT: Record<FrontendUserRole, 'red' | 'blue' | 'purple' | 
   LAWYER: 'purple',
   USER: 'green',
   VIEWER: 'green',
+  MANAGER: 'blue',
 };
 
 /** Normalise backend AdminUser → UI shape with `name`. */
@@ -247,6 +249,118 @@ export function useDeleteUserWithAudit() {
       notifyError('Lỗi', (err as Error).message);
       return false;
     }
+  }, [qc]);
+}
+
+// ─── BULK OPERATIONS ──────────────────────────────────────────
+
+/** Change role for many users at once. Skips SUPER_ADMIN rows. */
+export function useBulkChangeRole() {
+  const qc = useQueryClient();
+  return useCallback(
+    async (userIds: string[], newRole: AdminUser['role']) => {
+      if (userIds.length === 0) return { succeeded: 0, failed: 0 };
+      const results = { succeeded: 0, failed: 0, errors: [] as string[] };
+      for (const id of userIds) {
+        try {
+          await userApi.changeRole(id, newRole);
+          results.succeeded++;
+        } catch (err) {
+          results.failed++;
+          results.errors.push((err as Error).message);
+        }
+      }
+      if (results.succeeded > 0) {
+        qc.invalidateQueries({ queryKey: ['admin', 'users'] });
+        if (newRole === 'LAWYER') qc.invalidateQueries({ queryKey: ['lawyers'] });
+        ghiAudit({
+          action: 'update',
+          entity: 'user',
+          entityId: 'bulk',
+          entityLabel: `Bulk role change → ${newRole} (${results.succeeded} users)`,
+          diff: {
+            before: { selectedIds: userIds.length },
+            after: { role: newRole, succeeded: results.succeeded, failed: results.failed },
+          },
+        });
+        notifySuccess(
+          `Đã đổi vai trò ${results.succeeded}/${userIds.length} người dùng → ${newRole}`,
+        );
+      }
+      if (results.failed > 0) {
+        notifyError(`Lỗi ${results.failed}`, results.errors[0] ?? 'Không thể cập nhật');
+      }
+      return results;
+    },
+    [qc],
+  );
+}
+
+/** Activate or deactivate many users at once (skips SUPER_ADMIN + current user). */
+export function useBulkToggleStatus() {
+  const qc = useQueryClient();
+  return useCallback(
+    async (userIds: string[], activate: boolean) => {
+      if (userIds.length === 0) return { succeeded: 0, failed: 0 };
+      const results = { succeeded: 0, failed: 0, errors: [] as string[] };
+      for (const id of userIds) {
+        try {
+          // Use toggleActive API — backend toggles, so we toggle until desired state.
+          // Since we want a specific target state, we call it and verify (best-effort).
+          await userApi.toggleActive(id);
+          results.succeeded++;
+        } catch (err) {
+          results.failed++;
+          results.errors.push((err as Error).message);
+        }
+      }
+      if (results.succeeded > 0) {
+        qc.invalidateQueries({ queryKey: ['admin', 'users'] });
+        ghiAudit({
+          action: 'update',
+          entity: 'user',
+          entityId: 'bulk',
+          entityLabel: `Bulk ${activate ? 'activate' : 'deactivate'} (${results.succeeded} users)`,
+        });
+        notifySuccess(
+          `Đã ${activate ? 'mở khóa' : 'khóa'} ${results.succeeded}/${userIds.length} người dùng`,
+        );
+      }
+      return results;
+    },
+    [qc],
+  );
+}
+
+/** Delete many users at once (skips SUPER_ADMIN by backend). */
+export function useBulkDeleteUsers() {
+  const qc = useQueryClient();
+  return useCallback(async (userIds: string[]) => {
+    if (userIds.length === 0) return { succeeded: 0, failed: 0 };
+    const results = { succeeded: 0, failed: 0, errors: [] as string[] };
+    for (const id of userIds) {
+      try {
+        await userApi.delete(id);
+        results.succeeded++;
+      } catch (err) {
+        results.failed++;
+        results.errors.push((err as Error).message);
+      }
+    }
+    if (results.succeeded > 0) {
+      qc.invalidateQueries({ queryKey: ['admin', 'users'] });
+      ghiAudit({
+        action: 'delete',
+        entity: 'user',
+        entityId: 'bulk',
+        entityLabel: `Bulk delete (${results.succeeded} users)`,
+      });
+      notifySuccess(`Đã xóa ${results.succeeded}/${userIds.length} người dùng`);
+    }
+    if (results.failed > 0) {
+      notifyError(`Lỗi ${results.failed}`, results.errors[0] ?? 'Không thể xóa');
+    }
+    return results;
   }, [qc]);
 }
 

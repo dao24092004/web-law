@@ -80,7 +80,7 @@ export function TestimonialsSection() {
             {testimonials.map((testimonial, index) => (
               <div key={index} className="testimonial-card">
                 <div className="testimonial-card__inner">
-                  <span className="testimonial-card__quote-icon">"</span>
+                  <span className="testimonial-card__quote-icon">&ldquo;</span>
                   <div className="testimonial-card__stars">
                     {[...Array(5)].map((_, i) => (
                       <Star

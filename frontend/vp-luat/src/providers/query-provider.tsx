@@ -10,9 +10,10 @@ interface ProvidersProps {
   children: ReactNode;
   locale: string;
   messages: Record<string, unknown>;
+  timeZone?: string;
 }
 
-export function Providers({ children, locale, messages }: ProvidersProps) {
+export function Providers({ children, locale, messages, timeZone }: ProvidersProps) {
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -26,7 +27,7 @@ export function Providers({ children, locale, messages }: ProvidersProps) {
   );
 
   return (
-    <NextIntlClientProvider locale={locale} messages={messages}>
+    <NextIntlClientProvider locale={locale} messages={messages} timeZone={timeZone}>
       <SessionProvider>
         <QueryClientProvider client={queryClient}>
           {children}

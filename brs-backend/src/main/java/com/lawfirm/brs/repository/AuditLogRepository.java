@@ -36,19 +36,28 @@ public interface AuditLogRepository extends JpaRepository<AuditLog, UUID> {
 
     long deleteByCreatedAtBefore(Instant before);
 
-    @Query("select a from AuditLog a where (:userId is null or a.userId = :userId) "
-        + "and (:action is null or lower(a.action) = lower(:action)) "
-        + "and (:entityType is null or lower(a.entityType) = lower(:entityType)) "
-        + "and (:entityId is null or a.entityId = :entityId) "
-        + "and a.createdAt >= :from and a.createdAt < :to "
-        + "order by a.createdAt desc")
+    @Query(value = "SELECT a.* FROM audit_logs a "
+            + "WHERE (CAST(:userId AS uuid) IS NULL OR a.user_id = CAST(:userId AS uuid)) "
+            + "AND (CAST(:action AS varchar) IS NULL OR LOWER(a.action::text) = LOWER(CAST(:action AS varchar))) "
+            + "AND (CAST(:entityType AS varchar) IS NULL OR LOWER(a.entity_type::text) = LOWER(CAST(:entityType AS varchar))) "
+            + "AND (CAST(:entityId AS uuid) IS NULL OR a.entity_id = CAST(:entityId AS uuid)) "
+            + "AND a.created_at >= CAST(:ts_from AS timestamp) "
+            + "AND a.created_at < CAST(:ts_to AS timestamp) ",
+        countQuery = "SELECT COUNT(*) FROM audit_logs a "
+            + "WHERE (CAST(:userId AS uuid) IS NULL OR a.user_id = CAST(:userId AS uuid)) "
+            + "AND (CAST(:action AS varchar) IS NULL OR LOWER(a.action::text) = LOWER(CAST(:action AS varchar))) "
+            + "AND (CAST(:entityType AS varchar) IS NULL OR LOWER(a.entity_type::text) = LOWER(CAST(:entityType AS varchar))) "
+            + "AND (CAST(:entityId AS uuid) IS NULL OR a.entity_id = CAST(:entityId AS uuid)) "
+            + "AND a.created_at >= CAST(:ts_from AS timestamp) "
+            + "AND a.created_at < CAST(:ts_to AS timestamp) ",
+        nativeQuery = true)
     Page<AuditLog> search(
         @Param("userId") UUID userId,
         @Param("action") String action,
         @Param("entityType") String entityType,
         @Param("entityId") UUID entityId,
-        @Param("from") Instant from,
-        @Param("to") Instant to,
+        @Param("ts_from") Instant from,
+        @Param("ts_to") Instant to,
         Pageable pageable
     );
 }

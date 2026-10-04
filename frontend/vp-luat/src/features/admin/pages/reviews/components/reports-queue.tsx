@@ -155,7 +155,7 @@ export function ReportsQueue({
               }}
               title={rev.content}
             >
-              "{rev.content}"
+              &ldquo;{rev.content}&rdquo;
             </p>
           </div>
         );

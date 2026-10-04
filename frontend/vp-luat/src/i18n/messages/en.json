@@ -41,14 +41,28 @@
       "bookings": "Bookings",
       "crm": "Lead / CRM management",
       "blog": "Articles and Blog",
+      "case_studies": "Case Studies",
       "services": "Services and Lawyers",
       "reviews": "Client reviews",
       "chatbot": "Chatbot logs",
+      "newsletter": "Newsletter",
+      "landing_pages": "Landing Pages",
+      "jobs": "Jobs",
       "users": "Users and Permissions",
+      "roles": "Roles and Permissions",
+      "files": "File Manager",
+      "lawyer_schedules": "Lawyer Schedules",
+      "site_content": "Site Content",
       "notifications": "Notifications",
       "audit": "Audit log",
-      "settings": "System settings"
+      "settings": "System settings",
+      "reports": "Detailed Reports"
     }
+  },
+  "sections": {
+    "management": "Management",
+    "system": "System",
+    "reports": "Reports"
   },
   "nav": {
     "home": "Home",
@@ -229,7 +243,7 @@
       "dedicated": { "title": "Client-focused service", "desc": "Your interests come first, with detailed advice and support throughout the process." },
       "multilingual": { "title": "Multilingual service", "desc": "Support for clients in Vietnamese, English, and other languages." }
     } },
-    "news": { "label": "Legal news", "title": "Latest legal news and insights", "subtitle": "Stay updated on legal developments and understand your rights", "readMore": "Read more", "items": [
+    "news": { "label": "Legal news", "title": "Latest legal news and insights", "subtitle": "Stay updated on legal developments and understand your rights", "loading": "Loading latest news...", "empty": "No news articles yet.", "readMore": "Read more", "items": [
       { "category": "Corporate law", "date": "05/20/2026", "title": "New business registration decree: 5 points to note in 2026", "excerpt": "Key changes to business registration, sub-licenses, and reporting obligations that companies should understand..." },
       { "category": "Land law", "date": "05/15/2026", "title": "New guidance on site clearance compensation strengthens residents' rights", "excerpt": "Updates on compensation, resettlement support, and complaints for infrastructure projects in 2026-2030..." },
       { "category": "Legal advice", "date": "05/10/2026", "title": "Top 10 frequently asked divorce questions answered by lawyers", "excerpt": "From divorce procedures and asset division to child custody and cross-border marriage matters..." }

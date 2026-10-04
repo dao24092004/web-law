@@ -18,8 +18,8 @@ public interface AppointmentMapper {
     @Mapping(target = "lawyerName", source = "lawyer.nameVi")
     @Mapping(target = "serviceId", source = "service.id")
     @Mapping(target = "serviceName", source = "service.slug")
-    @Mapping(target = "status", expression = "java(appointment.getStatus().name())")
-    @Mapping(target = "meetingType", expression = "java(appointment.getMeetingType().name())")
+    @Mapping(target = "status", expression = "java(appointment.getStatus() != null ? appointment.getStatus().name() : null)")
+    @Mapping(target = "meetingType", expression = "java(appointment.getMeetingType() != null ? appointment.getMeetingType().name() : null)")
     @Mapping(target = "clientPhone", source = "clientPhone")
     AppointmentDTO toDTO(Appointment appointment);
 
@@ -28,8 +28,8 @@ public interface AppointmentMapper {
     @Mapping(target = "lawyerName", source = "lawyer.nameVi")
     @Mapping(target = "serviceId", source = "service.id")
     @Mapping(target = "serviceName", source = "service.slug")
-    @Mapping(target = "status", expression = "java(appointment.getStatus().name())")
-    @Mapping(target = "meetingType", expression = "java(appointment.getMeetingType().name())")
+    @Mapping(target = "status", expression = "java(appointment.getStatus() != null ? appointment.getStatus().name() : null)")
+    @Mapping(target = "meetingType", expression = "java(appointment.getMeetingType() != null ? appointment.getMeetingType().name() : null)")
     @Mapping(target = "clientPhone", source = "clientPhone")
     @Mapping(target = "includeOtpDetails", constant = "false")
     AppointmentDTO toDTOWithDetails(Appointment appointment);

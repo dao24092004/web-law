@@ -14,7 +14,7 @@ import { getCurrentUser } from './rbac';
 
 export type AuditAction =
   | 'create' | 'update' | 'delete' | 'status_change' | 'login' | 'logout'
-  | 'impersonate' | 'assign' | 'publish' | 'send' | 'export' | 'restore' | 'cancel';
+  | 'impersonate' | 'assign' | 'publish' | 'unpublish' | 'send' | 'export' | 'restore' | 'cancel' | 'close';
 
 export interface AuditInput {
   action: AuditAction;

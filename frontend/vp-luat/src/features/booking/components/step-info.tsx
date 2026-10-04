@@ -19,6 +19,7 @@ export function StepInfo({
   onSubmitSuccess: () => void;
 }) {
   const t = useTranslations('booking');
+  const tCommon = useTranslations('common');
   const service = useBookingStore((state) => state.service);
   const lawyer = useBookingStore((state) => state.lawyer);
   const customerInfo = useBookingStore((state) => state.customerInfo);
@@ -254,7 +255,7 @@ export function StepInfo({
           className="inline-flex items-center gap-2 rounded-[var(--radius-md)] border-[1.5px] border-[var(--gray-200)] bg-white px-[22px] py-[11px] text-[0.875rem] font-semibold text-[var(--gray-600)] transition hover:border-[var(--primary)] hover:text-[var(--primary)]"
         >
           <ArrowLeft className="h-4 w-4" />
-          <span>{t('back')}</span>
+          <span>{tCommon('back')}</span>
         </button>
       </div>
     </section>

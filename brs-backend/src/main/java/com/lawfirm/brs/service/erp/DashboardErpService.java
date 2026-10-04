@@ -100,6 +100,7 @@ public class DashboardErpService {
             return points;
         };
         return cacheService.getOrLoad("dashboard", "visitors:" + days,
+            new com.fasterxml.jackson.core.type.TypeReference<List<TimeSeriesPoint>>() {},
             loader, Duration.ofSeconds(CACHE_TTL_SECONDS));
     }
 
