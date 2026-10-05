@@ -50,7 +50,14 @@ nbdist/
 # Logs
 *.log
 logs/
-keys/
+
+# Key JWT that KHONG duoc commit. Dung "keys/*" chu khong phai "keys/"
+# de con duoc phep giu lai .gitkeep: neu chan ca thu muc, Git bo qua
+# luon noi dung ben trong va khong bao gio doi lai duoi rule "!".
+# (Backend Dockerfile can "COPY keys ./keys" nen thu muc phai ton tai
+# trong build context, tru khong Docker build se fail.)
+keys/*
+!keys/.gitkeep
 
 # Package files
 *.jar
@@ -84,6 +91,21 @@ application-local.properties
 *.secret
 credentials.json
 secrets.yaml
+
+# Secret sinh tu dong tren VPS, dung cho CI/CD. Ten file bat dau bang
+# ".secret." nen khong khop duot voi ".env" hay "*.secret" o tren --
+# phai chan rieng, neu khong mat khau DB/Redis se bi commit len GitLab.
+.secret.*
+!.secret.example
+
+# Thu muc deploy truc tiep tren VPS. KHONG duoc commit: no chua .env.production,
+# key JWT, cert SSL va ban sao database. Pipeline lay cac file nay
+# truc tiep tren server, khong lay tu git.
+docker/.env.production
+docker/backups/
+docker/nginx/ssl/
+docker/nginx/certbot/
+docker/logs/
 
 # Sensitive directories
 /secrets/

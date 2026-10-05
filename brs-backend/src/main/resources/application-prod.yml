@@ -78,13 +78,35 @@ logging:
     name: /var/log/brs/brs-backend.log
 
 # Swagger UI - disabled in production
+# api-docs phải tắt RIÊNG: nó là property khác với swagger-ui.enabled.
+# Nếu chỉ tắt swagger-ui thì /v3/api-docs vẫn trả về toàn bộ schema của
+# hệ thống cho bất kỳ ai, tiết lộ endpoint, tên trường và cấu trúc dữ liệu.
 springdoc:
   swagger-ui:
     enabled: false
-  show-actuator: false
+  api-docs:
+    enabled: false
 
 # Actuator - production
 management:
+  endpoints:
+    web:
+      exposure:
+        # Chỉ còn health/info. metrics và prometheus lộ số liệu vận hành
+        # (số kết nối, bộ nhớ, tên cache) cho bất kỳ tài khoản nào đã đăng nhập.
+        include: health,info
   endpoint:
     health:
       show-details: never
+  health:
+    # docker-compose.prod.yml khong chay RabbitMQ, nen phai tat health
+    # indicator; neu bat, actuator/health luon DOWN va container healthy
+    # check that -> khong bao gio len duoc, lam nginx khong start.
+    rabbit:
+      enabled: false
+    # SMTP tre la dependency ben ngoai. Mat SMTP khong nen lam DOWN toan bo
+    # health endpoint, neu lai health check -> container healthy check that
+    # -> nginx khong start. Neu can canh bao SMTP, nen dung alert rieng
+    # tren log thay vi dua vao actuator health.
+    mail:
+      enabled: false

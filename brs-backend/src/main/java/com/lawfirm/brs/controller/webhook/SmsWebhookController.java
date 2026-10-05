@@ -8,10 +8,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
+import java.security.InvalidKeyException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.HexFormat;
 import java.util.Map;
 
 /**
@@ -33,10 +38,10 @@ public class SmsWebhookController {
 
     private final SmsService smsService;
 
-    @Value("${webhooks.sms.secret:}")
+    @Value("${webhooks.sms.secret:${WEBHOOKS_SMS_SECRET:}}")
     private String smsSecret;
 
-    @Value("${webhooks.otp.secret:}")
+    @Value("${webhooks.otp.secret:${WEBHOOKS_OTP_SECRET:}}")
     private String otpSecret;
 
     @GetMapping("/health")
@@ -58,7 +63,7 @@ public class SmsWebhookController {
     public ResponseEntity<ApiResponse<Map<String, String>>> smsCallback(
             @RequestBody SmsWebhookPayload payload,
             @RequestHeader(value = "X-Webhook-Signature", required = false) String signature) {
-        if (!verifySignature(smsSecret, payload, signature)) {
+        if (!verifySignature(smsSecret, serialize(payload), signature)) {
             log.warn("Rejected SMS webhook: invalid signature (provider={}, messageId={})",
                     payload.provider(), payload.messageId());
             return ResponseEntity.status(401).body(ApiResponse.error("INVALID_SIGNATURE"));
@@ -78,7 +83,7 @@ public class SmsWebhookController {
     public ResponseEntity<ApiResponse<Map<String, String>>> otpCallback(
             @RequestBody OtpCallbackPayload payload,
             @RequestHeader(value = "X-Webhook-Signature", required = false) String signature) {
-        if (!verifySignature(otpSecret, payload, signature)) {
+        if (!verifySignature(otpSecret, serialize(payload), signature)) {
             log.warn("Rejected OTP webhook: invalid signature (phone={})", payload.phone());
             return ResponseEntity.status(401).body(ApiResponse.error("INVALID_SIGNATURE"));
         }
@@ -87,21 +92,51 @@ public class SmsWebhookController {
         return ResponseEntity.ok(ApiResponse.success(Map.of("received", "true")));
     }
 
-    /**
-     * Cheap shared-secret check. Production should use HMAC-SHA256 with a
-     * per-provider secret; for now we accept any header when no secret is
-     * configured so local development still works.
-     */
-    private boolean verifySignature(String secret, Object payload, String providedSignature) {
-        if (secret == null || secret.isEmpty()) {
-            return true;
+    /** Tái tạo đúng chuỗi JSON mà bên gửi đã ký. */
+    private String serialize(Object payload) {
+        try {
+            return new com.fasterxml.jackson.databind.ObjectMapper()
+                    .writeValueAsString(payload);
+        } catch (Exception e) {
+            log.error("Không serialize được payload webhook: {}", e.getMessage());
+            return "";
         }
-        if (providedSignature == null || providedSignature.isEmpty()) {
+    }
+
+    /**
+     * Xác thực chữ ký HMAC-SHA256 của webhook.
+     *
+     * <p>Fail-closed: nếu chưa cấu hình secret thì <b>từ chối</b> mọi request
+     * thay vì chấp nhận. Trước đây hàm trả về {@code true} khi secret rỗng,
+     * biến endpoint thành công kênh mở không cần xác thực.
+     *
+     * <p>Dùng HMAC-SHA256 trên <b>raw body</b> thay vì MD5 trên
+     * {@code payload.toString()}: {@code toString()} của record phụ thuộc thứ tự
+     * trường và không phải byte thật trên wire, nên hai bên dễ lệch chữ ký.
+     */
+    private boolean verifySignature(String secret, String rawBody, String providedSignature) {
+        if (secret == null || secret.isBlank()) {
+            log.error("Webhook secret chưa cấu hình — từ chối mọi webhook. "
+                    + "Đặt WEBHOOKS_SMS_SECRET / WEBHOOKS_OTP_SECRET trong .env.production");
             return false;
         }
-        String computed = DigestUtils.md5DigestAsHex(
-                (secret + payload.toString()).getBytes(StandardCharsets.UTF_8));
-        return computed.equalsIgnoreCase(providedSignature);
+        if (providedSignature == null || providedSignature.isBlank()) {
+            return false;
+        }
+        try {
+            Mac mac = Mac.getInstance("HmacSHA256");
+            mac.init(new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), "HmacSHA256"));
+            byte[] digest = mac.doFinal(rawBody.getBytes(StandardCharsets.UTF_8));
+            String expected = HexFormat.of().formatHex(digest);
+
+            // So sánh kiểu constant-time để không rò rỉ thông tin qua thời gian.
+            return MessageDigest.isEqual(
+                expected.getBytes(StandardCharsets.UTF_8),
+                providedSignature.trim().toLowerCase().getBytes(StandardCharsets.UTF_8));
+        } catch (NoSuchAlgorithmException | InvalidKeyException e) {
+            log.error("Lỗi tính HMAC cho webhook: {}", e.getMessage());
+            return false;
+        }
     }
 
     public record SmsWebhookPayload(

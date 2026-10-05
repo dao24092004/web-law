@@ -39,6 +39,24 @@ public class FileStorageService {
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     ));
 
+    /**
+     * Phần mở rộng được phép lưu, ánh xạ đúng từ MIME type ở trên.
+     *
+     * <p>Phần mở rộng KHÔNG được lấy từ tên file do client gửi lên: nếu lấy,
+     * kẻ tấn công gửi tên {@code shell.html} kèm {@code Content-Type:
+     * image/jpeg} sẽ lưu được file .html. File đó sau đó được
+     * {@code PublicFileController} phục vụ với {@code Content-Type: text/html},
+     * biến thành stored XSS chạy trên cùng origin với trang web — đủ để đọc
+     * nội dung trang và gọi API thay nạn nhân.
+     */
+    private static final Set<String> ALLOWED_IMAGE_EXT = Set.of(
+        ".jpg", ".jpeg", ".png", ".gif", ".webp"
+    );
+
+    private static final Set<String> ALLOWED_DOCUMENT_EXT = Set.of(
+        ".pdf", ".doc", ".docx", ".xls", ".xlsx"
+    );
+
     private static final long MAX_FILE_SIZE = 10 * 1024 * 1024;  // 10MB
     private static final long MAX_IMAGE_SIZE = 5 * 1024 * 1024;  // 5MB
 
@@ -85,8 +103,9 @@ public class FileStorageService {
         try {
             String safeFolder = sanitizeFolder(folder);
             String datePath = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM"));
-            String original = file.getOriginalFilename();
-            String ext = extractExtension(original);
+            // Phần mở rộng do server quyết định, không lấy từ tên file của
+            // client — xem ALLOWED_IMAGE_EXT / ALLOWED_DOCUMENT_EXT.
+            String ext = resolveExtension(resourceType, file.getOriginalFilename());
             String storedName = UUID.randomUUID().toString() + ext;
 
             Path relative = Paths.get(safeFolder, datePath, storedName);
@@ -225,6 +244,31 @@ public class FileStorageService {
             return "";
         }
         return filename.substring(dot).toLowerCase();
+    }
+
+    /**
+     * Chọn phần mở rộng lưu trữ.
+     *
+     * <p>Chỉ chấp nhận phần mở rộng nằm trong danh sách trắng tương ứng với
+     * nhóm đã kiểm tra MIME. Nhờ vậy file HTML/SVG/JS/PHP dù được đặt tên tùy ý
+     * vẫn bị từ chối, và file hợp lệ vẫn giữ đúng đuôi.
+     */
+    private String resolveExtension(String resourceType, String originalFilename) {
+        Set<String> allowed = "image".equals(resourceType)
+            ? ALLOWED_IMAGE_EXT
+            : ALLOWED_DOCUMENT_EXT;
+
+        String ext = extractExtension(originalFilename);
+        if (allowed.contains(ext)) {
+            return ext;
+        }
+
+        // Tên file không hợp lệ: dùng phần mở rộng mặc định an toàn của nhóm.
+        // Vẫn an toàn vì Content-Type lúc phục vụ được suy ra từ đuôi này.
+        String fallback = "image".equals(resourceType) ? ".jpg" : ".pdf";
+        log.warn("Rejected extension '{}' from uploaded file, using {}. Allowed: {}",
+                ext, fallback, allowed);
+        return fallback;
     }
 
     private String stripDot(String ext) {

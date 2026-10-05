@@ -177,6 +177,81 @@ cd docker
 docker-compose up -d
 ```
 
+## Triển khai lên production
+
+### 1. Chuẩn bị thư mục
+
+```bash
+cd vpluat/brs-backend/docker
+cp .env.production.example .env.production
+```
+
+Điền vào `.env.production`, tối thiểu các biến sau:
+
+| Biến | Yêu cầu |
+|---|---|
+| `DOMAIN` | domain thật, vd `lawfirm.vn` |
+| `DB_PASSWORD` | ít nhất 16 ký tự |
+| `REDIS_PASSWORD` | ít nhất 16 ký tự |
+| `WEBHOOK_SECRET` | ít nhất 16 ký tự |
+| `WEBHOOKS_SMS_SECRET` | bắt buộc, ít nhất 16 ký tự |
+| `WEBHOOKS_OTP_SECRET` | bắt buộc, ít nhất 16 ký tự |
+| `OPENAI_API_KEY` | tuỳ chọn, chatbot cần |
+
+### 2. Đặt chứng thư SSL
+
+```bash
+# Giấy Let's Encrypt
+certbot certonly --webroot -w ./nginx/certbot -d lawfirm.vn -d www.lawfirm.vn
+
+cp /etc/letsencrypt/live/lawfirm.vn/fullchain.pem nginx/ssl/
+cp /etc/letsencrypt/live/lawfirm.vn/privkey.pem  nginx/ssl/
+```
+
+Không có cert thì nginx sẽ không khởi động.
+
+### 3. Đặt JWT key
+
+```bash
+mkdir -p keys
+[ -f keys/jwt-private.pem ] || openssl genrsa -out keys/jwt-private.pem 4096
+[ -f keys/jwt-public.pem ]  || openssl rsa -in keys/jwt-private.pem -pubout -out keys/jwt-public.pem
+
+chmod 644 keys/jwt-private.pem keys/jwt-public.pem
+```
+
+`chmod 644` là bắt buộc: container chạy user uid 100, nếu key ở mode 600 thuộc
+uid khác thì ứng dụng sẽ **im lặng** tạm key mới, khiến token của người dùng hỏng
+mỗi lần restart.
+
+### 4. Triển khai
+
+```bash
+./deploy.sh
+```
+
+Script sẽ tự kiểm tra môi trường, secret, SSL, key, cổng; build image; khởi động;
+đợi tất cả container healthy; rồi kiểm tra lại xem có endpoint nhạy cảm nào bị
+lộ hay không. Chạy lại `./deploy.sh` mỗi khi cập nhật phiên bản mới.
+
+### Nâng cấp không gián đoạn
+
+```bash
+docker compose --env-file .env.production -f docker-compose.prod.yml up -d backend frontend
+```
+
+## Bảo mật
+
+Xem `benchmark/BAO-CAO-BAO-MAT.md` để biết chi tiết các lỗ hổng đã phát hiện và
+sửa. Những điểm cần chú ý khi vận hành:
+
+- **Không publish port backend.** Service `backend` trong `docker-compose.prod.yml`
+  không có `ports:`. Chỉ nginx được mở 80/443. Nếu lỡ publish, kẻ tấn công có
+  thể giả mạo `X-Forwarded-For` để bỏ qua rate limit.
+- **Đổi mật khẩu admin** được seed sẵn trước khi mở website.
+- **Sao lưu PostgreSQL** định kỳ — volume `postgres_data` là toàn bộ dữ liệu.
+- **Theo dõi log nginx** để phát hiện dấu hiệu dò mật khẩu (nhiều 401/429).
+
 ## Building for Production
 
 ```bash

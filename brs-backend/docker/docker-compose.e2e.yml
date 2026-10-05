@@ -1,0 +1,22 @@
+# ============================================================
+# Test end-to-end: chạy nginx với self-signed cert tạm
+# Chỉ dùng để kiểm chứng, KHÔNG deploy file này.
+# ============================================================
+
+services:
+  backend:
+    ports:
+      - "18080:8080"
+
+  frontend:
+    ports:
+      - "13000:3000"
+
+  nginx:
+    # "ports" là list nên compose sẽ NỐI thêm chứ không thay thế.
+    # !override buộc thay toàn bộ danh sách của docker-compose.prod.yml.
+    ports: !override
+      - "18000:80"
+      - "18443:443"
+    volumes:
+      - /tmp/nginxtest/ssl:/etc/nginx/ssl:ro

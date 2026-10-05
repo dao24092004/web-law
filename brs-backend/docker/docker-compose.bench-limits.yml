@@ -1,0 +1,34 @@
+# ============================================================
+# Simulate small servers: constrain RAM/CPU like a real VPS
+# Dùng để tìm cấu hình tối thiểu. Không deploy file này.
+# ============================================================
+
+services:
+  backend:
+    deploy:
+      resources:
+        limits:
+          memory: ${BENCH_BACKEND_MEM:-768M}
+          cpus: "${BENCH_BACKEND_CPU:-1.0}"
+    environment:
+      # Quan trọng: MaxRAMPercentage sẽ tự tính theo container limit
+      JAVA_OPTS: "-XX:MaxRAMPercentage=70.0 -XX:InitialRAMPercentage=25.0"
+
+  frontend:
+    deploy:
+      resources:
+        limits:
+          memory: ${BENCH_FRONTEND_MEM:-256M}
+          cpus: "${BENCH_FRONTEND_CPU:-0.5}"
+
+  postgres:
+    deploy:
+      resources:
+        limits:
+          memory: ${BENCH_POSTGRES_MEM:-512M}
+
+  redis:
+    deploy:
+      resources:
+        limits:
+          memory: 256m

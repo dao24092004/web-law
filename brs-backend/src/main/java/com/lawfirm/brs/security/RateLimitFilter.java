@@ -22,13 +22,14 @@ import java.io.IOException;
 public class RateLimitFilter extends OncePerRequestFilter {
 
     private final RateLimitConfig rateLimitConfig;
+    private final ClientIpResolver clientIpResolver;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
         String path = request.getRequestURI();
-        String clientId = getClientIdentifier(request);
+        String clientId = "ip:" + clientIpResolver.resolve(request);
 
         Bucket bucket = selectBucket(path, clientId);
 
@@ -48,14 +49,15 @@ public class RateLimitFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private String getClientIdentifier(HttpServletRequest request) {
-        String forwarded = request.getHeader("X-Forwarded-For");
-        String ip = forwarded != null ? forwarded.split(",")[0].trim() : request.getRemoteAddr();
-
-        String sessionId = request.getHeader("X-Session-Id");
-        return sessionId != null ? sessionId : "ip:" + ip;
-    }
-
+    /**
+     * Chọn bucket rate limit theo IP thật của client.
+     *
+     * <p>Trước đây hàm này ưu tiên header {@code X-Session-Id} do client tự gửi.
+     * Kẻ tấn công chỉ cần đổi giá trị header này ở mỗi request là nhận được
+     * bucket mới, bỏ qua hoàn toàn giới hạn — kể cả giới hạn 5 lần/phút của
+     * {@code /api/auth/login} dùng để chống dò mật khẩu. Header do client kiểm
+     * soát tuyệt đối không được dùng làm khoá.
+     */
     private Bucket selectBucket(String path, String clientId) {
         if (path.startsWith("/api/auth/login") || path.startsWith("/api/auth/refresh")) {
             return rateLimitConfig.authBucket(clientId);
@@ -70,8 +72,7 @@ public class RateLimitFilter extends OncePerRequestFilter {
             return rateLimitConfig.searchBucket(clientId);
         }
         if (path.startsWith("/api/chatbot")) {
-            String sessionId = clientId.startsWith("session:") ? clientId.substring(8) : clientId;
-            return rateLimitConfig.chatbotBucket(sessionId);
+            return rateLimitConfig.chatbotBucket(clientId);
         }
         return null;
     }

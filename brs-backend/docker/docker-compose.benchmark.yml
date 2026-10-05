@@ -1,0 +1,19 @@
+# ============================================================
+# Benchmark Override
+# Chỉ dùng để đo tài nguyên local. Không deploy file này.
+# Publish port trực tiếp ra host, bỏ qua nginx (thiếu SSL cert).
+# ============================================================
+
+services:
+  backend:
+    ports:
+      - "18080:8080"
+
+  frontend:
+    ports:
+      - "13000:3000"
+
+  nginx:
+    # Không start nginx trong benchmark
+    profiles:
+      - "with-nginx"

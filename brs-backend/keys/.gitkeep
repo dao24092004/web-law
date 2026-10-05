@@ -1,0 +1,10 @@
+# Thu muc nay chi de Docker build co dung thu muc.
+# Key that KHONG duoc commit - xem .gitignore dong "keys/*.pem".
+#
+# Vi sao can thu muc nay: backend Dockerfile co lenh
+#   COPY keys ./keys
+# Neu thu muc khong ton tai trong build context, Docker build fail ngay.
+# Tren VPS file that co that roi, nhung khi build tren may chay GitHub
+# thi thu muc phai duoc dua vao git - it nhat mot file rong.
+#
+# Key JWT that duoc sinh tren tung moi truong (lenh sinh: xem README).

@@ -40,6 +40,7 @@ public class LeadController {
     private final LeadService leadService;
     private final LeadPipelineService pipeline;
     private final BookingService bookingService;
+    private final com.lawfirm.brs.security.ClientIpResolver clientIpResolver;
 
     @PostMapping("/leads")
     @Operation(summary = "Create a new lead (public)")
@@ -190,12 +191,12 @@ public class LeadController {
         return ResponseEntity.ok().headers(headers).body(body);
     }
 
+    /**
+     * Lấy IP client đã được chuẩn hoá. Xem {@link ClientIpResolver} — không
+     * được đọc trực tiếp X-Forwarded-For vì client kiểm soát phần tử đầu.
+     */
     private String getClientIp(HttpServletRequest request) {
-        String xForwardedFor = request.getHeader("X-Forwarded-For");
-        if (xForwardedFor != null && !xForwardedFor.isEmpty()) {
-            return xForwardedFor.split(",")[0].trim();
-        }
-        return request.getRemoteAddr();
+        return clientIpResolver.resolve(request);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)

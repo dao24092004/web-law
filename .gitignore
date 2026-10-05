@@ -112,7 +112,12 @@ nbdist/
 # Logs
 *.log
 logs/
-keys/
+
+# Key JWT that. Dung "keys/*" chu khong phai "keys/" de con duoc phep
+# giu .gitkeep: Git bo qua noi dung ben trong thu muc da bi chan, nen
+# rule "!" o duoi se khong bao gio co hieu luc.
+keys/*
+!keys/.gitkeep
 
 # Package files
 *.jar

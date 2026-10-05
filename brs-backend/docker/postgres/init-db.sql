@@ -1,28 +1,21 @@
 -- ============================================================
 -- PostgreSQL Initialization Script
+-- Chạy MỘT LẦN duy nhất, khi volume /var/lib/postgresql/data còn trống.
+--
+-- Lưu ý: database và user ứng dụng do chính image postgres tạo sẵn từ
+-- biến môi trường POSTGRES_DB / POSTGRES_USER. Script này KHÔNG tạo user
+-- ứng dụng, không tham chiếu tên database cụ thể, và không chứa mật khẩu
+-- cứng — nhờ vậy dùng chung được cho cả dev lẫn production.
+--
+-- Toàn bộ schema do Flyway quản lý (src/main/resources/db/migration).
 -- ============================================================
 
--- Create extensions
+-- Extension dùng cho tìm kiếm full-text. Flyway V21 cũng tự tạo, nhưng tạo
+-- sẵn ở đây giúp migration chạy được ngay cả ở lần chạy đầu tiên.
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+CREATE EXTENSION IF NOT EXISTS "pg_trgm";
+CREATE EXTENSION IF NOT EXISTS "unaccent";
 
--- Create application user
-DO $$
-BEGIN
-    IF NOT EXISTS (SELECT FROM pg_catalog.pg_roles WHERE rolname = 'brs_dev') THEN
-        CREATE USER brs_dev WITH PASSWORD 'brs_dev_password';
-    END IF;
-END
-$$;
-
--- Grant privileges
-GRANT ALL PRIVILEGES ON DATABASE brs_db TO brs_dev;
-GRANT ALL PRIVILEGES ON SCHEMA public TO brs_dev;
-
--- Grant schema privileges
-ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO brs_dev;
-ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO brs_dev;
-
--- Create additional schemas for extensions
+-- Schema riêng cho extension, tránh đụng độ với schema public.
 CREATE SCHEMA IF NOT EXISTS extensions;
-GRANT USAGE ON SCHEMA extensions TO brs_dev;

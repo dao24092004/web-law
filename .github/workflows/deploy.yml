@@ -1,0 +1,156 @@
+# ============================================================
+# CI/CD: build + deploy VPS
+#
+# Cach hoat dong:
+#   Build KHONG chay tren VPS. GitHub Actions build tren may chay
+#   GitHub (nhieu RAM, build nhanh), day image len GitHub Container
+#   Registry, roi VPS chi "docker compose pull" + khoi dong lai.
+#   VPS chi co 2GB RAM nen build tai cho se cham va gay OOM.
+#
+# Deploy tu chay khi push vao nhanh `main`. Nhanh khac chi build de
+# kiem tra loi, khong len production.
+# ============================================================
+
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: "Deploy len production du chay thu"
+        type: boolean
+        default: false
+
+# Moi lan push chi chay 1 lan. Commit moi hon commit dang chay se
+# huy job cu, tranh 2 ban deploy tranh nhau tren cung mot VPS.
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_PREFIX: ${{ github.repository_owner }}
+  BACKEND_IMAGE: ghcr.io/${{ github.repository_owner }}/brs-backend
+  FRONTEND_IMAGE: ghcr.io/${{ github.repository_owner }}/brs-frontend
+
+jobs:
+  # ---------- Build va push image ----------
+  build:
+    name: Build image
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Bat buildx
+        uses: docker/setup-buildx-action@v3
+
+      # Token read: pull + push len registry
+      - name: Dang nhap GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Thay ten image trong compose theo registry
+        run: |
+          set -euo pipefail
+          # Ban deploy tren VPS tro toi brs-backend:latest. Ghi de
+          # image cua file compose trong ban build de khong phai
+          # sua file da commit.
+          sed -i "s|image: brs-backend:latest|image: ${BACKEND_IMAGE}:${GITHUB_SHA}|" \
+            brs-backend/docker/docker-compose.prod.yml
+          sed -i "s|image: brs-frontend:latest|image: ${FRONTEND_IMAGE}:${GITHUB_SHA}|" \
+            brs-backend/docker/docker-compose.prod.yml
+          grep -n 'image:' brs-backend/docker/docker-compose.prod.yml
+
+      - name: Build va push backend
+        uses: docker/build-push-action@v6
+        with:
+          context: ./brs-backend
+          file: ./brs-backend/Dockerfile
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: |
+            ${{ env.BACKEND_IMAGE }}:${{ github.sha }}
+            ${{ env.BACKEND_IMAGE }}:latest
+          cache-from: type=gha,scope=backend
+          cache-to: type=gha,mode=max,scope=backend
+
+      - name: Build va push frontend
+        uses: docker/build-push-action@v6
+        with:
+          context: ./frontend/vp-luat
+          file: ./frontend/vp-luat/Dockerfile
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: |
+            ${{ env.FRONTEND_IMAGE }}:${{ github.sha }}
+            ${{ env.FRONTEND_IMAGE }}:latest
+          cache-from: type=gha,scope=frontend
+          cache-to: type=gha,mode=max,scope=frontend
+
+  # ---------- Len VPS ----------
+  deploy:
+    name: Deploy production
+    needs: build
+    # Chi chay khi: push len main, hoac bam nut Deploy thu cong.
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || inputs.deploy)
+    runs-on: ubuntu-latest
+    environment: production
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Tao file SSH cho VPS
+        run: |
+          set -euo pipefail
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.VPS_SSH_PRIVATE_KEY }}" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          # Viet host key cua VPS. Neu bo qua, ssh bao "host key verification failed".
+          printf '%s\n' "${{ secrets.VPS_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      # Image da build xong va push len registry o job "build".
+      # Job nay chi tai no ve VPS va khoi dong lai.
+      - name: Deploy len VPS
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_PORT: ${{ secrets.VPS_PORT }}
+          BACKEND_REF: ${{ env.BACKEND_IMAGE }}:${{ github.sha }}
+          FRONTEND_REF: ${{ env.FRONTEND_IMAGE }}:${{ github.sha }}
+        run: |
+          set -euo pipefail
+          ssh -i ~/.ssh/id_deploy -p "$VPS_PORT" \
+              -o StrictHostKeyChecking=yes \
+              -o UserKnownHostsFile=~/.ssh/known_hosts \
+              "$VPS_USER@$VPS_HOST" \
+              "sudo -n /usr/local/bin/brs-deploy '$BACKEND_REF' '$FRONTEND_REF' '${{ github.sha }}'"
+
+      - name: Kiem tra site sau deploy
+        run: |
+          set -euo pipefail
+          URL="https://${{ secrets.DOMAIN }}"
+          # Cho backend khoi dong la (Spring Boot can ~90 giay)
+          echo "Cho may chu khoi dong..."
+          for i in $(seq 1 30); do
+            CODE=$(curl -sk -o /dev/null -w '%{http_code}' --max-time 15 "$URL/" || echo 000)
+            if [ "$CODE" = "200" ]; then
+              echo "Site phan hoi 200 sau $((i*5)) giay"
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "Site khong phan hoi (HTTP $CODE)"
+          exit 1

@@ -75,7 +75,11 @@ public class SecurityConfig {
                 .requestMatchers("/api/crm/reviews").permitAll()
                 .requestMatchers("/api/chatbot/**").permitAll()
                 .requestMatchers("/api/webhooks/**").permitAll()
-                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                // Chỉ cho phép tài liệu API ở môi trường không phải production.
+                // Ở production, /v3/api-docs tiết lộ toàn bộ schema (endpoint,
+                // tên trường, cấu trúc dữ liệu) cho bất kỳ ai gọi tới.
+                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**")
+                    .permitAll()
                 .requestMatchers("/actuator/health/**").permitAll()
                 // Locally-served uploaded files
                 .requestMatchers(HttpMethod.GET, "/files", "/files/**").permitAll()
