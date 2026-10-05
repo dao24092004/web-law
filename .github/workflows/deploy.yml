@@ -113,6 +113,10 @@ jobs:
       packages: read
 
     steps:
+      # Job deploy can file trong repo de dong bo script len VPS.
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Tao file SSH cho VPS
         run: |
           set -euo pipefail
