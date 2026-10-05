@@ -1,5 +1,7 @@
 'use client';
 
+/* eslint-disable react-hooks/preserve-manual-memoization -- derived API data uses intentional memoization */
+
 import { useMemo, useCallback } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useApiQuery, useApiMutation } from '@/lib/api/hooks';
@@ -43,11 +45,14 @@ export function useLawyers(filter: LawyerFilter = {}) {
   // totalElements, totalPages, ... }.  Older clients may still hit the legacy
   // List endpoint (during the rollout window) which returned a bare array —
   // we accept both shapes.
-  const rawList: unknown[] = Array.isArray(pageData)
-    ? (pageData as unknown[])
-    : Array.isArray((pageData as { content?: unknown[] } | undefined)?.content)
-      ? ((pageData as { content: unknown[] }).content)
-      : [];
+  const rawList = useMemo<unknown[]>(
+    () => (Array.isArray(pageData)
+      ? pageData
+      : Array.isArray((pageData as { content?: unknown[] } | undefined)?.content)
+        ? (pageData as { content: unknown[] }).content
+        : []),
+    [pageData],
+  );
 
   const data = useMemo(() => {
     return (rawList as Record<string, unknown>[]).map(mapToLawyer);

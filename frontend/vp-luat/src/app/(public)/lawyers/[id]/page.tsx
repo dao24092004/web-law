@@ -124,8 +124,8 @@ export default function LawyerDetailPage({ params }: { params: Promise<{ id: str
   const showImage = Boolean(lawyer.avatar) && !imageFailed;
   const workingDays = getWorkingDays(lawyer.workingHours);
   const workingHoursLabel = getWorkingHoursLabel(lawyer.workingHours);
-  const phoneDisplay = lawyer.phone || '1900 1234';
-  const emailDisplay = lawyer.email || 'contact@vpluat.vn';
+  const phoneDisplay = lawyer.phone || '0969 967 389 - 0975 967 364';
+  const emailDisplay = lawyer.email || 'contact@icrclaw.com';
 
   return (
     <main className="lawyer-detail-page">

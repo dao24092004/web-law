@@ -31,7 +31,7 @@ public class ChatbotService {
         Map.entry("SERVICE_INQUIRY", "Chúng tôi cung cấp các dịch vụ pháp lý đa dạng. Bạn quan tâm đến lĩnh vực nào?"),
         Map.entry("LAWYER_INQUIRY", "Đội ngũ luật sư của chúng tôi gồm nhiều chuyên gia với nhiều năm kinh nghiệm. Bạn muốn tìm hiểu về lĩnh vực nào?"),
         Map.entry("FAQ", "Tôi có thể trả lời các câu hỏi thường gặp. Bạn muốn hỏi về vấn đề gì?"),
-        Map.entry("CONTACT", "Bạn có thể liên hệ với chúng tôi qua:\n📞 Hotline: 1900 xxxx\n📧 Email: contact@lawfirm.vn\n📍 Địa chỉ: [địa chỉ]"),
+        Map.entry("CONTACT", "Bạn có thể liên hệ với chúng tôi qua:\n📞 Hotline: 0969 967 389 - 0975 967 364\n📧 Email: contact@icrclaw.com\n📍 Địa chỉ: [địa chỉ]"),
         Map.entry("THANKS", "Cảm ơn bạn! Nếu cần thêm hỗ trợ, đừng ngần ngại hỏi nhé!"),
         Map.entry("GOODBYE", "Tạm biệt! Chúc bạn một ngày tốt lành!"),
         Map.entry("COMPLAINT", "Tôi rất tiếc khi nghe điều này. Để được hỗ trợ tốt hơn, tôi sẽ chuyển bạn đến bộ phận chăm sóc khách hàng."),

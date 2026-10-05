@@ -30,12 +30,12 @@ public class OpenApiConfig {
                 .version("1.0.0")
                 .contact(new Contact()
                     .name("LawFirm Development Team")
-                    .email("dev@lawfirm.vn"))
+                    .email("contact@icrclaw.com"))
                 .license(new License()
                     .name("Internal Use Only")))
             .servers(List.of(
                 new Server().url("http://localhost:8080").description("Development Server"),
-                new Server().url("https://api.lawfirm.vn").description("Production Server")))
+                new Server().url("https://api.icrclaw.com").description("Production Server")))
             .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
             .components(new Components()
                 .addSecuritySchemes(securitySchemeName,

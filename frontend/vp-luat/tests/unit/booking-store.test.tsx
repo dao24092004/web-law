@@ -40,9 +40,11 @@ const mockReservation: BookingReservation = {
 };
 
 function createWrapper() {
-  return ({ children }: { children: ReactNode }) => (
-    <QueryClientProvider client={new QueryClient()}>{children}</QueryClientProvider>
-  );
+  function TestQueryProvider({ children }: { children: ReactNode }) {
+    return <QueryClientProvider client={new QueryClient()}>{children}</QueryClientProvider>;
+  }
+
+  return TestQueryProvider;
 }
 
 describe('booking store', () => {

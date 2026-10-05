@@ -154,7 +154,7 @@ export default function ServiceDetailPage({ params }: { params: Promise<{ slug: 
                 <div className="service-detail__card-label">Liên hệ tư vấn</div>
                 <div className="service-detail__meta-row">
                   <Phone size={16} />
-                  <span>Hotline: 1900 1234</span>
+                  <span>Hotline: 0969 967 389 - 0975 967 364</span>
                 </div>
                 <div className="service-detail__meta-row">
                   <Mail size={16} />

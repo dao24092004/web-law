@@ -1,0 +1,18 @@
+# Build and local artifacts
+target/
+logs/
+uploads/
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+keys/
+*.pem
+*.key
+
+# VCS and IDE
+.git/
+.gitignore
+.vscode/
+.idea/

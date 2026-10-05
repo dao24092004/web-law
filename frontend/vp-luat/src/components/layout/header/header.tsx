@@ -44,7 +44,7 @@ export function Header() {
           <Link href="/" className="navbar__logo">
             <div className="navbar__logo-icon">VP</div>
             <div className="navbar__logo-text">
-              <span className="navbar__logo-name">VP Luật Hùng & Cộng sự</span>
+              <span className="navbar__logo-name">ICRC Law</span>
               <span className="navbar__logo-sub">Law Firm</span>
             </div>
           </Link>

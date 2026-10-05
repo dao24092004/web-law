@@ -570,7 +570,7 @@ function LawyersTab() {
         setFormOpen(false);
         setEditing(null);
       } else {
-        const result = await createLwy(payload as any);
+        const result = await createLwy(payload as Record<string, unknown>);
         // Nếu BE tự tạo user mới với mật khẩu mặc định → nhắc admin copy
         const defaultPwd = (result as { defaultPassword?: string })?.defaultPassword;
         if (defaultPwd) {

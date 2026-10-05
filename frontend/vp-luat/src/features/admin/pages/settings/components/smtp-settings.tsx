@@ -99,7 +99,7 @@ export function SmtpSettingsForm({ value, loaded, onSubmit, isSubmitting }: Prop
         <FormFieldInput
           label="Reply-to"
           type="email"
-          placeholder="reply@vpluat.vn"
+          placeholder="reply@icrclaw.com"
           {...register('replyTo')}
           error={errors.replyTo?.message}
         />
@@ -203,7 +203,7 @@ export function SmtpSettingsForm({ value, loaded, onSubmit, isSubmitting }: Prop
           type="button"
           className="action-btn"
           onClick={() => {
-            if (typeof window !== 'undefined' && window.confirm('Gửi email test đến admin@vpluat.vn?')) {
+            if (typeof window !== 'undefined' && window.confirm('Gửi email test đến admin@icrclaw.com?')) {
               // mock
               alert('Đã gửi email test (mock). Kiểm tra inbox trong vài phút.');
             }

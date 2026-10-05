@@ -397,8 +397,8 @@ Các file test:
 
 File `booking-wizard-real-data.spec.ts` gọi trực tiếp backend Spring Boot tại `http://localhost:8080` và docker postgres tại `localhost:5434`. Yêu cầu:
 
-1. `cd brs-backend && mvn spring-boot:run -Dspring-boot.run.profiles=dev` (backend chạy ở port 8080)
-2. `docker compose up -d` (postgres + redis + rabbitmq healthy)
+1. `cd brs-backend && mvn spring-boot:run "-Dspring-boot.run.profiles=dev"` (backend chạy ở port 8080)
+2. `docker compose -f docker/docker-compose.yml up -d` (postgres + redis + rabbitmq healthy)
 3. `npm run dev` (Next.js ở port 3000)
 4. `npx playwright test tests/e2e/booking-wizard-real-data.spec.ts`
 

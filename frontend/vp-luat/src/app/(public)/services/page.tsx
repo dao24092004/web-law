@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Dịch vụ pháp lý',
   description:
-    'Tổng hợp các dịch vụ pháp lý chuyên nghiệp của VP Luật Hùng & Cộng sự: thành lập doanh nghiệp, tư vấn hợp đồng, ly hôn, đất đai, sở hữu trí tuệ.',
+    'Tổng hợp các dịch vụ pháp lý chuyên nghiệp của Công ty Luật TNHH ICRC: thành lập doanh nghiệp, tư vấn hợp đồng, ly hôn, đất đai, sở hữu trí tuệ.',
   alternates: { canonical: '/services' },
 };
 

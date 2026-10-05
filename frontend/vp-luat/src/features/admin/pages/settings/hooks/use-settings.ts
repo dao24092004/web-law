@@ -59,7 +59,7 @@ const NS_DEFAULTS: Record<SettingsNamespace, unknown> = {
   general: {
     siteName: 'Văn Phòng Luật',
     hotline: '',
-    email: 'contact@lawfirm.vn',
+    email: 'contact@icrclaw.com',
     address: '',
     timezone: 'Asia/Ho_Chi_Minh',
     defaultLanguage: 'vi',
