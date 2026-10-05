@@ -17,6 +17,13 @@
 /.next/
 /out/
 
+# storybook
+# Ket qua build cua Storybook, duoc sinh ra boi "npm run build-storybook".
+# 7.6 MB / 45 file, khong can trong git: len du an, "npm ci" + build lai
+# se tu sinh. Chi can commit cau hinh trong .storybook/.
+/storybook-static/
+/storybook.out/
+
 # production
 /build
 
