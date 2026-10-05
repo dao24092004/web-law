@@ -1,11 +1,11 @@
 # Phase 5: Admin Panel — Full-Featured Internal CMS
-## Week 8-9 — Văn Phòng Luật Hùng & Cộng sự
+## Week 8-9 — Công ty Luật TNHH ICRC
 
 ---
 
 ## Phase Overview
 
-**Mục tiêu**: Xây dựng toàn bộ Admin Panel tái hiện 100% UI từ `frontend/demo/admin.html` — gồm Dashboard, CRM, Booking Management, Blog CRUD, Services/Lawyers CRUD, Reviews Moderation, Newsletter, User Management, và System Settings. Đây là internal tool dành cho đội ngũ VP Luật, không phải public-facing.
+**Mục tiêu**: Xây dựng toàn bộ Admin Panel tái hiện 100% UI từ `frontend/demo/admin.html` — gồm Dashboard, CRM, Booking Management, Blog CRUD, Services/Lawyers CRUD, Reviews Moderation, Newsletter, User Management, và System Settings. Đây là internal tool dành cho đội ngũ ICRC Law, không phải public-facing.
 
 **Design Reference**: `frontend/demo/admin.html` — **lines 1-1420 (styles) và 593-1340 (markup)**
 
@@ -18,7 +18,7 @@
 ### Layout (từ demo)
 
 **Sidebar** (`240px` fixed, `--primary #1E3A5F`):
-- Logo: icon scales + "VP Luật" / "Admin Panel"
+- Logo: icon scales + "ICRC Law" / "Admin Panel"
 - Navigation sections: "Quản lý" và "Hệ thống"
 - Nav items: icon + label + badge, active state với `--accent` left border
 - User footer: avatar initials + name + role + logout button

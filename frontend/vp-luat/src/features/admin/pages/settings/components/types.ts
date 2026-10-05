@@ -48,7 +48,7 @@ export interface IntegrationsSettings {
 }
 
 export const DEFAULT_GENERAL: GeneralSettings = {
-  siteName: 'VP Luật - Công ty Luật',
+  siteName: 'ICRC Law - Công ty Luật TNHH ICRC',
   hotline: '0969 967 389 - 0975 967 364',
   email: 'contact@icrclaw.com',
   address: '123 Nguyễn Trãi, Quận 1, TP.HCM',
@@ -71,7 +71,7 @@ export const DEFAULT_BOOKING: BookingSettings = {
 };
 
 export const DEFAULT_SMTP: SmtpSettings = {
-  fromName: 'VP Luật',
+  fromName: 'ICRC Law',
   fromEmail: 'noreply@icrclaw.com',
   replyTo: 'contact@icrclaw.com',
   smtpHost: 'smtp.gmail.com',

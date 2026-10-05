@@ -399,7 +399,7 @@ export default function LawyerDetailPage({ params }: { params: Promise<{ id: str
                     <div>
                       <span>Văn phòng</span>
                       <span className="lawyer-detail-contact__value">
-                        VP Luật - Tầng 8, Hà Nội
+                        ICRC Law - Tầng 8, Hưng Yên
                       </span>
                     </div>
                   </li>
@@ -437,7 +437,7 @@ export default function LawyerDetailPage({ params }: { params: Promise<{ id: str
                 <ShieldCheck size={28} className="lawyer-detail-trust__icon" aria-hidden />
                 <h4>Cam kết chất lượng</h4>
                 <p>
-                  Thông tin luật sư đã được xác minh bởi VP Luật. Mọi tư vấn đều được bảo mật
+                  Thông tin luật sư đã được xác minh bởi ICRC Law. Mọi tư vấn đều được bảo mật
                   tuyệt đối.
                 </p>
               </div>

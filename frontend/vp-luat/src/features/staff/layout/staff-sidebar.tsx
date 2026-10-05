@@ -103,7 +103,7 @@ export function StaffSidebar() {
             <Scale size={18} strokeWidth={2.5} />
           </div>
           <div className="admin-sidebar__logo-text">
-            <div className="admin-sidebar__logo-name">VP Luật</div>
+            <div className="admin-sidebar__logo-name">ICRC Law</div>
             <div className="admin-sidebar__logo-sub">{t('staffPortal')}</div>
           </div>
         </div>

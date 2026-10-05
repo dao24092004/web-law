@@ -1,6 +1,6 @@
-# VP Luật Hùng & Cộng sự — Frontend (vp-luat)
+# ICRC Law — Frontend (vp-luat)
 
-> Giao diện Next.js cho hệ thống tư vấn pháp lý trực tuyến của **VP Luật Hùng & Cộng sự**.
+> Giao diện Next.js cho hệ thống tư vấn pháp lý trực tuyến của **Công ty Luật TNHH ICRC**.
 > Đa ngôn ngữ (vi/en), responsive, kết nối trực tiếp với backend Spring Boot (`brs-backend`).
 
 [![Next.js](https://img.shields.io/badge/Next.js-16.2.6-000?logo=nextdotjs)](https://nextjs.org/) [![React](https://img.shields.io/badge/React-19.2.4-61DAFB?logo=react)](https://react.dev/) [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript)](https://www.typescriptlang.org/) [![Tailwind](https://img.shields.io/badge/TailwindCSS-4-38B2AC?logo=tailwindcss)](https://tailwindcss.com/) [![Playwright](https://img.shields.io/badge/Playwright-1.60-2EAD33?logo=playwright)](https://playwright.dev/)
@@ -533,4 +533,4 @@ Sau đó `docker exec brs-redis redis-cli -a <pwd> FLUSHALL` để xóa cache ba
 
 ---
 
-**Maintainer**: Team VpLuật · **Last updated**: 2026-09-22 (added `next-intl` timeZone troubleshooting)
+**Maintainer**: Team ICRC Law · **Last updated**: 2026-09-22 (added `next-intl` timeZone troubleshooting)

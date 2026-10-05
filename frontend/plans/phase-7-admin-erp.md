@@ -1,6 +1,6 @@
 # Phase 7: Admin ERP — Xây dựng đầy đủ chức năng vận hành
 
-> **Mục tiêu**: Biến admin module từ "dashboard tĩnh + list stub" thành **full ERP vận hành Văn Phòng Luật** — 10 modules nghiệp vụ, mock-first (lưu `localStorage`), schema mới, đủ CRUD + workflow + analytics + audit log + RBAC để vận hành thật.
+> **Mục tiêu**: Biến admin module từ "dashboard tĩnh + list stub" thành **full ERP vận hành ICRC Law** — 10 modules nghiệp vụ, mock-first (lưu `localStorage`), schema mới, đủ CRUD + workflow + analytics + audit log + RBAC để vận hành thật.
 >
 > **UI Reference**: `frontend/demo/admin.html` (đã clone xong ở Phase 5–6, Phase 7 chỉ làm nghiệp vụ chứ không clone UI thêm)
 >
@@ -205,7 +205,7 @@ src/features/admin/
 
 # 03. MODULE 1 — CRM / LEAD
 
-> **Lý do ưu tiên #1**: CRM là trái tim của Văn Phòng Luật — mọi module khác (Bookings, Chatbot, Landing) đều có thể tạo Lead. Làm trước để các module sau tích hợp được ngay.
+> **Lý do ưu tiên #1**: CRM là trái tim của ICRC Law — mọi module khác (Bookings, Chatbot, Landing) đều có thể tạo Lead. Làm trước để các module sau tích hợp được ngay.
 
 ## 3.1 Wireframe (theo demo + bổ sung)
 
@@ -308,7 +308,7 @@ src/features/admin/pages/crm/pipeline/   # Kanban riêng (tách từ dashboard)
 
 # 04. MODULE 2 — BOOKINGS / LỊCH HẸN
 
-> **Lý do ưu tiên #2**: Bookings là nghiệp vụ cốt lõi của Văn Phòng Luật (đặt lịch tư vấn). Tích hợp với CRM (Booking → Lead) và Services (chọn luật sư).
+> **Lý do ưu tiên #2**: Bookings là nghiệp vụ cốt lõi của ICRC Law (đặt lịch tư vấn). Tích hợp với CRM (Booking → Lead) và Services (chọn luật sư).
 
 ## 4.1 Wireframe
 
@@ -676,7 +676,7 @@ Campaigns:
 Campaign detail:
 ┌──────────────────────────────────────────────────────────┐
 │  Subject: [FDI 2025 update                          ]   │
-│  From:    [Văn Phòng Luật <news@vpluat.vn>      ]    │
+│  From:    [ICRC Law <news@icrclaw.com>      ]    │
 │  Segment: [● Tất cả  ○ FDI  ○ BĐS  ○ Custom]           │
 │  Template:[Standard header         ▾]                   │
 │  ┌────────────────────────────────────────────────┐    │
@@ -756,7 +756,7 @@ Session detail:
 │  💬 Hỏi đáp                                                     │
 │  ┌──────────────────────────────────────────────────────────┐     │
 │  │ 👤 14:30  "Tôi muốn tư vấn FDI"                          │     │
-│  │ 🤖 14:30  "Chào anh/chị! Văn Phòng Luật hỗ trợ..."      │     │
+│  │ 🤖 14:30  "Chào anh/chị! ICRC Law hỗ trợ..."      │     │
 │  │ 👤 14:31  "Phí tư vấn bao nhiêu?"                        │     │
 │  │ 🤖 14:31  "Phí tư vấn FDI từ 8 triệu..."                 │     │
 │  │ 👤 14:32  "Tôi muốn đặt lịch"                            │     │
@@ -780,7 +780,7 @@ Intent training:
 │  • [+ Thêm utterance]                                              │
 │  Response template:                                                │
 │  ┌──────────────────────────────────────────────────────────┐     │
-│  │ Chào anh/chị! Về tư vấn FDI, Văn Phòng Luật có thể...  │     │
+│  │ Chào anh/chị! Về tư vấn FDI, ICRC Law có thể...  │     │
 │  │ {{lawyer_name}} sẽ hỗ trợ anh/chị.                       │     │
 │  └──────────────────────────────────────────────────────────┘     │
 │  Handoff rule: ☑ Chuyển sang LS. Hùng khi match                    │
@@ -917,8 +917,8 @@ Users list:
 │  [ Users ] [ Roles ] [ Permissions matrix ]                         │
 │  ┌──────────────────────────────────────────────────────────┐      │
 │  │ ☐ │ Tên        │ Email              │ Role    │ Active │ ⋯ │      │
-│  │ ☐ │ Admin A    │ admin@vpluat.vn    │ Super   │ 🟢     │ ⋯ │      │
-│  │ ☐ │ LS. Hùng   │ hung@vpluat.vn     │ Lawyer  │ 🟢     │ ⋯ │      │
+│  │ ☐ │ Admin A    │ admin@icrclaw.com    │ Super   │ 🟢     │ ⋯ │      │
+│  │ ☐ │ LS. Hùng   │ hung@icrclaw.com     │ Lawyer  │ 🟢     │ ⋯ │      │
 │  └──────────────────────────────────────────────────────────┘      │
 └─────────────────────────────────────────────────────────────────────┘
 

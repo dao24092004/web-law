@@ -1,11 +1,11 @@
 # Phase 4: Chatbot AI + Floating Widgets
-## Week 7 — Văn Phòng Luật Hùng & Cộng sự
+## Week 7 — Công ty Luật TNHH ICRC
 
 ---
 
 ## Phase Overview
 
-**Mục tiêu**: Xây dựng Chatbot AI 24/7 cho website VP Luật — tích hợp conversational AI hỗ trợ khách hàng, phân loại intent, streaming response, persistence, và handoff mượt sang booking/lead. Đồng thời tái hiện toàn bộ floating widgets từ demo (`frontend/demo/index.html`).
+**Mục tiêu**: Xây dựng Chatbot AI 24/7 cho website ICRC Law — tích hợp conversational AI hỗ trợ khách hàng, phân loại intent, streaming response, persistence, và handoff mượt sang booking/lead. Đồng thời tái hiện toàn bộ floating widgets từ demo (`frontend/demo/index.html`).
 
 **Design Reference**: `frontend/demo/index.html` — **Chatbot UI từ lines ~1790-1962 (styles) và ~3210-3263 (markup)**
 
@@ -667,7 +667,7 @@ GET /api/chatbot/sessions/sess_abc123
 **Call Widget**:
 - Nút tròn `50×50px`, bg `--primary`, color white
 - Icon phone
-- `tel:19006789` link
+- `tel:0969967389` link
 
 ---
 

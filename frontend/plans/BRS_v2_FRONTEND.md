@@ -1,6 +1,6 @@
 # BRS v2.0 — Frontend Next.js React
 
-## Website Văn Phòng Luật Hùng & Cộng sự
+## Website Công ty Luật TNHH ICRC
 
 | | |
 | :- | :- |
@@ -44,7 +44,7 @@
 
 ## 1.1 Mục tiêu dự án
 
-Xây dựng website Next.js React hoàn chỉnh cho Văn Phòng Luật Hùng & Cộng sự — một **feature-first enterprise system** với:
+Xây dựng website Next.js React hoàn chỉnh cho Công ty Luật TNHH ICRC — một **feature-first enterprise system** với:
 
 - Website công ty (public pages): trang chủ, dịch vụ, luật sư, blog, tin tức, FAQ, liên hệ
 - **Landing pages động** cho chiến dịch marketing (Google Ads, Facebook Ads, email, affiliate) với A/B testing
@@ -56,7 +56,7 @@ Xây dựng website Next.js React hoàn chỉnh cho Văn Phòng Luật Hùng & C
 - i18n: Tiếng Việt (mặc định) + Tiếng Anh
 - Observability đầy đủ: error tracking, funnel analytics, Web Vitals
 
-## 1.2 Design System — Thương hiệu VP Luật
+## 1.2 Design System — Thương hiệu ICRC Law
 
 ### Color Palette
 
@@ -3050,7 +3050,7 @@ const openai = new OpenAI({
 
 // System prompt — legal domain context
 const SYSTEM_PROMPT = `
-Bạn là trợ lý pháp lý của Văn Phòng Luật Hùng & Cộng sự.
+Bạn là trợ lý pháp lý của Công ty Luật TNHH ICRC.
 ...
 
 Thông tin về dịch vụ, luật sư, giờ làm việc: [from database]
@@ -4534,7 +4534,7 @@ import Image from 'next/image';
 // Hero images — priority load, AVIF/WebP
 <Image
   src="/images/hero-law-firm.jpg"
-  alt="Văn Phòng Luật Hùng & Cộng sự"
+  alt="Công ty Luật TNHH ICRC"
   fill
   priority
   sizes="100vw"
