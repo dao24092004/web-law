@@ -23,7 +23,7 @@ BACKEND_REF="${1:?Thieu image backend, vi du: ghcr.io/owner/brs-backend:<sha>}"
 FRONTEND_REF="${2:?Thieu image frontend}"
 EXPECT_SHA="${3:-unknown}"
 
-APP_DIR="${APP_DIR:-/root/brs-app}"
+APP_DIR="${APP_DIR:-/opt/brs}"
 COMPOSE_DIR="$APP_DIR/brs-backend/docker"
 HEALTH_TIMEOUT="${HEALTH_TIMEOUT:-420}"
 

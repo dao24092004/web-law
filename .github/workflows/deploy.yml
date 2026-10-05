@@ -138,20 +138,28 @@ jobs:
           GHCR_USER: ${{ github.actor }}
         run: |
           set -euo pipefail
+          # -i ~/.ssh/id_deploy: dung key rieng cho CI.
+          # -o IdentitiesOnly=yes: BAT buoc. Runner cua GitHub co san
+          #   agent/key khac trong $HOME. Khong co tuy chon nay, ssh thu
+          #   het key do agent cung cap truoc, deu bi VPS tu choi, roi
+          #   bao "Permission denied (publickey,password)".
           # Ghi file registry login thanh mot dong, truyen bang stdin de
           # token khong xuat hien trong danh sach tien trinh tren VPS.
           printf '%s' "$GHCR_USER"  | ssh -i ~/.ssh/id_deploy -p "$VPS_PORT" \
+              -o IdentitiesOnly=yes \
               -o StrictHostKeyChecking=yes \
               -o UserKnownHostsFile=~/.ssh/known_hosts \
               "$VPS_USER@$VPS_HOST" \
               'cat > /tmp/.ghcr_user; echo "VPS_USER_OK"'
           printf '%s' "$GHCR_TOKEN" | ssh -i ~/.ssh/id_deploy -p "$VPS_PORT" \
+              -o IdentitiesOnly=yes \
               -o StrictHostKeyChecking=yes \
               -o UserKnownHostsFile=~/.ssh/known_hosts \
               "$VPS_USER@$VPS_HOST" \
               'cat > /tmp/.ghcr_token; echo "VPS_TOKEN_OK"'
 
           ssh -i ~/.ssh/id_deploy -p "$VPS_PORT" \
+              -o IdentitiesOnly=yes \
               -o StrictHostKeyChecking=yes \
               -o UserKnownHostsFile=~/.ssh/known_hosts \
               "$VPS_USER@$VPS_HOST" \
@@ -160,6 +168,7 @@ jobs:
 
           # Don file tam tren VPS
           ssh -i ~/.ssh/id_deploy -p "$VPS_PORT" \
+              -o IdentitiesOnly=yes \
               -o StrictHostKeyChecking=yes \
               -o UserKnownHostsFile=~/.ssh/known_hosts \
               "$VPS_USER@$VPS_HOST" \
