@@ -109,6 +109,8 @@ jobs:
 
     permissions:
       contents: read
+      # Can de tao token dang nhap GHCR khi deployer goi "docker pull".
+      packages: read
 
     steps:
       - name: Tao file SSH cho VPS
@@ -130,13 +132,38 @@ jobs:
           VPS_PORT: ${{ secrets.VPS_PORT }}
           BACKEND_REF: ${{ env.BACKEND_IMAGE }}:${{ github.sha }}
           FRONTEND_REF: ${{ env.FRONTEND_IMAGE }}:${{ github.sha }}
+          # Token de VPS "docker login" vao GHCR. GITHUB_TOKEN chi dung
+          # trong chinh repo nay nen truyen qua SSH de VPS pull duoc.
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GHCR_USER: ${{ github.actor }}
         run: |
           set -euo pipefail
+          # Ghi file registry login thanh mot dong, truyen bang stdin de
+          # token khong xuat hien trong danh sach tien trinh tren VPS.
+          printf '%s' "$GHCR_USER"  | ssh -i ~/.ssh/id_deploy -p "$VPS_PORT" \
+              -o StrictHostKeyChecking=yes \
+              -o UserKnownHostsFile=~/.ssh/known_hosts \
+              "$VPS_USER@$VPS_HOST" \
+              'cat > /tmp/.ghcr_user; echo "VPS_USER_OK"'
+          printf '%s' "$GHCR_TOKEN" | ssh -i ~/.ssh/id_deploy -p "$VPS_PORT" \
+              -o StrictHostKeyChecking=yes \
+              -o UserKnownHostsFile=~/.ssh/known_hosts \
+              "$VPS_USER@$VPS_HOST" \
+              'cat > /tmp/.ghcr_token; echo "VPS_TOKEN_OK"'
+
           ssh -i ~/.ssh/id_deploy -p "$VPS_PORT" \
               -o StrictHostKeyChecking=yes \
               -o UserKnownHostsFile=~/.ssh/known_hosts \
               "$VPS_USER@$VPS_HOST" \
-              "sudo -n /usr/local/bin/brs-deploy '$BACKEND_REF' '$FRONTEND_REF' '${{ github.sha }}'"
+              "GHCR_USER=\$(cat /tmp/.ghcr_user) GHCR_TOKEN=\$(cat /tmp/.ghcr_token) \
+               /usr/local/bin/brs-deploy '$BACKEND_REF' '$FRONTEND_REF' '${{ github.sha }}'"
+
+          # Don file tam tren VPS
+          ssh -i ~/.ssh/id_deploy -p "$VPS_PORT" \
+              -o StrictHostKeyChecking=yes \
+              -o UserKnownHostsFile=~/.ssh/known_hosts \
+              "$VPS_USER@$VPS_HOST" \
+              'shred -u /tmp/.ghcr_token 2>/dev/null || rm -f /tmp/.ghcr_token; rm -f /tmp/.ghcr_user'
 
       - name: Kiem tra site sau deploy
         run: |
