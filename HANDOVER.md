@@ -1,8 +1,12 @@
 # TÀI LIỆU BÀN GIAO VẬN HÀNH VÀ TRIỂN KHAI
 
-**Hệ thống:** VpLuật, nền tảng website tư vấn pháp lý trực tuyến  
-**Tên hiển thị trong source:** VP Luật Hùng & Cộng sự  
-**Tên thương hiệu được cấu hình trong một số tài liệu/deployment:** ICRC Law / Công ty Luật TNHH ICRC  
+**Hệ thống:** ICRC Law, nền tảng website tư vấn pháp lý trực tuyến
+**Tên thương hiệu hiển thị:** ICRC Law
+**Tên pháp lý:** Công ty Luật TNHH ICRC
+**Domain chính:** icrclaw.com
+**Email liên hệ:** contact@icrclaw.com
+**Hotline:** 0969 967 389 - 0975 967 364
+**Địa chỉ chuẩn hiển thị:** Đường 381, Xã Nguyễn Văn Linh, Tỉnh Hưng Yên
 **Phiên bản tài liệu:** 3.0  
 **Ngày rà soát:** 05/10/2026  
 **Trạng thái:** Đã xác minh local end-to-end; **chưa nghiệm thu production end-to-end**.
@@ -54,10 +58,12 @@ Kết quả kiểm tra tại máy phát triển:
    - `npm run lint` hiện đã kết thúc với exit code 0.
    - Vẫn còn các cảnh báo hiện hữu; cần phân loại, xử lý và đưa vào CI để không tăng thêm trước release.
 
-4. **Tên thương hiệu/domain chưa thống nhất.**
-   - Root README và frontend mô tả VP Luật Hùng & Cộng sự.
-   - `HANDOVER.md`, compose template và một số cấu hình dùng ICRC/`icrclaw.com`.
-   - Chủ sở hữu phải xác nhận tên pháp lý, tên hiển thị, domain, email và nội dung pháp lý trước khi cấu hình production.
+4. **Bộ nhận diện thương hiệu production đã thống nhất.**
+   - Tên thương hiệu hiển thị: **ICRC Law**.
+   - Tên pháp lý: **Công ty Luật TNHH ICRC**.
+   - Domain chính: **icrclaw.com**; email liên hệ: **contact@icrclaw.com**.
+   - Hotline: **0969 967 389 - 0975 967 364**; địa chỉ hiển thị: **Đường 381, Xã Nguyễn Văn Linh, Tỉnh Hưng Yên**.
+   - Các định danh kỹ thuật như thư mục `vp-luat` và package Java được giữ nguyên để không ảnh hưởng build/deployment.
 
 5. **Chưa có nghiệm thu hạ tầng thật.**
    - Chưa kiểm tra DNS, TLS, firewall, backup restore, SMTP, OTP/SMS, OpenAI/Gemini, webhook và CDN/WAF bằng tài khoản production.

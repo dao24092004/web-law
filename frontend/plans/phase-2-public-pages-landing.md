@@ -1,5 +1,5 @@
 # Phase 2: Public Pages + Landing Pages Builder
-## Week 3-4 — Văn Phòng Luật Hùng & Cộng sự
+## Week 3-4 — Công ty Luật TNHH ICRC
 
 ---
 
@@ -233,7 +233,7 @@ export function Navbar() {
         <Link href="/" className="navbar__logo">
           <div className="navbar__logo-icon">VP</div>
           <div className="navbar__logo-text">
-            <span className="navbar__logo-name">VP Luật Hùng & Cộng sự</span>
+            <span className="navbar__logo-name">ICRC Law</span>
             <span className="navbar__logo-sub">Law Firm</span>
           </div>
         </Link>
@@ -385,7 +385,7 @@ export function HeroSection() {
       <div className="hero__bg">
         <img
           src="/images/hero-bg.jpg"
-          alt="VP Luật Hùng & Cộng sự"
+          alt="ICRC Law"
           priority
         />
       </div>
@@ -1111,7 +1111,7 @@ export function WhyChooseSection() {
       <div className="container">
         <div className="section__header">
           <span className="section__label">Tại sao chọn chúng tôi</span>
-          <h2 className="section__title">Vì Sao Chọn VP Luật?</h2>
+          <h2 className="section__title">Vì Sao Chọn ICRC Law?</h2>
         </div>
 
         <div className="why__grid">
@@ -1561,10 +1561,10 @@ export function Footer() {
           <div>
             <div className="footer__brand-logo">
               <div className="footer__brand-icon">VP</div>
-              <span className="footer__brand-name">VP Luật Hùng & Cộng sự</span>
+              <span className="footer__brand-name">ICRC Law</span>
             </div>
             <p className="footer__brand-desc">
-              Văn Phòng Luật sư chuyên nghiệp với 15+ năm kinh nghiệm.
+              ICRC Law - dịch vụ pháp lý chuyên nghiệp với 15+ năm kinh nghiệm.
               Cam kết mang đến giải pháp pháp lý tối ưu cho khách hàng.
             </p>
             <div className="footer__socials">
@@ -1622,7 +1622,7 @@ export function Footer() {
 
         <div className="footer__bottom">
           <p className="footer__copyright">
-            © 2026 VP Luật Hùng & Cộng sự. Mọi quyền được bảo lưu.
+            © 2026 ICRC Law. Mọi quyền được bảo lưu.
           </p>
           <div className="footer__legal">
             <a href="/chinh-sach-bao-mat">Chính sách bảo mật</a>

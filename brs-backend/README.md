@@ -1,6 +1,6 @@
 # BRS Backend - Law Firm Backend Platform
 
-Backend RESTful API cho website Văn Phòng Luật, được xây dựng trên Java 21 và Spring Boot 3.3.
+Backend RESTful API cho website ICRC Law - Công ty Luật TNHH ICRC, được xây dựng trên Java 21 và Spring Boot 3.3.
 
 ## Tính Năng Chính
 

@@ -1458,7 +1458,7 @@ export default function DashboardPage() {
       notifyError('Export backend lỗi, dùng dữ liệu hiện tại', err instanceof Error ? err.message : 'Unknown error');
     }
     const lines: string[] = [];
-    lines.push(`Báo cáo Dashboard — Văn Phòng Luật`);
+    lines.push(`Báo cáo Dashboard — ICRC Law`);
     lines.push(`Khoảng thời gian: ${rangeLabel}`);
     lines.push(`Xuất lúc: ${new Date().toISOString()}`);
     lines.push('');
@@ -1515,7 +1515,7 @@ export default function DashboardPage() {
         <div className="admin-page-header__left">
           <h1 className="admin-page-header__title">Bảng điều khiển</h1>
           <p className="admin-page-header__sub">
-            Tổng quan hoạt động của Văn Phòng Luật — cập nhật real-time
+            Tổng quan hoạt động của ICRC Law — cập nhật real-time
           </p>
         </div>
         <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>

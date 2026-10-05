@@ -138,7 +138,7 @@ npx tsc --noEmit
 
 #### Task 1.3: Design System - CSS Variables (Day 3)
 
-**Mục tiêu**: Setup CSS variables cho VP Luật branding
+**Mục tiêu**: Setup CSS variables cho ICRC Law branding
 
 **Bước thực hiện**:
 
@@ -201,7 +201,7 @@ npm run build
 **Exit Criteria**:
 - [ ] CSS variables được apply
 - [ ] Font loading hoạt động
-- [ ] Color palette đúng VP Luật
+- [ ] Color palette đúng ICRC Law
 
 ---
 
@@ -834,7 +834,7 @@ Week 2:
 
 - [ ] Next.js 15 app chạy với TypeScript
 - [ ] Tailwind CSS + shadcn/ui hoạt động
-- [ ] Design tokens (VP Luật branding) apply được
+- [ ] Design tokens (ICRC Law branding) apply được
 - [ ] Zustand UI store hoạt động (sidebar, modal, toast)
 - [ ] NextAuth.js với credentials provider (mock backend)
 - [ ] RBAC permission system hoạt động

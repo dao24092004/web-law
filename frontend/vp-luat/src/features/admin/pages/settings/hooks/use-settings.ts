@@ -57,7 +57,7 @@ export type SettingsNamespace = 'general' | 'booking' | 'smtp' | 'theme' | 'inte
 
 const NS_DEFAULTS: Record<SettingsNamespace, unknown> = {
   general: {
-    siteName: 'Văn Phòng Luật',
+    siteName: 'ICRC Law - Công ty Luật TNHH ICRC',
     hotline: '',
     email: 'contact@icrclaw.com',
     address: '',

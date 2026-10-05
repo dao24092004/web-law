@@ -21,7 +21,7 @@ const DEFAULT_VALUES: IntentFormValues = {
   name: '',
   description: '',
   sampleUtterances: [''],
-  responseTemplate: 'Chào anh/chị! Về {{topic}}, Văn Phòng Luật có thể hỗ trợ...',
+  responseTemplate: 'Chào anh/chị! Về {{topic}}, ICRC Law có thể hỗ trợ...',
   handoffEnabled: false,
   handoffTo: '',
   handoffKeywords: [],
