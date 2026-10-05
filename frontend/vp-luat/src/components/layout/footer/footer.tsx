@@ -23,7 +23,7 @@ export function Footer() {
 
         <div className="footer__bottom">
           <p className="footer__copyright">
-            &copy; {new Date().getFullYear()} VP Luật Hùng & Cộng sự. Giữ bản quyền.
+            &copy; {new Date().getFullYear()} Công ty Luật TNHH ICRC. Giữ bản quyền.
           </p>
           <div className="footer__legal">
             <Link href="/contact" aria-label="Liên hệ về chính sách bảo mật">Chính sách bảo mật</Link>

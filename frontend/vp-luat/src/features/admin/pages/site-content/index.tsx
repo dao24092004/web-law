@@ -29,7 +29,7 @@ const DEFAULT_CONTENT: SiteContent = {
   contact: {
     address: '123 Nguyen Hue, Q.1, TP.HCM',
     phone: '+84 901 234 567',
-    email: 'contact@lawfirm.vn',
+    email: 'contact@icrclaw.com',
     workingHours: 'T2 - T7: 8:00 - 17:30',
   },
   social: {

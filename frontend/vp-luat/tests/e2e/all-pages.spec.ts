@@ -4,7 +4,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Public Pages - User Flows', () => {
   test('Homepage loads and shows main sections', async ({ page }) => {
     await page.goto('/');
-    await expect(page).toHaveTitle(/VP|Luat|Hung|Tu van/i, { timeout: 10000 });
+    await expect(page).toHaveTitle(/VP|Luat|Hung|ICRC|Tu van/i, { timeout: 10000 });
 
     // Check navigation exists
     await expect(page.locator('nav, header').first()).toBeVisible();

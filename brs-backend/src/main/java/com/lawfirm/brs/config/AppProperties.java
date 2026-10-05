@@ -99,7 +99,7 @@ public class AppProperties {
         private int port = 587;
         private String username;
         private String password;
-        private String fromAddress = "noreply@lawfirm.vn";
+        private String fromAddress = "noreply@icrclaw.com";
         private String fromName = "Van Phong Luat";
         private boolean startTls = true;
     }

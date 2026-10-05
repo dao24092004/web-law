@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Liên hệ tư vấn pháp lý',
   description:
-    'Liên hệ VP Luật Hùng & Cộng sự để được tư vấn pháp lý miễn phí. Hotline 1900 1234, hệ thống văn phòng tại Hà Nội, TP HCM, Đà Nẵng.',
+    'Liên hệ Công ty Luật TNHH ICRC để được tư vấn pháp lý miễn phí. Hotline 0969 967 389 - 0975 967 364, hệ thống văn phòng tại Hưng Yên.',
   alternates: { canonical: '/contact' },
 };
 

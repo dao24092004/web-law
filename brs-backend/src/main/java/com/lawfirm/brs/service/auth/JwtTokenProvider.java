@@ -48,6 +48,9 @@ public class JwtTokenProvider {
     @Value("${app.jwt.public-key-path:keys/jwt-public.pem}")
     private String publicKeyPath;
 
+    @Value("${spring.profiles.active:}")
+    private String activeProfile;
+
     private PrivateKey privateKey;
     private PublicKey publicKey;
 
@@ -70,8 +73,14 @@ public class JwtTokenProvider {
             this.publicKey = loadPublicKey(Path.of(publicKeyPath));
             log.info("JWT keys loaded successfully from {} and {}", privateKeyPath, publicKeyPath);
         } catch (Exception e) {
+            if ("prod".equalsIgnoreCase(activeProfile)) {
+                throw new IllegalStateException(
+                    "Production JWT keys could not be loaded from configured paths: "
+                        + privateKeyPath + " and " + publicKeyPath,
+                    e);
+            }
+
             log.warn("Could not load JWT keys from files, generating temporary keys for development");
-            // Generate temporary keys for development
             KeyPair keyPair = generateKeyPair();
             this.privateKey = keyPair.getPrivate();
             this.publicKey = keyPair.getPublic();

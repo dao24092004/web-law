@@ -1,7 +1,7 @@
 # ============================================================
 # BRS Production Stack
-# Bao gồm: PostgreSQL, Redis, Backend (Spring Boot), Frontend (Next.js), Nginx
-# Lưu ý: RabbitMQ đã được loại bỏ (config-only, không có consumer/producer code)
+# Bao gồm: PostgreSQL, Redis, RabbitMQ, Backend (Spring Boot), Frontend (Next.js), Nginx
+# Chạy từ thư mục brs-backend/docker với file .env.production.
 # ============================================================
 
 services:
@@ -62,6 +62,31 @@ services:
         max-file: "3"
 
   # ============================================================
+  # RabbitMQ Message Broker
+  # ============================================================
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    container_name: brs-rabbitmq
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:?RABBITMQ_USER must be set}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:?RABBITMQ_PASSWORD must be set}
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_port_connectivity"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - brs-internal
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ============================================================
   # Backend (Spring Boot)
   # ============================================================
   backend:
@@ -81,6 +106,16 @@ services:
       REDIS_HOST: redis
       REDIS_PORT: 6379
       REDIS_PASSWORD: ${REDIS_PASSWORD:?REDIS_PASSWORD must be set}
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: ${RABBITMQ_USER:?RABBITMQ_USER must be set}
+      RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD:?RABBITMQ_PASSWORD must be set}
+      MAIL_ENABLED: ${MAIL_ENABLED:-false}
+      MAIL_HOST: ${MAIL_HOST:-smtp.gmail.com}
+      MAIL_PORT: ${MAIL_PORT:-587}
+      MAIL_USERNAME: ${MAIL_USERNAME:-}
+      MAIL_PASSWORD: ${MAIL_PASSWORD:-}
+      MAIL_FROM_ADDRESS: ${MAIL_FROM_ADDRESS:-noreply@icrclaw.com}
       JWT_PRIVATE_KEY_PATH: /app/keys/jwt-private.pem
       JWT_PUBLIC_KEY_PATH: /app/keys/jwt-public.pem
       UPLOAD_DIR: /app/uploads
@@ -91,14 +126,16 @@ services:
       CORS_ORIGIN_3: ${CORS_ORIGIN_3:-https://admin.${DOMAIN}}
       LOG_LEVEL: ${LOG_LEVEL:-INFO}
     volumes:
-      - ./keys/jwt-private.pem:/app/keys/jwt-private.pem:ro
-      - ./keys/jwt-public.pem:/app/keys/jwt-public.pem:ro
+      - ../keys/jwt-private.pem:/app/keys/jwt-private.pem:ro
+      - ../keys/jwt-public.pem:/app/keys/jwt-public.pem:ro
       - backend_uploads:/app/uploads
       - backend_logs:/app/logs
     depends_on:
       postgres:
         condition: service_healthy
       redis:
+        condition: service_healthy
+      rabbitmq:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
@@ -126,7 +163,7 @@ services:
     restart: unless-stopped
     environment:
       NODE_ENV: production
-      NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-https://api.${DOMAIN}}
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-https://api.${DOMAIN}/api}
       NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://${DOMAIN}}
       NEXT_TELEMETRY_DISABLED: "1"
       PORT: "3000"
@@ -164,6 +201,8 @@ services:
         condition: service_healthy
       frontend:
         condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
     networks:
       - brs-internal
     logging:
@@ -175,6 +214,7 @@ services:
 volumes:
   postgres_data:
   redis_data:
+  rabbitmq_data:
   backend_uploads:
   backend_logs:
   nginx_cache:

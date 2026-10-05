@@ -119,13 +119,13 @@ Chạy toàn bộ stack (backend + frontend + DB) ở máy local:
 ```bash
 # 1. Khởi động Postgres / Redis / RabbitMQ bằng Docker
 cd brs-backend
-docker compose up -d
+docker compose -f docker/docker-compose.yml up -d
 cd ..
 
 # 2. Khởi động backend (terminal 1)
 cd brs-backend
 cp .env.example .env             # chỉnh .env với secret nếu cần
-mvn spring-boot:run -Dspring-boot.run.profiles=dev
+mvn spring-boot:run "-Dspring-boot.run.profiles=dev"
 # → http://localhost:8080  (Swagger UI: /swagger-ui.html)
 
 # 3. Khởi động frontend (terminal 2)

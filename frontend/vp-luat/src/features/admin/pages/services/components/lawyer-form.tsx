@@ -266,7 +266,7 @@ export function LawyerForm({
               label="Email"
               type="email"
               required
-              placeholder="name@vpluat.vn"
+              placeholder="name@icrclaw.com"
               {...register('email')}
               error={errors.email?.message}
             />

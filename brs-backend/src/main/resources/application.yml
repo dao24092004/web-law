@@ -87,7 +87,7 @@ spring:
           connectiontimeout: 5000
           timeout: 5000
           writetimeout: 5000
-    from: ${MAIL_FROM_ADDRESS:noreply@lawfirm.vn}
+    from: ${MAIL_FROM_ADDRESS:noreply@icrclaw.com}
 
 # ============================================================
 # Server Configuration
@@ -127,8 +127,8 @@ app:
     allowed-origins:
       - ${CORS_ORIGIN_1:http://localhost:3000}
       - ${CORS_ORIGIN_2:http://localhost:5173}
-      - ${CORS_ORIGIN_3:https://lawfirm.vn}
-      - ${CORS_ORIGIN_4:https://www.lawfirm.vn}
+      - ${CORS_ORIGIN_3:https://icrclaw.com}
+      - ${CORS_ORIGIN_4:https://www.icrclaw.com}
     allowed-methods: GET,POST,PUT,PATCH,DELETE,OPTIONS
     allowed-headers: "*"
     allow-credentials: true
@@ -177,8 +177,8 @@ app:
   # Email Configuration
   mail:
     enabled: ${MAIL_ENABLED:false}
-    from-address: ${MAIL_FROM_ADDRESS:noreply@lawfirm.vn}
-    from-name: ${MAIL_FROM_NAME:Van Phong Luat}
+    from-address: ${MAIL_FROM_ADDRESS:noreply@icrclaw.com}
+    from-name: ${MAIL_FROM_NAME:Cong ty Luat TNHH ICRC}
 
 # ============================================================
 # Logging Configuration

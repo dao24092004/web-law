@@ -127,8 +127,8 @@ public class OpenAIClientService {
             - Cung cấp thông tin liên hệ khi cần thiết
             
             Thông tin liên hệ:
-            - Hotline: 1900-xxxx
-            - Email: contact@lawfirm.vn
+            - Hotline: 0969 967 389 - 0975 967 364
+            - Email: contact@icrclaw.com
             - Địa chỉ: [địa chỉ văn phòng]
             """;
     }
@@ -137,7 +137,7 @@ public class OpenAIClientService {
      * Get fallback response when OpenAI API fails
      */
     private String getFallbackResponse() {
-        return "Xin lỗi, hiện tại tôi đang gặp sự cố kết nối. Vui lòng liên hệ trực tiếp qua hotline 1900-xxxx hoặc email contact@lawfirm.vn để được hỗ trợ nhanh hơn.";
+        return "Xin lỗi, hiện tại tôi đang gặp sự cố kết nối. Vui lòng liên hệ trực tiếp qua hotline 0969 967 389 - 0975 967 364 hoặc email contact@icrclaw.com để được hỗ trợ nhanh hơn.";
     }
 
     /**
