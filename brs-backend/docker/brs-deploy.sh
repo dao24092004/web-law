@@ -145,19 +145,41 @@ fi
 info "8. Kiem tra HTTP"
 set -a; . ./.env.production; set +a
 RC=0
+
+# Kiem tra qua IP cua VPS + header Host, KHONG dua vao ten mien.
+# Ly do: Cloudflare chi tra IPv6 cho domain, ma VPS nay la IPv4-only.
+# Goi truc tiep "https://${DOMAIN}/" se tra HTTP 000 (ket noi that bai)
+# du site hoan toan khoe. Dung --resolve de ép curl noi IP nay,
+# bo qua DNS, nhung van gui dung Host/SNI de nginx route phai.
+VPS_IP=$(hostname -I 2>/dev/null | awk '{print $1}')
+if [ -z "$VPS_IP" ]; then
+    warn "Khong xac dinh duoc IP cua VPS, bo qua kiem tra HTTP qua domain"
+else
+    info "   Kiem tra qua IP $VPS_IP (tranh loi DNS IPv6 cua Cloudflare)"
+fi
+
 check() {
-    local name="$1" url="$2" code
-    code=$(curl -sk -o /dev/null -w '%{http_code}' --max-time 20 "$url" 2>/dev/null || echo "000")
+    local name="$1" path="$2" code
+    if [ -n "$VPS_IP" ]; then
+        code=$(curl -sk -o /dev/null -w '%{http_code}' --max-time 20 \
+               --resolve "${DOMAIN}:443:${VPS_IP}" "https://${DOMAIN}${path}" 2>/dev/null || echo "000")
+    else
+        code=$(curl -sk -o /dev/null -w '%{http_code}' --max-time 20 "https://${DOMAIN}${path}" 2>/dev/null || echo "000")
+    fi
     if [ "$code" = "200" ]; then ok "$name -> HTTP 200"
     else fail "$name -> HTTP $code"; RC=1; fi
 }
-check "nginx-health" "http://localhost/nginx-health"
-check "trang chu"    "https://${DOMAIN}/"
-check "API public"   "https://${DOMAIN}/api/public/services"
+check "trang chu"  "/"
+check "API public" "/api/public/services"
 
 # Endpoint nhay cam phai fail-closed
 for p in /v3/api-docs /actuator/metrics /actuator/prometheus; do
-    code=$(curl -sk -o /dev/null -w '%{http_code}' --max-time 15 "https://${DOMAIN}${p}" 2>/dev/null || echo "000")
+    if [ -n "$VPS_IP" ]; then
+        code=$(curl -sk -o /dev/null -w '%{http_code}' --max-time 15 \
+               --resolve "${DOMAIN}:443:${VPS_IP}" "https://${DOMAIN}${p}" 2>/dev/null || echo "000")
+    else
+        code=$(curl -sk -o /dev/null -w '%{http_code}' --max-time 15 "https://${DOMAIN}${p}" 2>/dev/null || echo "000")
+    fi
     if [ "$code" = "200" ]; then fail "$p dang tra 200 - bi lo"; RC=1
     else ok "$p bi chan (HTTP $code)"; fi
 done
