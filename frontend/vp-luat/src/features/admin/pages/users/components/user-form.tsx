@@ -152,7 +152,7 @@ export function UserForm({ isOpen, onClose, onSubmit, initial, isLoading, hidePa
             label="Email"
             required
             type="email"
-            placeholder="user@vpluat.vn"
+            placeholder="user@icrclaw.com"
             {...register('email')}
             error={errors.email?.message}
             hint={initial ? 'Có thể đổi email nếu chưa bị trùng' : undefined}

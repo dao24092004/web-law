@@ -1,4 +1,4 @@
-// RBAC Permission System for VP Luật
+// RBAC Permission System for ICRC Law
 
 export type Role =
   | 'SUPER_ADMIN'

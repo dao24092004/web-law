@@ -1,12 +1,10 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "shadcn/tailwind.css";
-
 @custom-variant dark (&:is(.dark *));
 
 /* ============================================================
    VP LUAT BRAND TOKENS
-   Override shadcn defaults with VP Luật brand colors
+   Override shadcn defaults with ICRC Law brand colors
    ============================================================ */
 :root {
   /* Primary - Navy */

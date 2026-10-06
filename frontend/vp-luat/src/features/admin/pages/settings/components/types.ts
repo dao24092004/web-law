@@ -48,9 +48,9 @@ export interface IntegrationsSettings {
 }
 
 export const DEFAULT_GENERAL: GeneralSettings = {
-  siteName: 'VP Luật - Công ty Luật',
-  hotline: '1900 1234',
-  email: 'contact@vpluat.vn',
+  siteName: 'ICRC Law - Công ty Luật TNHH ICRC',
+  hotline: '0969 967 389 - 0975 967 364',
+  email: 'contact@icrclaw.com',
   address: '123 Nguyễn Trãi, Quận 1, TP.HCM',
   timezone: 'Asia/Ho_Chi_Minh',
   language: 'vi',
@@ -71,12 +71,12 @@ export const DEFAULT_BOOKING: BookingSettings = {
 };
 
 export const DEFAULT_SMTP: SmtpSettings = {
-  fromName: 'VP Luật',
-  fromEmail: 'noreply@vpluat.vn',
-  replyTo: 'contact@vpluat.vn',
+  fromName: 'ICRC Law',
+  fromEmail: 'noreply@icrclaw.com',
+  replyTo: 'contact@icrclaw.com',
   smtpHost: 'smtp.gmail.com',
   smtpPort: 587,
-  smtpUser: 'noreply@vpluat.vn',
+  smtpUser: 'noreply@icrclaw.com',
   smtpPassword: '',
   useTLS: true,
 };

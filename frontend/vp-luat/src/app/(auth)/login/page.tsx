@@ -162,7 +162,7 @@ function LoginForm() {
             <Scale size={24} />
           </div>
           <div>
-            <div className="font-heading text-xl font-bold">VP Luật Hùng &amp; Cộng sự</div>
+            <div className="font-heading text-xl font-bold">ICRC Law</div>
             <div className="text-xs text-white/70">{t('system')}</div>
           </div>
         </div>
@@ -182,7 +182,7 @@ function LoginForm() {
             </li>
             <li className="flex items-center gap-3">
               <Phone size={18} className="text-[var(--accent)]" />
-              {t('support')}: <a href="tel:19001234" className="underline">1900 1234</a>
+              {t('support')}: <a href="tel:0969967389" className="underline">0969 967 389 - 0975 967 364</a>
             </li>
             <li className="flex items-center gap-3">
               <MapPin size={18} className="text-[var(--accent)]" />
@@ -192,7 +192,7 @@ function LoginForm() {
         </div>
 
         <div className="relative z-10 text-xs text-white/60">
-          © 2024 VP Luật Hùng &amp; Cộng sự · Bảo lưu mọi quyền
+          © 2024 ICRC Law · Bảo lưu mọi quyền
         </div>
       </aside>
 
@@ -201,7 +201,7 @@ function LoginForm() {
         <div className="w-full max-w-md">
           <div className="lg:hidden text-center mb-8">
             <h1 className="text-2xl font-heading font-bold text-[var(--primary)]">
-              VP Luật Hùng &amp; Cộng sự
+              ICRC Law
             </h1>
             <p className="text-gray-600 mt-1 text-sm">{t('system')}</p>
           </div>

@@ -12,9 +12,8 @@ WORKDIR /app
 COPY pom.xml .
 RUN mvn dependency:go-offline -B
 
-# Copy source code and build
+# Copy source code and build. JWT keys are mounted only at runtime.
 COPY src ./src
-COPY keys ./keys
 
 # Build the application
 RUN mvn clean package -DskipTests -B

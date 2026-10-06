@@ -1,11 +1,11 @@
 # Phase 3: Booking Engine
-## Week 5-6 — Văn Phòng Luật Hùng & Cộng sự
+## Week 5-6 — Công ty Luật TNHH ICRC
 
 ---
 
 ## Phase Overview
 
-**Mục tiêu**: Xây dựng booking engine 4 bước cho website VP Luật, cho phép khách hàng chọn dịch vụ, luật sư, khung giờ và gửi yêu cầu tư vấn với cơ chế **slot reservation** để tránh double booking.
+**Mục tiêu**: Xây dựng booking engine 4 bước cho website ICRC Law, cho phép khách hàng chọn dịch vụ, luật sư, khung giờ và gửi yêu cầu tư vấn với cơ chế **slot reservation** để tránh double booking.
 
 **Design Reference**: `frontend/demo/booking.html` — **ĐÂY LÀ NGUỒN THAM KHAO CHÍNH XÁC CHO BOOKING UI/UX**
 

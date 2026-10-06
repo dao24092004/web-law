@@ -104,7 +104,7 @@ export function ThemeSettingsForm({ value, loaded, onSubmit, isSubmitting }: Pro
             color: primary,
           }}
         >
-          VP Luật — {font} preview
+          ICRC Law — {font} preview
         </div>
       </Section>
 

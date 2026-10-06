@@ -1,5 +1,5 @@
 # BRS v2.0 — Backend Java Spring Boot RESTful API
-## Kiến Trúc Monolithic — Văn Phòng Luật
+## Kiến Trúc Monolithic — ICRC Law
 
 | | |
 | :- | :- |
@@ -3244,6 +3244,6 @@ public class GlobalExceptionHandler {
 
 ---
 
-*Tài liệu kiến trúc Backend Monolithic BRS v2.0 — Văn Phòng Luật — Tháng 5/2026*
+*Tài liệu kiến trúc Backend Monolithic BRS v2.0 — ICRC Law — Tháng 5/2026*
 *Bản cải tiến v2 — Bao gồm security hardening, performance optimization, testing standards*
 *Nội bộ – Bảo mật*

@@ -47,7 +47,7 @@ export function ReviewReplyForm({
         </label>
         <textarea
           rows={4}
-          placeholder="Cảm ơn anh/chị đã tin tưởng Văn Phòng Luật..."
+          placeholder="Cảm ơn anh/chị đã tin tưởng ICRC Law..."
           {...register('reply')}
           style={{
             padding: '10px 12px',

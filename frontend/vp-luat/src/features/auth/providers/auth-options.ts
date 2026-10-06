@@ -121,4 +121,6 @@ export const authOptions = {
   trustHost: process.env.AUTH_TRUST_HOST === 'true' || process.env.NODE_ENV !== 'production',
 } as Record<string, unknown>;
 
-export const { handlers, auth, signIn, signOut } = NextAuth(authOptions as any);
+export const { handlers, auth, signIn, signOut } = NextAuth(
+  authOptions as unknown as Parameters<typeof NextAuth>[0],
+);

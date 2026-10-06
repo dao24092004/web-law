@@ -1,6 +1,6 @@
-# VpLuật — Văn Phòng Luật Hùng & Cộng sự
+# ICRC Law — Công ty Luật TNHH ICRC
 
-> Hệ thống website tư vấn pháp lý trực tuyến cho **VP Luật Hùng & Cộng sự** — gồm frontend Next.js, backend Spring Boot, cơ sở dữ liệu PostgreSQL và hạ tầng Docker đi kèm.
+> Hệ thống website tư vấn pháp lý trực tuyến cho **Công ty Luật TNHH ICRC** — gồm frontend Next.js, backend Spring Boot, cơ sở dữ liệu PostgreSQL và hạ tầng Docker đi kèm.
 
 [![Frontend](https://img.shields.io/badge/Frontend-Next.js%2016.2.6-000?logo=nextdotjs)](frontend/vp-luat/README.md) [![Backend](https://img.shields.io/badge/Backend-Spring%20Boot%203.3-6DB33F?logo=springboot)](brs-backend/README.md) [![Java](https://img.shields.io/badge/Java-21%20LTS-ED8B00?logo=openjdk)](brs-backend/README.md) [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791?logo=postgresql)](brs-backend/README.md)
 
@@ -21,7 +21,7 @@
 
 ## Tổng quan
 
-VpLuật là nền tảng web tư vấn pháp lý cung cấp:
+ICRC Law là nền tảng web tư vấn pháp lý cung cấp:
 
 - **Trang công khai** cho khách hàng: tra cứu dịch vụ, luật sư, tin tức; đặt lịch tư vấn 4 bước; chatbot AI; form liên hệ / yêu cầu tư vấn.
 - **Cổng quản trị (admin)** cho Admin / Manager / Lawyer / Editor / CSKH: dashboard, CRM pipeline, quản lý users & roles, landing-page builder, báo cáo, settings.
@@ -119,13 +119,13 @@ Chạy toàn bộ stack (backend + frontend + DB) ở máy local:
 ```bash
 # 1. Khởi động Postgres / Redis / RabbitMQ bằng Docker
 cd brs-backend
-docker compose up -d
+docker compose -f docker/docker-compose.yml up -d
 cd ..
 
 # 2. Khởi động backend (terminal 1)
 cd brs-backend
 cp .env.example .env             # chỉnh .env với secret nếu cần
-mvn spring-boot:run -Dspring-boot.run.profiles=dev
+mvn spring-boot:run "-Dspring-boot.run.profiles=dev"
 # → http://localhost:8080  (Swagger UI: /swagger-ui.html)
 
 # 3. Khởi động frontend (terminal 2)
@@ -201,4 +201,4 @@ Frontend dùng `simple-git-hooks` + `lint-staged`:
 
 ---
 
-**Maintainer**: Team VpLuật · **Last updated**: 2026-09-22
+**Maintainer**: Team ICRC Law · **Last updated**: 2026-09-22

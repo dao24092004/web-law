@@ -55,7 +55,7 @@ public static class Mail {
     private String username;
     private String password;
     private String fromAddress = "noreply@lawfirm.vn";
-    private String fromName = "Văn Phòng Luật";
+    private String fromName = "ICRC Law";
     private boolean startTls = true;
     private String propertiesMail = "true";
 }
@@ -110,7 +110,7 @@ app:
   mail:
     enabled: ${MAIL_ENABLED:false}
     from-address: ${MAIL_FROM_ADDRESS:noreply@lawfirm.vn}
-    from-name: ${MAIL_FROM_NAME:Văn Phòng Luật}
+    from-name: ${MAIL_FROM_NAME:ICRC Law}
 ```
 
 - [ ] **Step 2: Commit**
@@ -146,7 +146,7 @@ MAIL_PASSWORD=your-app-password
 
 # Mail sender identity
 MAIL_FROM_ADDRESS=noreply@lawfirm.vn
-MAIL_FROM_NAME=Văn Phòng Luật
+MAIL_FROM_NAME=ICRC Law
 MAIL_STARTTLS=true
 ```
 
@@ -321,10 +321,10 @@ public class ThymeleafConfig {
 
         <p>Nếu bạn cần hủy hoặc đổi lịch, vui lòng liên hệ với chúng tôi ít nhất 24 giờ trước giờ hẹn.</p>
 
-        <p style="margin-top: 30px;">Trân trọng,<br><strong>Văn Phòng Luật</strong></p>
+        <p style="margin-top: 30px;">Trân trọng,<br><strong>ICRC Law</strong></p>
     </div>
     <div class="footer">
-        <p>Email này được gửi tự động từ Văn Phòng Luật. Vui lòng không trả lời email này.</p>
+        <p>Email này được gửi tự động từ ICRC Law. Vui lòng không trả lời email này.</p>
         <p>Hotline: 1900-xxxx | Email: contact@lawfirm.vn</p>
     </div>
 </body>
@@ -379,7 +379,7 @@ public class ThymeleafConfig {
         <p style="margin-top: 20px;">Vui lòng đến đúng giờ. Nếu bạn cần đổi lịch, hãy liên hệ ngay với chúng tôi.</p>
     </div>
     <div class="footer">
-        <p>Văn Phòng Luật | Hotline: 1900-xxxx</p>
+        <p>ICRC Law | Hotline: 1900-xxxx</p>
     </div>
 </body>
 </html>
@@ -440,7 +440,7 @@ public class ThymeleafConfig {
         <p>Vui lòng liên hệ với khách hàng trong thời gian sớm nhất.</p>
     </div>
     <div class="footer">
-        <p>Văn Phòng Luật CRM</p>
+        <p>ICRC Law CRM</p>
     </div>
 </body>
 </html>
@@ -562,7 +562,7 @@ public class EmailService {
 
     @Async
     public void sendAppointmentConfirmation(String to, String clientName, String dateTime, String lawyerName) {
-        String subject = "Xác nhận lịch hẹn - Văn Phòng Luật";
+        String subject = "Xác nhận lịch hẹn - ICRC Law";
         Map<String, Object> data = Map.of(
             "clientName", clientName,
             "dateTime", dateTime,
@@ -573,7 +573,7 @@ public class EmailService {
 
     @Async
     public void sendAppointmentReminder(String to, String clientName, String dateTime, String lawyerName) {
-        String subject = "Nhắc nhở lịch hẹn - Văn Phòng Luật";
+        String subject = "Nhắc nhở lịch hẹn - ICRC Law";
         Map<String, Object> data = Map.of(
             "clientName", clientName,
             "dateTime", dateTime,
@@ -585,7 +585,7 @@ public class EmailService {
     @Async
     public void sendLeadAssigned(String to, String userName, String leadName,
                                   String leadPhone, String leadEmail, String leadService, String leadMessage) {
-        String subject = "Lead mới được phân công - Văn Phòng Luật";
+        String subject = "Lead mới được phân công - ICRC Law";
         Map<String, Object> data = Map.of(
             "userName", userName,
             "leadName", leadName,
@@ -662,14 +662,14 @@ public class EmailTestController {
         try {
             emailService.sendEmail(
                 to,
-                "Test Email - Văn Phòng Luật",
+                "Test Email - ICRC Law",
                 """
-                    Đây là email test từ Văn Phòng Luật.
+                    Đây là email test từ ICRC Law.
 
                     Nếu bạn nhận được email này, cấu hình SMTP đã hoạt động!
 
                     Trân trọng,
-                    Văn Phòng Luật
+                    ICRC Law
                     """
             );
             return ResponseEntity.ok(Map.of("message", "Test email sent to: " + to));
@@ -731,7 +731,7 @@ INSERT INTO email_settings (key, value, description) VALUES
     ('smtp_username', '', 'SMTP username'),
     ('smtp_password_encrypted', '', 'Encrypted SMTP password'),
     ('mail_from_address', 'noreply@lawfirm.vn', 'Default from email address'),
-    ('mail_from_name', 'Văn Phòng Luật', 'Default from name'),
+    ('mail_from_name', 'ICRC Law', 'Default from name'),
     ('email_enabled', 'false', 'Enable/disable email sending');
 
 -- Email log table for audit trail
@@ -796,7 +796,7 @@ app:
   mail:
     enabled: true
     from-address: noreply@lawfirm.vn
-    from-name: Văn Phòng Luật (Dev)
+    from-name: ICRC Law (Dev)
 ```
 
 - [ ] **Step 3: Commit**

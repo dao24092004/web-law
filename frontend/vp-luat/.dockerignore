@@ -1,0 +1,19 @@
+# Dependencies and build artifacts
+node_modules/
+.next/
+out/
+storybook-static/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
+# VCS, IDE and test artifacts
+.git/
+.vscode/
+.idea/
+coverage/
+playwright-report/
+test-results/
+*.log

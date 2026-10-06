@@ -92,9 +92,9 @@ export const adminHandlers = [
   // Settings
   http.get(`${BASE}/api/admin/settings`, () =>
     HttpResponse.json({
-      siteName: 'VP Luật',
+      siteName: 'ICRC Law - Công ty Luật TNHH ICRC',
       hotline: '1900 1234',
-      email: 'contact@vpluat.vn',
+      email: 'contact@icrclaw.com',
       address: '123 Nguyễn Trãi, Quận 1, TP.HCM',
       workingHours: { start: '08:00', end: '18:00', daysOff: [] },
       slotDuration: 60,

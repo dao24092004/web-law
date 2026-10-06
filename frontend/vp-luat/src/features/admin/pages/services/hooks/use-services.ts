@@ -147,6 +147,8 @@ export function useServices(filter: ServiceFilter = {}) {
     params,
   );
 
+  // The API response is normalized once so the table and counters share the same objects.
+  // eslint-disable-next-line react-hooks/preserve-manual-memoization
   const services = useMemo(() => {
     return (data?.content ?? []).map(mapToService);
   }, [data?.content]);

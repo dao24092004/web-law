@@ -19,13 +19,13 @@ const bodyFont = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | VP Luật Hùng & Cộng sự',
-    default: 'VP Luật Hùng & Cộng sự - Tư vấn pháp lý chuyên nghiệp',
+    template: '%s | Công ty Luật TNHH ICRC',
+    default: 'Công ty Luật TNHH ICRC - Tư vấn pháp lý chuyên nghiệp',
   },
   description:
-    'Văn phòng Luật Hùng & Cộng sự - Dịch vụ tư vấn pháp lý chuyên nghiệp cho cá nhân và doanh nghiệp tại Việt Nam.',
+    'Công ty Luật TNHH ICRC - Dịch vụ tư vấn pháp lý chuyên nghiệp cho cá nhân và doanh nghiệp tại Việt Nam.',
   keywords: ['luật sư', 'tư vấn pháp lý', 'văn phòng luật', 'luật doanh nghiệp', 'luật dân sự'],
-  authors: [{ name: 'VP Luật Hùng & Cộng sự' }],
+  authors: [{ name: 'Công ty Luật TNHH ICRC' }],
   icons: {
     icon: '/favicon.ico',
   },

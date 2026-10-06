@@ -1,6 +1,6 @@
 # BRS Backend - Law Firm Backend Platform
 
-Backend RESTful API cho website Văn Phòng Luật, được xây dựng trên Java 21 và Spring Boot 3.3.
+Backend RESTful API cho website ICRC Law - Công ty Luật TNHH ICRC, được xây dựng trên Java 21 và Spring Boot 3.3.
 
 ## Tính Năng Chính
 
@@ -67,7 +67,7 @@ cp .env.example .env
 ```
 
 set PGPASSWORD=password
-psql -U postgres -h localhost -p 5433 -c "CREATE DATABASE brs_db;"
+psql -U postgres -h localhost -p 5434 -c "CREATE DATABASE brs_db;"
 
 ### Seed dữ liệu khởi tạo một lần
 
@@ -93,9 +93,8 @@ openssl rsa -in keys/jwt-private.pem -pubout -out keys/jwt-public.pem
 ### 4. Khởi Động Infrastructure (Database, Redis, RabbitMQ)
 
 ```bash
-cd docker
-docker-compose up -d postgres redis rabbitmq
-cd ..
+# Chạy từ thư mục brs-backend; Compose file nằm trong docker/
+docker compose -f docker/docker-compose.yml up -d postgres redis rabbitmq
 ```
 
 ### 5. Build Ứng Dụng
@@ -130,7 +129,7 @@ mvn test
 mvn clean package -DskipTests
 
 # Chạy với profile cụ thể
-mvn spring-boot:run -Dspring-boot.run.profiles=dev
+mvn spring-boot:run "-Dspring-boot.run.profiles=dev"
 ```
 
 ## API Documentation
@@ -154,7 +153,7 @@ Xem file `.env.example` để biết đầy đủ các biến môi trường.
 |----------|-------------|---------|
 | SPRING_PROFILES_ACTIVE | Profile (dev/prod) | dev |
 | DB_HOST | Database host | localhost |
-| DB_PORT | Database port | 5433 |
+| DB_PORT | Database port | 5434 |
 | DB_NAME | Database name | brs_dev |
 | DB_USER | Database user | postgres |
 | DB_PASSWORD | Database password | password |

@@ -187,7 +187,7 @@
     "terms": "Điều khoản sử dụng",
     "and": "và",
     "privacy": "Chính sách bảo mật",
-    "termsAgreementSuffix": "của VP Luật.",
+    "termsAgreementSuffix": "của ICRC Law.",
     "processing": "ĐANG XỬ LÝ...",
     "confirmBooking": "XÁC NHẬN ĐẶT LỊCH",
     "successTitle": "Đặt lịch thành công!",
@@ -200,9 +200,9 @@
     "addToCalendar": "Thêm vào Google Calendar",
     "newBooking": "Đặt lịch mới",
     "calendarTitle": "Tư vấn pháp lý",
-    "firmName": "VP Luật",
+    "firmName": "ICRC Law",
     "calendarDetails": "Buổi tư vấn với luật sư {lawyer}.\nMã đặt lịch: {bookingId}",
-    "calendarOffice": "Văn phòng VP Luật - Tầng 15, Landmark 72, Hà Nội",
+    "calendarOffice": "Văn phòng ICRC Law - Đường 381, Xã Nguyễn Văn Linh, Tỉnh Hưng Yên",
     "calendarVideo": "Google Meet (liên kết sẽ được gửi qua email)",
     "calendarPhone": "Trao đổi qua điện thoại"
   },
@@ -228,7 +228,7 @@
     "subjectError": "Tiêu đề phải có ít nhất 5 ký tự",
     "messageError": "Nội dung phải có ít nhất 20 ký tự",
     "termsError": "Bạn phải đồng ý điều khoản",
-    "termsAgreement": "Tôi đồng ý với điều khoản bảo mật và cho phép VP Luật liên hệ lại.",
+    "termsAgreement": "Tôi đồng ý với điều khoản bảo mật và cho phép ICRC Law liên hệ lại.",
     "successMessage": "Gửi liên hệ thành công! Chúng tôi sẽ phản hồi trong vòng 30 phút.",
     "errorMessage": "Đã có lỗi xảy ra. Vui lòng thử lại.",
     "submitting": "Đang gửi..."
@@ -245,7 +245,7 @@
     },
     "whyChooseUs": {
       "label": "Tại sao chọn chúng tôi",
-      "title": "Vì sao chọn VP Luật?",
+      "title": "Vì sao chọn ICRC Law?",
       "subtitle": "Chúng tôi cam kết mang đến dịch vụ pháp lý chất lượng cao nhất",
       "items": {
         "experience": { "title": "15+ năm kinh nghiệm", "desc": "Hơn 15 năm hoạt động trong lĩnh vực tư vấn pháp lý, chúng tôi đã xử lý hàng nghìn vụ việc đa dạng." },
@@ -275,23 +275,23 @@
       "subtitle": "Giải đáp những thắc mắc phổ biến của khách hàng về dịch vụ",
       "loading": "Đang tải câu hỏi thường gặp...",
       "items": [
-        { "question": "Tôi cần chuẩn bị những gì khi đến tư vấn lần đầu?", "answer": "Khi đến tư vấn lần đầu, bạn nên mang theo các giấy tờ liên quan đến vụ việc như hợp đồng, quyết định, thông báo từ cơ quan nhà nước, ảnh chụp hiện trường (nếu có), và ghi chép lại các sự kiện theo thứ tự thời gian. Đội ngũ VP Luật sẽ hướng dẫn chi tiết qua điện thoại trước buổi tư vấn." },
-        { "question": "Chi phí tư vấn pháp lý được tính như thế nào?", "answer": "VP Luật cung cấp buổi tư vấn đầu tiên miễn phí 15 phút. Các buổi tư vấn tiếp theo và dịch vụ pháp lý có mức phí linh hoạt tùy theo loại vụ việc, độ phức tạp và thời gian thực hiện. Chúng tôi cam kết báo giá minh bạch trước khi thực hiện công việc." },
-        { "question": "VP Luật có hỗ trợ khách hàng ở nước ngoài không?", "answer": "Có, chúng tôi hỗ trợ khách hàng qua các kênh trực tuyến như video call, email và điện thoại quốc tế. Đội ngũ luật sư có thể gặp trực tiếp tại văn phòng hoặc theo yêu cầu của khách hàng tại các địa điểm thuận tiện." },
+        { "question": "Tôi cần chuẩn bị những gì khi đến tư vấn lần đầu?", "answer": "Khi đến tư vấn lần đầu, bạn nên mang theo các giấy tờ liên quan đến vụ việc như hợp đồng, quyết định, thông báo từ cơ quan nhà nước, ảnh chụp hiện trường (nếu có), và ghi chép lại các sự kiện theo thứ tự thời gian. Đội ngũ ICRC Law sẽ hướng dẫn chi tiết qua điện thoại trước buổi tư vấn." },
+        { "question": "Chi phí tư vấn pháp lý được tính như thế nào?", "answer": "ICRC Law cung cấp buổi tư vấn đầu tiên miễn phí 15 phút. Các buổi tư vấn tiếp theo và dịch vụ pháp lý có mức phí linh hoạt tùy theo loại vụ việc, độ phức tạp và thời gian thực hiện. Chúng tôi cam kết báo giá minh bạch trước khi thực hiện công việc." },
+        { "question": "ICRC Law có hỗ trợ khách hàng ở nước ngoài không?", "answer": "Có, chúng tôi hỗ trợ khách hàng qua các kênh trực tuyến như video call, email và điện thoại quốc tế. Đội ngũ luật sư có thể gặp trực tiếp tại văn phòng hoặc theo yêu cầu của khách hàng tại các địa điểm thuận tiện." },
         { "question": "Thời gian giải quyết một vụ việc thường kéo dài bao lâu?", "answer": "Thời gian giải quyết phụ thuộc vào loại vụ việc và độ phức tạp. Các vụ đơn giản có thể giải quyết trong 1-3 tháng. Các vụ phức tạp như tranh chấp đất đai, M&A có thể kéo dài 6-12 tháng hoặc hơn. Chúng tôi sẽ ước tính thời gian cụ thể sau khi nghiên cứu hồ sơ." },
-        { "question": "VP Luật có cam kết bảo mật thông tin khách hàng không?", "answer": "Hoàn toàn có. Tất cả thông tin của khách hàng được bảo mật theo quy định của pháp luật và đạo đức nghề nghiệp luật sư. Chúng tôi chỉ sử dụng thông tin để phục vụ công việc tư vấn và không tiết lộ cho bên thứ ba khi chưa có sự đồng ý của khách hàng." },
-        { "question": "Tôi có thể thanh toán phí dịch vụ bằng cách nào?", "answer": "VP Luật chấp nhận thanh toán qua chuyển khoản ngân hàng, tiền mặt tại văn phòng, và các phương thức thanh toán điện tử phổ biến. Đối với các vụ việc lớn, chúng tôi có chính sách thanh toán theo giai đoạn để giảm áp lực tài chính cho khách hàng." }
+        { "question": "ICRC Law có cam kết bảo mật thông tin khách hàng không?", "answer": "Hoàn toàn có. Tất cả thông tin của khách hàng được bảo mật theo quy định của pháp luật và đạo đức nghề nghiệp luật sư. Chúng tôi chỉ sử dụng thông tin để phục vụ công việc tư vấn và không tiết lộ cho bên thứ ba khi chưa có sự đồng ý của khách hàng." },
+        { "question": "Tôi có thể thanh toán phí dịch vụ bằng cách nào?", "answer": "ICRC Law chấp nhận thanh toán qua chuyển khoản ngân hàng, tiền mặt tại văn phòng, và các phương thức thanh toán điện tử phổ biến. Đối với các vụ việc lớn, chúng tôi có chính sách thanh toán theo giai đoạn để giảm áp lực tài chính cho khách hàng." }
       ]
     },
     "lawyers": { "label": "Đội ngũ", "title": "Luật sư chuyên nghiệp", "subtitle": "Đội ngũ luật sư giàu kinh nghiệm, tận tâm với khách hàng", "empty": "Đang cập nhật...", "loading": "Đang tải đội ngũ luật sư...", "specialty": "Chuyên môn", "experience": "năm kinh nghiệm", "viewProfile": "Xem hồ sơ", "facebookOf": "Facebook của {name}", "linkedinOf": "LinkedIn của {name}" },
     "contact": {
-      "label": "Liên hệ nhanh", "title": "Đặt lịch tư vấn ngay", "subtitle": "Điền thông tin, chúng tôi sẽ liên hệ lại trong 30 phút", "requestTitle": "Yêu cầu tư vấn", "requestSubtitle": "Tư vấn miễn phí lần đầu · Phản hồi trong 30 phút", "success": "Yêu cầu của bạn đã được gửi. Chúng tôi sẽ liên hệ lại trong vòng 30 phút.", "namePlaceholder": "Nhập họ và tên của bạn", "servicePlaceholder": "-- Chọn lĩnh vực cần tư vấn --", "serviceLabel": "Lĩnh vực pháp lý", "submit": "Gửi yêu cầu tư vấn", "submitting": "Đang gửi...", "nameError": "Họ tên phải có ít nhất 2 ký tự", "phoneError": "Số điện thoại không hợp lệ", "serviceError": "Vui lòng chọn lĩnh vực", "officeTitle": "Thông tin văn phòng", "address": "Địa chỉ", "hours": "Giờ làm việc", "workingHours": "Thứ 2 – Thứ 6: 8:00 – 18:00\nThứ 7: 8:00 – 12:00", "officeAddress": "Tầng 15, Tòa nhà Landmark 72, Phạm Hùng, Nam Từ Liêm, Hà Nội", "email": "Email", "hotline": "Hotline", "zalo": "Chat Zalo ngay", "call": "Gọi 1900 1234", "successToast": "Đã gửi yêu cầu! Chúng tôi sẽ liên hệ lại trong 30 phút.", "errorToast": "Không thể gửi yêu cầu. Vui lòng thử lại hoặc gọi hotline 1900 1234.", "requestSubject": "Yêu cầu tư vấn: {service}", "requestMessage": "Khách hàng quan tâm đến {service}. Vui lòng liên hệ trong vòng 30 phút."
+      "label": "Liên hệ nhanh", "title": "Đặt lịch tư vấn ngay", "subtitle": "Điền thông tin, chúng tôi sẽ liên hệ lại trong 30 phút", "requestTitle": "Yêu cầu tư vấn", "requestSubtitle": "Tư vấn miễn phí lần đầu · Phản hồi trong 30 phút", "success": "Yêu cầu của bạn đã được gửi. Chúng tôi sẽ liên hệ lại trong vòng 30 phút.", "namePlaceholder": "Nhập họ và tên của bạn", "servicePlaceholder": "-- Chọn lĩnh vực cần tư vấn --", "serviceLabel": "Lĩnh vực pháp lý", "submit": "Gửi yêu cầu tư vấn", "submitting": "Đang gửi...", "nameError": "Họ tên phải có ít nhất 2 ký tự", "phoneError": "Số điện thoại không hợp lệ", "serviceError": "Vui lòng chọn lĩnh vực", "officeTitle": "Thông tin văn phòng", "address": "Địa chỉ", "hours": "Giờ làm việc", "workingHours": "Thứ 2 – Thứ 6: 8:00 – 18:00\nThứ 7: 8:00 – 12:00", "officeAddress": "Đường 381, Xã Nguyễn Văn Linh, Tỉnh Hưng Yên", "email": "Email", "hotline": "Hotline", "zalo": "Chat Zalo ngay", "call": "Gọi 0969 967 389 - 0975 967 364", "successToast": "Đã gửi yêu cầu! Chúng tôi sẽ liên hệ lại trong 30 phút.", "errorToast": "Không thể gửi yêu cầu. Vui lòng thử lại hoặc gọi hotline 0969 967 389 - 0975 967 364.", "requestSubject": "Yêu cầu tư vấn: {service}", "requestMessage": "Khách hàng quan tâm đến {service}. Vui lòng liên hệ trong vòng 30 phút."
     }
   },
   "contactPage": {
-    "info": { "address": "Văn phòng chính", "addressSub": "Tầng 8, Tòa nhà VP Luật", "phone": "Hotline 24/7", "phoneSub": "Miễn phí tư vấn lần đầu", "emailSub": "Phản hồi trong vòng 30 phút", "hours": "Giờ làm việc", "hoursValue": "T2 - T7: 8:00 - 18:00", "hoursSub": "Ngoài giờ: Hỗ trợ qua hotline" },
+    "info": { "address": "Văn phòng chính", "addressSub": "Tầng 8, Tòa nhà ICRC Law", "phone": "Hotline 24/7", "phoneSub": "Miễn phí tư vấn lần đầu", "emailSub": "Phản hồi trong vòng 30 phút", "hours": "Giờ làm việc", "hoursValue": "T2 - T7: 8:00 - 18:00", "hoursSub": "Ngoài giờ: Hỗ trợ qua hotline" },
     "quick": { "call": "Gọi ngay" },
-    "faq": { "label": "Câu hỏi thường gặp", "title": "Giải đáp nhanh", "items": { "1": { "question": "Tôi có thể được tư vấn miễn phí không?", "answer": "Có. Chúng tôi cung cấp buổi tư vấn đầu tiên hoàn toàn miễn phí trong 30 phút. Bạn có thể đến trực tiếp văn phòng, gọi điện, hoặc trao đổi qua video call." }, "2": { "question": "Thời gian phản hồi email là bao lâu?", "answer": "Chúng tôi cam kết phản hồi email trong vòng 30 phút trong giờ làm việc và trong vòng 4 giờ ngoài giờ. Với các trường hợp khẩn cấp, vui lòng gọi hotline 1900 1234." }, "3": { "question": "VP Luật có hỗ trợ làm việc ngoài giờ không?", "answer": "Có. Hotline 1900 1234 hoạt động 24/7 để hỗ trợ các trường hợp khẩn cấp. Đội ngũ luật sư sẵn sàng hỗ trợ bạn bất kỳ lúc nào." }, "4": { "question": "Có thể đến văn phòng mà không cần hẹn trước không?", "answer": "Chúng tôi khuyến khích bạn đặt lịch trước để được phục vụ tốt nhất. Tuy nhiên, bạn vẫn có thể đến trực tiếp và lễ tân sẽ hỗ trợ sắp xếp." } } },
+    "faq": { "label": "Câu hỏi thường gặp", "title": "Giải đáp nhanh", "items": { "1": { "question": "Tôi có thể được tư vấn miễn phí không?", "answer": "Có. Chúng tôi cung cấp buổi tư vấn đầu tiên hoàn toàn miễn phí trong 30 phút. Bạn có thể đến trực tiếp văn phòng, gọi điện, hoặc trao đổi qua video call." }, "2": { "question": "Thời gian phản hồi email là bao lâu?", "answer": "Chúng tôi cam kết phản hồi email trong vòng 30 phút trong giờ làm việc và trong vòng 4 giờ ngoài giờ. Với các trường hợp khẩn cấp, vui lòng gọi hotline 0969 967 389 - 0975 967 364." }, "3": { "question": "ICRC Law có hỗ trợ làm việc ngoài giờ không?", "answer": "Có. Hotline 0969 967 389 - 0975 967 364 hoạt động 24/7 để hỗ trợ các trường hợp khẩn cấp. Đội ngũ luật sư sẵn sàng hỗ trợ bạn bất kỳ lúc nào." }, "4": { "question": "Có thể đến văn phòng mà không cần hẹn trước không?", "answer": "Chúng tôi khuyến khích bạn đặt lịch trước để được phục vụ tốt nhất. Tuy nhiên, bạn vẫn có thể đến trực tiếp và lễ tân sẽ hỗ trợ sắp xếp." } } },
     "offices": { "label": "Văn phòng", "title": "Hệ thống 3 chi nhánh", "mainBadge": "Trụ sở chính", "workingHours": "T2 - T7: 8:00 - 18:00", "workingHoursShort": "T2 - T7: 8:00 - 17:30", "follow": "Theo dõi chúng tôi" }
   },
   "public": {
@@ -336,7 +336,7 @@
           { "title": "Bàn giao & Hỗ trợ", "description": "Bàn giao kết quả, hỗ trợ sau dịch vụ và giải đáp các thắc mắc phát sinh trong tương lai." }
         ]
       },
-      "cta": { "eyebrow": "Sẵn sàng bắt đầu?", "title": "Đặt lịch tư vấn", "highlight": "miễn phí", "titleSuffix": "ngay hôm nay", "subtitle": "Đội ngũ luật sư giàu kinh nghiệm của chúng tôi sẵn sàng hỗ trợ bạn giải quyết mọi vấn đề pháp lý. Buổi tư vấn đầu tiên hoàn toàn miễn phí.", "book": "Đặt lịch tư vấn", "call": "Gọi 1900 1234" },
+      "cta": { "eyebrow": "Sẵn sàng bắt đầu?", "title": "Đặt lịch tư vấn", "highlight": "miễn phí", "titleSuffix": "ngay hôm nay", "subtitle": "Đội ngũ luật sư giàu kinh nghiệm của chúng tôi sẵn sàng hỗ trợ bạn giải quyết mọi vấn đề pháp lý. Buổi tư vấn đầu tiên hoàn toàn miễn phí.", "book": "Đặt lịch tư vấn", "call": "Gọi 0969 967 389 - 0975 967 364" },
       "faq": {
         "label": "Câu hỏi thường gặp",
         "title": "Giải đáp thắc mắc",
@@ -344,7 +344,7 @@
         "items": [
           { "id": "1", "question": "Phí tư vấn ban đầu có miễn phí không?", "answer": "Có. Chúng tôi cung cấp buổi tư vấn đầu tiên hoàn toàn miễn phí trong 30 phút." },
           { "id": "2", "question": "Thời gian xử lý một vụ việc trung bình bao lâu?", "answer": "Tùy thuộc vào tính chất và độ phức tạp của vụ việc. Chúng tôi sẽ thông báo rõ thời gian dự kiến sau khi tiếp nhận hồ sơ." },
-          { "id": "3", "question": "Làm thế nào để đặt lịch tư vấn?", "answer": "Bạn có thể đặt lịch qua website, gọi hotline 1900 1234 hoặc nhắn tin qua Zalo. Chúng tôi sẽ liên hệ trong vòng 30 phút." },
+          { "id": "3", "question": "Làm thế nào để đặt lịch tư vấn?", "answer": "Bạn có thể đặt lịch qua website, gọi hotline 0969 967 389 - 0975 967 364 hoặc nhắn tin qua Zalo. Chúng tôi sẽ liên hệ trong vòng 30 phút." },
           { "id": "4", "question": "Bảo mật thông tin khách hàng được đảm bảo như thế nào?", "answer": "Mọi thông tin khách hàng đều được bảo mật tuyệt đối theo quy định pháp luật và quy tắc nghề nghiệp luật sư." },
           { "id": "5", "question": "Có hỗ trợ trực tuyến qua video call không?", "answer": "Có. Chúng tôi cung cấp dịch vụ tư vấn trực tuyến qua Google Meet, Zoom hoặc Microsoft Teams." },
           { "id": "6", "question": "Phí dịch vụ được thanh toán như thế nào?", "answer": "Phí dịch vụ được thanh toán theo tiến độ công việc bằng chuyển khoản, thẻ tín dụng hoặc tiền mặt tại văn phòng." }
@@ -352,7 +352,7 @@
       }
     },
     "news": {
-      "hero": { "eyebrow": "Tin tức & Kiến thức pháp luật", "title": "Cập nhật pháp luật mới nhất", "highlight": "pháp luật", "subtitle": "Tin tức, nghị định, blog chuyên môn và hướng dẫn thủ tục pháp lý từ đội ngũ luật sư VP Luật." },
+      "hero": { "eyebrow": "Tin tức & Kiến thức pháp luật", "title": "Cập nhật pháp luật mới nhất", "highlight": "pháp luật", "subtitle": "Tin tức, nghị định, blog chuyên môn và hướng dẫn thủ tục pháp lý từ đội ngũ luật sư ICRC Law." },
       "breadcrumb": { "home": "Trang chủ", "current": "Tin tức" },
       "searchPlaceholder": "Tìm kiếm bài viết, nghị định, thủ tục...",
       "searchLabel": "Tìm kiếm bài viết",
@@ -400,7 +400,7 @@
     "newMessages": "{count} tin nhắn mới",
     "openChat": "Mở chatbot",
     "closeChat": "Đóng chatbot",
-    "greetingHtml": "<div style=\"margin-bottom:8px;line-height:1.5\">Xin chào! Tôi là <strong>Trợ Lý Pháp Lý</strong> của VP Luật Hùng & Cộng sự.<br>Tôi có thể hỗ trợ bạn tìm hiểu thông tin pháp luật sơ bộ.</div><div style=\"margin-top:8px;padding:8px 10px;background:#FEF2F2;border-radius:6px;font-size:0.78rem;color:#DC2626;border-left:3px solid #DC2626\"><i class=\"fa-solid fa-triangle-exclamation\" style=\"margin-right:4px\"></i>Lưu ý: Thông tin mang tính tham khảo, không thay thế tư vấn chuyên nghiệp.</div>",
+    "greetingHtml": "<div style=\"margin-bottom:8px;line-height:1.5\">Xin chào! Tôi là <strong>Trợ Lý Pháp Lý</strong> của Công ty Luật TNHH ICRC.<br>Tôi có thể hỗ trợ bạn tìm hiểu thông tin pháp luật sơ bộ.</div><div style=\"margin-top:8px;padding:8px 10px;background:#FEF2F2;border-radius:6px;font-size:0.78rem;color:#DC2626;border-left:3px solid #DC2626\"><i class=\"fa-solid fa-triangle-exclamation\" style=\"margin-right:4px\"></i>Lưu ý: Thông tin mang tính tham khảo, không thay thế tư vấn chuyên nghiệp.</div>",
     "disclaimer": "Thông tin mang tính tham khảo, không thay thế tư vấn chuyên nghiệp.",
     "servicePrompt": "Bạn cần hỗ trợ về lĩnh vực nào?",
     "businessReplyHtml": "<div style=\"margin-bottom:8px\">Về <strong>Luật Doanh Nghiệp</strong>, tôi có thể hỗ trợ bạn tìm hiểu về:</div><ul style=\"margin:6px 0 8px;padding-left:16px\"><li>Thành lập &amp; đăng ký kinh doanh</li><li>Soạn thảo &amp; rà soát hợp đồng</li><li>Giải quyết tranh chấp thương mại</li><li>M&amp;A và tái cơ cấu doanh nghiệp</li></ul>Bạn đang quan tâm đến vấn đề cụ thể nào?",
@@ -435,5 +435,5 @@
   "reviews": {
     "label": "Đánh giá", "title": "Khách Hàng Nói Gì Về Chúng Tôi", "subtitle": "Những đánh giá chân thực từ khách hàng đã sử dụng dịch vụ", "loading": "Đang tải đánh giá...", "error": "Không thể tải đánh giá. Vui lòng thử lại sau.", "empty": "Chưa có đánh giá nào từ khách hàng. Hãy là người đầu tiên chia sẻ trải nghiệm của bạn.", "customer": "Khách hàng", "serviceCustomer": "Khách hàng {service}", "previous": "Đánh giá trước", "next": "Đánh giá tiếp theo", "item": "Đánh giá {number}"
   },
-  "footer": { "brandName": "VP Luật Hùng & Cộng sự", "services":  "Dịch vụ", "service1": "Thành lập doanh nghiệp", "service2": "Tư vấn hợp đồng", "service3": "Ly hôn và Gia đình", "service4": "Tranh chấp đất đai", "service5": "Đăng ký nhãn hiệu", "company": "Công ty", "contact": "Liên hệ", "allServices": "Xem tất cả dịch vụ", "lawyers": "Đội ngũ luật sư", "news": "Tin tức và Blog", "booking": "Đặt lịch tư vấn", "privacy": "Chính sách bảo mật", "terms": "Điều khoản sử dụng", "copyright": "Giữ bản quyền", "description": "Đoàn luật sư hàng đầu Việt Nam với hơn 15 năm kinh nghiệm tư vấn pháp lý cho cá nhân và doanh nghiệp. Cam kết bảo vệ quyền lợi hợp pháp của khách hàng.", "address": "Tầng 15, Tòa nhà Landmark 72, Phạm Hùng, Nam Từ Liêm, Hà Nội", "hotline": "1900 1234", "email": "contact@vuplat.vn" }
+  "footer": { "brandName": "Công ty Luật TNHH ICRC", "services":  "Dịch vụ", "service1": "Thành lập doanh nghiệp", "service2": "Tư vấn hợp đồng", "service3": "Ly hôn và Gia đình", "service4": "Tranh chấp đất đai", "service5": "Đăng ký nhãn hiệu", "company": "Công ty", "contact": "Liên hệ", "allServices": "Xem tất cả dịch vụ", "lawyers": "Đội ngũ luật sư", "news": "Tin tức và Blog", "booking": "Đặt lịch tư vấn", "privacy": "Chính sách bảo mật", "terms": "Điều khoản sử dụng", "copyright": "Giữ bản quyền", "description": "Đoàn luật sư hàng đầu Việt Nam với hơn 15 năm kinh nghiệm tư vấn pháp lý cho cá nhân và doanh nghiệp. Cam kết bảo vệ quyền lợi hợp pháp của khách hàng.", "address": "Đường 381, Xã Nguyễn Văn Linh, Tỉnh Hưng Yên", "hotline": "0969 967 389 - 0975 967 364", "email": "contact@icrclaw.com" }
 }

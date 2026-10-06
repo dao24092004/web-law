@@ -14,7 +14,7 @@ export function BookingMiniNav() {
             <Scale className="h-4 w-4" />
           </div>
           <span className="font-heading text-[0.95rem] font-bold text-white max-[480px]:hidden">
-            VP Luật Hùng & Cộng sự
+            ICRC Law
           </span>
         </div>
         <a

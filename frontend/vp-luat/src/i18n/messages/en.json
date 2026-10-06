@@ -187,7 +187,7 @@
     "terms": "Terms of use",
     "and": "and",
     "privacy": "Privacy policy",
-    "termsAgreementSuffix": "of VP Luật.",
+    "termsAgreementSuffix": "of ICRC Law.",
     "processing": "PROCESSING...",
     "confirmBooking": "CONFIRM BOOKING",
     "successTitle": "Booking successful!",
@@ -200,9 +200,9 @@
     "addToCalendar": "Add to Google Calendar",
     "newBooking": "Book another consultation",
     "calendarTitle": "Legal consultation",
-    "firmName": "VP Luật",
+    "firmName": "ICRC Law",
     "calendarDetails": "Consultation with lawyer {lawyer}.\nBooking code: {bookingId}",
-    "calendarOffice": "VP Luật office - 15th Floor, Landmark 72, Hanoi",
+    "calendarOffice": "ICRC Law office - 381 Street, Nguyen Van Linh Commune, Hung Yen Province",
     "calendarVideo": "Google Meet (link will be sent by email)",
     "calendarPhone": "Phone consultation"
   },
@@ -228,14 +228,14 @@
     "subjectError": "Subject must contain at least 5 characters",
     "messageError": "Message must contain at least 20 characters",
     "termsError": "You must agree to the terms",
-    "termsAgreement": "I agree to the privacy terms and allow VP Luật to contact me.",
+    "termsAgreement": "I agree to the privacy terms and allow ICRC Law to contact me.",
     "successMessage": "Your message was sent successfully. We will respond within 30 minutes.",
     "errorMessage": "Something went wrong. Please try again.",
     "submitting": "Sending..."
   },
   "homeSections": {
     "services": { "label": "Services", "title": "Comprehensive legal solutions", "subtitle": "We provide a wide range of legal services for individuals and businesses", "loading": "Loading featured services...", "empty": "Services are being updated...", "defaultDescription": "Professional and dedicated legal advice", "learnMore": "Learn more" },
-    "whyChooseUs": { "label": "Why choose us", "title": "Why choose VP Luật?", "subtitle": "We are committed to delivering the highest quality legal services", "items": {
+    "whyChooseUs": { "label": "Why choose us", "title": "Why choose ICRC Law?", "subtitle": "We are committed to delivering the highest quality legal services", "items": {
       "experience": { "title": "15+ years of experience", "desc": "With more than 15 years in legal consulting, we have handled thousands of diverse cases." },
       "professional": { "title": "Professional team", "desc": "50+ highly qualified lawyers, including many legal masters and doctors from leading universities." },
       "support": { "title": "24/7 support", "desc": "Our consultants are ready to support clients anytime, anywhere through multiple channels." },
@@ -250,19 +250,19 @@
     ] },
     "faq": { "label": "FAQ", "title": "Frequently asked questions", "subtitle": "Answers to common questions about our services", "loading": "Loading frequently asked questions...", "items": [
       { "question": "What should I prepare for my first consultation?", "answer": "Bring documents related to your matter, such as contracts, decisions, notices from authorities, photos of the site if relevant, and a timeline of events. Our team will also guide you by phone before the consultation." },
-      { "question": "How are legal consultation fees calculated?", "answer": "VP Luật offers a free 15-minute initial consultation. Further consultations and legal services are priced flexibly based on the matter, complexity, and time required. We provide transparent quotes before starting work." },
+      { "question": "How are legal consultation fees calculated?", "answer": "ICRC Law offers a free 15-minute initial consultation. Further consultations and legal services are priced flexibly based on the matter, complexity, and time required. We provide transparent quotes before starting work." },
       { "question": "Do you support clients overseas?", "answer": "Yes. We support clients through video calls, email, and international phone calls. Lawyers can meet at our office or another convenient location by request." },
       { "question": "How long does a case usually take?", "answer": "The timeline depends on the type and complexity of the matter. Simple cases may take 1-3 months, while complex disputes or M&A matters may take 6-12 months or longer. We provide an estimate after reviewing your documents." },
       { "question": "Do you keep client information confidential?", "answer": "Absolutely. Client information is protected under applicable law and professional ethics. We use it only for the consultation and do not disclose it to third parties without consent." },
       { "question": "How can I pay for legal services?", "answer": "We accept bank transfers, cash at the office, and common electronic payment methods. For larger matters, staged payment plans may be available." }
     ] },
     "lawyers": { "label": "Our team", "title": "Professional lawyers", "subtitle": "An experienced and dedicated legal team", "empty": "Content is being updated...", "loading": "Loading our lawyers...", "specialty": "Specialty", "experience": "years of experience", "viewProfile": "View profile", "facebookOf": "Facebook of {name}", "linkedinOf": "LinkedIn of {name}" },
-    "contact": { "label": "Quick contact", "title": "Book a consultation now", "subtitle": "Send us your details and we will call you back within 30 minutes", "requestTitle": "Consultation request", "requestSubtitle": "Free initial consultation · Reply within 30 minutes", "success": "Your request has been sent. We will contact you within 30 minutes.", "namePlaceholder": "Enter your full name", "servicePlaceholder": "-- Select an area of law --", "serviceLabel": "Area of law", "submit": "Send consultation request", "submitting": "Sending...", "nameError": "Name must contain at least 2 characters", "phoneError": "Invalid phone number", "serviceError": "Please select an area of law", "officeTitle": "Office information", "address": "Address", "hours": "Working hours", "workingHours": "Mon – Fri: 8:00 – 18:00\nSat: 8:00 – 12:00", "officeAddress": "15th Floor, Landmark 72, Pham Hung, Nam Tu Liem, Hanoi", "email": "Email", "hotline": "Hotline", "zalo": "Chat on Zalo", "call": "Call 1900 1234", "successToast": "Request sent. We will contact you within 30 minutes.", "errorToast": "Could not send your request. Please try again or call 1900 1234.", "requestSubject": "Consultation request: {service}", "requestMessage": "Client is interested in {service}. Please contact them within 30 minutes." }
+    "contact": { "label": "Quick contact", "title": "Book a consultation now", "subtitle": "Send us your details and we will call you back within 30 minutes", "requestTitle": "Consultation request", "requestSubtitle": "Free initial consultation · Reply within 30 minutes", "success": "Your request has been sent. We will contact you within 30 minutes.", "namePlaceholder": "Enter your full name", "servicePlaceholder": "-- Select an area of law --", "serviceLabel": "Area of law", "submit": "Send consultation request", "submitting": "Sending...", "nameError": "Name must contain at least 2 characters", "phoneError": "Invalid phone number", "serviceError": "Please select an area of law", "officeTitle": "Office information", "address": "Address", "hours": "Working hours", "workingHours": "Mon – Fri: 8:00 – 18:00\nSat: 8:00 – 12:00", "officeAddress": "381 Street, Nguyen Van Linh Commune, Hung Yen Province", "email": "Email", "hotline": "Hotline", "zalo": "Chat on Zalo", "call": "Call 0969 967 389 - 0975 967 364", "successToast": "Request sent. We will contact you within 30 minutes.", "errorToast": "Could not send your request. Please try again or call 0969 967 389 - 0975 967 364.", "requestSubject": "Consultation request: {service}", "requestMessage": "Client is interested in {service}. Please contact them within 30 minutes." }
   },
   "contactPage": {
-    "info": { "address": "Main office", "addressSub": "8th Floor, VP Luật Building", "phone": "24/7 Hotline", "phoneSub": "Free initial consultation", "emailSub": "Reply within 30 minutes", "hours": "Working hours", "hoursValue": "Mon - Sat: 8:00 - 18:00", "hoursSub": "After hours: Hotline support" },
+    "info": { "address": "Main office", "addressSub": "8th Floor, ICRC Law Building", "phone": "24/7 Hotline", "phoneSub": "Free initial consultation", "emailSub": "Reply within 30 minutes", "hours": "Working hours", "hoursValue": "Mon - Sat: 8:00 - 18:00", "hoursSub": "After hours: Hotline support" },
     "quick": { "call": "Call now" },
-    "faq": { "label": "Frequently asked questions", "title": "Quick answers", "items": { "1": { "question": "Can I receive a free consultation?", "answer": "Yes. We offer a completely free 30-minute initial consultation. You can visit our office, call us, or speak with a lawyer by video call." }, "2": { "question": "How long does an email response take?", "answer": "We reply to emails within 30 minutes during working hours and within 4 hours outside working hours. For urgent matters, please call 1900 1234." }, "3": { "question": "Does VP Luật offer after-hours support?", "answer": "Yes. Hotline 1900 1234 operates 24/7 for urgent matters. Our lawyers are ready to support you whenever you need us." }, "4": { "question": "Can I visit the office without an appointment?", "answer": "We recommend booking in advance for the best service. However, you may still visit directly and our reception team will help arrange support." } } },
+    "faq": { "label": "Frequently asked questions", "title": "Quick answers", "items": { "1": { "question": "Can I receive a free consultation?", "answer": "Yes. We offer a completely free 30-minute initial consultation. You can visit our office, call us, or speak with a lawyer by video call." }, "2": { "question": "How long does an email response take?", "answer": "We reply to emails within 30 minutes during working hours and within 4 hours outside working hours. For urgent matters, please call 0969 967 389 - 0975 967 364." }, "3": { "question": "Does ICRC Law offer after-hours support?", "answer": "Yes. Hotline 0969 967 389 - 0975 967 364 operates 24/7 for urgent matters. Our lawyers are ready to support you whenever you need us." }, "4": { "question": "Can I visit the office without an appointment?", "answer": "We recommend booking in advance for the best service. However, you may still visit directly and our reception team will help arrange support." } } },
     "offices": { "label": "Our offices", "title": "Three office locations", "mainBadge": "Head office", "workingHours": "Mon - Sat: 8:00 - 18:00", "workingHoursShort": "Mon - Sat: 8:00 - 17:30", "follow": "Follow us" }
   },
   "public": {
@@ -307,7 +307,7 @@
           { "title": "Handover and support", "description": "We deliver the results, provide post-service support, and answer any follow-up questions." }
         ]
       },
-      "cta": { "eyebrow": "Ready to get started?", "title": "Book a", "highlight": "free", "titleSuffix": "consultation today", "subtitle": "Our experienced lawyers are ready to help resolve your legal matters. Your first consultation is completely free.", "book": "Book a consultation", "call": "Call 1900 1234" },
+      "cta": { "eyebrow": "Ready to get started?", "title": "Book a", "highlight": "free", "titleSuffix": "consultation today", "subtitle": "Our experienced lawyers are ready to help resolve your legal matters. Your first consultation is completely free.", "book": "Book a consultation", "call": "Call 0969 967 389 - 0975 967 364" },
       "faq": {
         "label": "Frequently asked questions",
         "title": "Answers to your questions",
@@ -315,7 +315,7 @@
         "items": [
           { "id": "1", "question": "Is the initial consultation free?", "answer": "Yes. We provide a completely free 30-minute initial consultation." },
           { "id": "2", "question": "How long does an average matter take?", "answer": "It depends on the nature and complexity of the matter. We will provide a clear estimate after reviewing your documents." },
-          { "id": "3", "question": "How can I book a consultation?", "answer": "You can book through the website, call 1900 1234, or message us on Zalo. We will contact you within 30 minutes." },
+          { "id": "3", "question": "How can I book a consultation?", "answer": "You can book through the website, call 0969 967 389 - 0975 967 364, or message us on Zalo. We will contact you within 30 minutes." },
           { "id": "4", "question": "How is client confidentiality protected?", "answer": "All client information is strictly confidential under applicable law and legal professional ethics." },
           { "id": "5", "question": "Do you offer video consultations?", "answer": "Yes. We offer online consultations through Google Meet, Zoom, or Microsoft Teams." },
           { "id": "6", "question": "How are service fees paid?", "answer": "Fees are paid according to the work schedule by bank transfer, credit card, or cash at our office." }
@@ -323,7 +323,7 @@
       }
     },
     "news": {
-      "hero": { "eyebrow": "Legal news & insights", "title": "Stay current with legal updates", "highlight": "legal updates", "subtitle": "News, decrees, expert articles, and legal procedure guides from the VP Luật team." },
+      "hero": { "eyebrow": "Legal news & insights", "title": "Stay current with legal updates", "highlight": "legal updates", "subtitle": "News, decrees, expert articles, and legal procedure guides from the ICRC Law team." },
       "breadcrumb": { "home": "Home", "current": "News" },
       "searchPlaceholder": "Search articles, decrees, procedures...",
       "searchLabel": "Search articles",
@@ -370,7 +370,7 @@
     "newMessages": "{count} new messages",
     "openChat": "Open chatbot",
     "closeChat": "Close chatbot",
-    "greetingHtml": "<div style=\"margin-bottom:8px;line-height:1.5\">Hello! I am the <strong>Legal Assistant</strong> at VP Luật Hùng & Associates.<br>I can help you understand basic legal information.</div><div style=\"margin-top:8px;padding:8px 10px;background:#FEF2F2;border-radius:6px;font-size:0.78rem;color:#DC2626;border-left:3px solid #DC2626\"><i class=\"fa-solid fa-triangle-exclamation\" style=\"margin-right:4px\"></i>Please note: This information is for reference only and does not replace professional advice.</div>",
+    "greetingHtml": "<div style=\"margin-bottom:8px;line-height:1.5\">Hello! I am the <strong>Legal Assistant</strong> at ICRC Law Company Limited.<br>I can help you understand basic legal information.</div><div style=\"margin-top:8px;padding:8px 10px;background:#FEF2F2;border-radius:6px;font-size:0.78rem;color:#DC2626;border-left:3px solid #DC2626\"><i class=\"fa-solid fa-triangle-exclamation\" style=\"margin-right:4px\"></i>Please note: This information is for reference only and does not replace professional advice.</div>",
     "disclaimer": "This information is for reference only and does not replace professional advice.",
     "servicePrompt": "What area do you need help with?",
     "businessReplyHtml": "<div style=\"margin-bottom:8px\">For <strong>Corporate Law</strong>, I can help you learn about:</div><ul style=\"margin:6px 0 8px;padding-left:16px\"><li>Business formation and registration</li><li>Contract drafting and review</li><li>Commercial dispute resolution</li><li>M&amp;A and corporate restructuring</li></ul>What specific issue are you interested in?",
@@ -405,5 +405,5 @@
   "reviews": {
     "label": "Reviews", "title": "What Our Clients Say", "subtitle": "Authentic feedback from clients who have used our services", "loading": "Loading reviews...", "error": "Could not load reviews. Please try again later.", "empty": "There are no client reviews yet. Be the first to share your experience.", "customer": "Client", "serviceCustomer": "{service} client", "previous": "Previous review", "next": "Next review", "item": "Review {number}"
   },
-  "footer": { "brandName": "VP Luật Hùng & Associates", "services":  "Services", "service1": "Business formation", "service2": "Contract advice", "service3": "Divorce and family law", "service4": "Land disputes", "service5": "Trademark registration", "company": "Company", "contact": "Contact", "allServices": "View all services", "lawyers": "Our lawyers", "news": "News and Blog", "booking": "Book a consultation", "privacy": "Privacy policy", "terms": "Terms of use", "copyright": "All rights reserved", "description": "A leading Vietnamese law firm with more than 15 years of experience advising individuals and businesses. We are committed to protecting our clients' lawful interests.", "address": "15th Floor, Landmark 72, Pham Hung, Nam Tu Liem, Hanoi", "hotline": "1900 1234", "email": "contact@vuplat.vn" }
+  "footer": { "brandName": "ICRC Law Company Limited", "services":  "Services", "service1": "Business formation", "service2": "Contract advice", "service3": "Divorce and family law", "service4": "Land disputes", "service5": "Trademark registration", "company": "Company", "contact": "Contact", "allServices": "View all services", "lawyers": "Our lawyers", "news": "News and Blog", "booking": "Book a consultation", "privacy": "Privacy policy", "terms": "Terms of use", "copyright": "All rights reserved", "description": "A leading Vietnamese law firm with more than 15 years of experience advising individuals and businesses. We are committed to protecting our clients' lawful interests.", "address": "381 Street, Nguyen Van Linh Commune, Hung Yen Province", "hotline": "0969 967 389 - 0975 967 364", "email": "contact@icrclaw.com" }
 }

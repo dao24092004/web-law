@@ -158,7 +158,7 @@ import type { Metadata } from 'next';
 import { ServicesPage } from '@/features/services';
 
 export const metadata: Metadata = {
-  title: 'Dịch Vụ Pháp Lý | VP Luật Hùng & Cộng sự',
+  title: 'Dịch Vụ Pháp Lý | ICRC Law',
   description: 'Đầy đủ các dịch vụ pháp lý: thành lập doanh nghiệp, tư vấn hợp đồng, ly hôn, sở hữu trí tuệ, mua bán bất động sản...',
   openGraph: { /* ... */ },
 };
@@ -846,8 +846,8 @@ npm i next-intl
 // src/app/sitemap.ts
 export default async function sitemap() {
   return [
-    { url: 'https://vpluat.vn/', changeFrequency: 'weekly', priority: 1 },
-    { url: 'https://vpluat.vn/services', changeFrequency: 'weekly', priority: 0.9 },
+    { url: 'https://icrclaw.com/', changeFrequency: 'weekly', priority: 1 },
+    { url: 'https://icrclaw.com/services', changeFrequency: 'weekly', priority: 0.9 },
     // ... dynamic từ DB
   ];
 }
@@ -1071,8 +1071,8 @@ jobs:
 ```bash
 # .env.example
 NEXTAUTH_SECRET=xxx
-NEXTAUTH_URL=https://vpluat.vn
-NEXT_PUBLIC_API_URL=https://api.vpluat.vn
+NEXTAUTH_URL=https://icrclaw.com
+NEXT_PUBLIC_API_URL=https://api.icrclaw.com
 NEXT_PUBLIC_SENTRY_DSN=xxx
 SENTRY_AUTH_TOKEN=xxx
 NEXT_PUBLIC_POSTHOG_KEY=xxx
@@ -1085,7 +1085,7 @@ NEXT_PUBLIC_GA_ID=G-XXXX
 - Connect GitHub repo
 - Auto-deploy on push to main
 - Preview URLs cho PRs
-- Domain: vpluat.vn (DNS CNAME)
+- Domain: icrclaw.com (DNS CNAME)
 - Edge functions nếu cần
 
 ## 11.4 Smoke Tests (Staging)

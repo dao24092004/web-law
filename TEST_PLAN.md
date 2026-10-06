@@ -22,8 +22,8 @@
 
 | Loại | Đường dẫn | Mô tả |
 |------|-----------|--------|
-| **Website chính** | `https://vpluat.vn` | Trang khách hàng |
-| **Trang quản trị** | `https://admin.vpluat.vn` | Khu vực Admin |
+| **Website chính** | `https://icrclaw.com` | Trang khách hàng |
+| **Trang quản trị** | `https://admin.icrclaw.com` | Khu vực Admin |
 | **Hoặc local** | `http://localhost:3000` | Nếu test trên máy |
 
 ### 💻 Yêu cầu thiết bị
@@ -77,14 +77,14 @@ In hoặc chuẩn bị sẵn **Phiếu test nhanh** ở cuối tài liệu. Mỗ
 ### BƯỚC 2.1: Test trang chủ
 
 **Cách test:**
-1. Mở trình duyệt, truy cập `https://vpluat.vn`
+1. Mở trình duyệt, truy cập `https://icrclaw.com`
 2. Đợi trang load xong (khoảng 3-5 giây)
 
 **Kiểm tra:**
 
 | # | Mục cần kiểm tra | Đạt | Lỗi | Ghi chú |
 |---|------------------|-----|-----|---------|
-| 2.1.1 | Logo VP Luật hiển thị đầu trang | ☐ | ☐ | |
+| 2.1.1 | Logo ICRC Law hiển thị đầu trang | ☐ | ☐ | |
 | 2.1.2 | Menu điều hướng (Trang chủ, Dịch vụ, Luật sư, Blog, Liên hệ) hiển thị | ☐ | ☐ | |
 | 2.1.3 | Banner/Hero chính hiển thị với tiêu đề và nút "Đặt lịch tư vấn" | ☐ | ☐ | |
 | 2.1.4 | Click vào logo → quay về trang chủ | ☐ | ☐ | |
@@ -104,7 +104,7 @@ In hoặc chuẩn bị sẵn **Phiếu test nhanh** ở cuối tài liệu. Mỗ
 > Đây là chức năng sinh doanh thu chính, cần test kỹ.
 
 #### Bước 2.2.1: Mở trang booking
-1. Truy cập `https://vpluat.vn/booking`
+1. Truy cập `https://icrclaw.com/booking`
 2. Đợi trang load
 
 **Kiểm tra ban đầu:**
@@ -183,7 +183,7 @@ In hoặc chuẩn bị sẵn **Phiếu test nhanh** ở cuối tài liệu. Mỗ
 
 ### BƯỚC 2.3: Test trên điện thoại (Responsive)
 
-1. Mở trang `https://vpluat.vn/booking` trên điện thoại
+1. Mở trang `https://icrclaw.com/booking` trên điện thoại
 2. Hoặc dùng Chrome DevTools:
    - Nhấn F12
    - Click icon 📱 "Toggle device toolbar" (góc trái trên)
@@ -234,7 +234,7 @@ In hoặc chuẩn bị sẵn **Phiếu test nhanh** ở cuối tài liệu. Mỗ
 
 ### BƯỚC 3.1: Truy cập trang admin
 
-1. Mở trình duyệt, truy cập `https://admin.vpluat.vn`
+1. Mở trình duyệt, truy cập `https://admin.icrclaw.com`
 2. Nếu chưa đăng nhập sẽ tự redirect về trang login
 
 | # | Mục cần kiểm tra | Đạt | Lỗi | Ghi chú |
@@ -248,7 +248,7 @@ In hoặc chuẩn bị sẵn **Phiếu test nhanh** ở cuối tài liệu. Mỗ
 ### BƯỚC 3.2: Đăng nhập
 
 **Test đăng nhập thành công:**
-1. Email: `admin@vpluat.vn`
+1. Email: `admin@icrclaw.com`
 2. Mật khẩu: (sẽ được cấp)
 3. Click "Đăng nhập"
 
@@ -260,7 +260,7 @@ In hoặc chuẩn bị sẵn **Phiếu test nhanh** ở cuối tài liệu. Mỗ
 | 3.2.4 | Có menu xổ xuống để đăng xuất | ☐ | ☐ | |
 
 **Test đăng nhập sai:**
-1. Nhập email sai: `wrong@vpluat.vn`
+1. Nhập email sai: `wrong@icrclaw.com`
 2. Mật khẩu bất kỳ
 3. Click "Đăng nhập"
 
@@ -289,19 +289,19 @@ In hoặc chuẩn bị sẵn **Phiếu test nhanh** ở cuối tài liệu. Mỗ
 
 | Role | Email | Các menu nên thấy | Đạt | Lỗi |
 |------|-------|-------------------|-----|-----|
-| **Super Admin** | super.admin@vpluat.vn | Thấy TẤT CẢ menu (~16 mục) | ☐ | ☐ |
-| **Admin** | admin@vpluat.vn | Thấy hầu hết (trừ Settings nâng cao) | ☐ | ☐ |
-| **Editor** | editor@vpluat.vn | Thấy Blog, Case Studies (KHÔNG thấy Users, Settings) | ☐ | ☐ |
-| **CSKH** | cskh@vpluat.vn | Thấy CRM, Bookings, Reviews (KHÔNG thấy Blog, Users) | ☐ | ☐ |
-| **Luật sư** | hung@vpluat.vn | Chỉ thấy Bookings, Hồ sơ cá nhân | ☐ | ☐ |
-| **Viewer** | viewer@vpluat.vn | Chỉ xem, không sửa/xóa | ☐ | ☐ |
+| **Super Admin** | super.admin@icrclaw.com | Thấy TẤT CẢ menu (~16 mục) | ☐ | ☐ |
+| **Admin** | admin@icrclaw.com | Thấy hầu hết (trừ Settings nâng cao) | ☐ | ☐ |
+| **Editor** | editor@icrclaw.com | Thấy Blog, Case Studies (KHÔNG thấy Users, Settings) | ☐ | ☐ |
+| **CSKH** | cskh@icrclaw.com | Thấy CRM, Bookings, Reviews (KHÔNG thấy Blog, Users) | ☐ | ☐ |
+| **Luật sư** | hung@icrclaw.com | Chỉ thấy Bookings, Hồ sơ cá nhân | ☐ | ☐ |
+| **Viewer** | viewer@icrclaw.com | Chỉ xem, không sửa/xóa | ☐ | ☐ |
 
 ---
 
 ## PHẦN 4: TEST CÁC CHỨC NĂNG QUẢN TRỊ
 
 > ⏱️ Thời gian: ~2-3 giờ
-> Đăng nhập với **Admin** (`admin@vpluat.vn`) cho phần này.
+> Đăng nhập với **Admin** (`admin@icrclaw.com`) cho phần này.
 
 ---
 
@@ -338,7 +338,7 @@ In hoặc chuẩn bị sẵn **Phiếu test nhanh** ở cuối tài liệu. Mỗ
 1. Click nút **"Thêm mới"** (góc trên phải)
 2. Điền form:
    - Họ tên: `Lead Test Auto`
-   - Email: `leadtest@vpluat.vn`
+   - Email: `leadtest@icrclaw.com`
    - Số điện thoại: `0901234567`
    - Dịch vụ: chọn "Doanh Nghiệp"
    - Nguồn: chọn "Facebook"
@@ -415,7 +415,7 @@ In hoặc chuẩn bị sẵn **Phiếu test nhanh** ở cuối tài liệu. Mỗ
 
 **Đường dẫn:** `/admin/blog`
 
-> Gợi ý: Đăng nhập với **Editor** (`editor@vpluat.vn`) để test.
+> Gợi ý: Đăng nhập với **Editor** (`editor@icrclaw.com`) để test.
 
 | # | Mục cần kiểm tra | Đạt | Lỗi | Ghi chú |
 |---|------------------|-----|-----|---------|
@@ -603,7 +603,7 @@ In hoặc chuẩn bị sẵn **Phiếu test nhanh** ở cuối tài liệu. Mỗ
 **Test Email Test Panel:**
 
 1. Click tab "Test Email"
-2. Nhập email nhận: `test@vpluat.vn`
+2. Nhập email nhận: `test@icrclaw.com`
 3. Click "Gửi Email Test"
 
 | # | Mục cần kiểm tra | Đạt | Lỗi | Ghi chú |
@@ -727,7 +727,7 @@ Khi phát hiện lỗi, ghi lại thông tin sau:
 📌 MÃ LỖI: ERR-001
 📅 NGÀY PHÁT HIỆN: 19/09/2026 14:30
 👤 NGƯỜI TEST: Nguyễn Văn A
-🌐 URL: https://vpluat.vn/booking
+🌐 URL: https://icrclaw.com/booking
 📱 THIẾT BỊ: Chrome 118 - Windows 11
 🔢 BƯỚC: 2.2.3 - Chọn luật sư
 
@@ -857,7 +857,7 @@ Khi phát hiện lỗi, ghi lại thông tin sau:
 
 Nếu gặp vấn đề trong quá trình test:
 
-- **Email hỗ trợ**: dev@vpluat.vn
+- **Email hỗ trợ**: dev@icrclaw.com
 - **Hotline**: 0901 xxx xxx
 - **Giờ hỗ trợ**: 8:00 - 17:00 (T2 - T7)
 
