@@ -13,7 +13,6 @@ import {
   Bell,
   History,
   Briefcase,
-  Layout,
   BriefcaseBusiness,
   BarChart3,
   Shield,
@@ -117,13 +116,6 @@ export const ADMIN_NAV_SECTIONS: NavSection[] = [
         label: 'Newsletter',
         icon: Mail,
         href: '/admin/newsletter',
-      },
-      {
-        id: 'landing-pages',
-        labelKey: 'nav.landing_pages',
-        label: 'Landing Pages',
-        icon: Layout,
-        href: '/admin/landing-pages',
       },
       {
         id: 'site-content',

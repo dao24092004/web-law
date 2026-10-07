@@ -62,9 +62,11 @@ export default function LawyerScheduleCalendarPage() {
 
   const createOverrideMutation = useApiMutation<unknown, {
     lawyerId: string;
-    overrideDate: string;
-    type: 'off' | 'custom';
-    reason?: string;
+    body: {
+      overrideDate: string;
+      type: 'off' | 'custom';
+      reason?: string;
+    };
   }>(
     'POST',
     (vars) => `/admin/lawyers/${vars.lawyerId}/schedule/override`,
@@ -102,9 +104,11 @@ export default function LawyerScheduleCalendarPage() {
     try {
       await createOverrideMutation.mutateAsync({
         lawyerId: overrideModal.lawyerId,
-        overrideDate: overrideModal.date,
-        type: overrideType,
-        reason: overrideReason,
+        body: {
+          overrideDate: overrideModal.date,
+          type: overrideType,
+          reason: overrideReason,
+        },
       });
       notifySuccess('Da tao override');
       setOverrideModal(null);

@@ -9,7 +9,7 @@ const trustIcons = [ShieldCheck, Bolt, Lock];
 export function BookingHero() {
   const t = useTranslations('booking');
   return (
-    <section className="relative overflow-hidden bg-[linear-gradient(135deg,var(--primary)_0%,var(--primary-dark)_100%)] px-6 py-10 text-center">
+    <section className="relative overflow-hidden bg-[linear-gradient(135deg,var(--primary)_0%,var(--primary-dark)_100%)] px-6 pb-10 pt-[132px] text-center max-[480px]:pt-[108px]">
       <div className="relative z-10 mx-auto max-w-3xl">
         <h1 className="mb-1.5 font-heading text-[clamp(1.5rem,3vw,2.2rem)] font-bold text-white">{t('heroTitle')}</h1>
         <p className="mb-4 text-[0.9rem] text-white/65">{t('heroSubtitle')}</p>

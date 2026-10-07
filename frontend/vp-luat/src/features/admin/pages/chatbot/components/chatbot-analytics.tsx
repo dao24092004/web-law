@@ -64,7 +64,7 @@ export function ChatbotAnalytics({ sessions, intents }: ChatbotAnalyticsProps) {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8 }}>
+      <div className="admin-grid-4">
         <StatCard
           icon={<MessageCircle size={12} />}
           label="Tổng sessions"

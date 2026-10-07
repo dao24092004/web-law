@@ -12,7 +12,7 @@ import { UserMenu } from './user-menu';
 
 export function AdminTopbar() {
   const pathname = usePathname();
-  const { toggleSidebar } = useAdminUIStore();
+  const { toggleSidebar, isSidebarOpen } = useAdminUIStore();
   const t = useTranslations('admin');
   const locale = useLocale();
 
@@ -33,7 +33,7 @@ export function AdminTopbar() {
           className="admin-topbar__toggle"
           onClick={toggleSidebar}
           aria-label={t('openMenu')}
-          aria-expanded="false"
+          aria-expanded={isSidebarOpen}
         >
           <Menu size={18} />
         </button>

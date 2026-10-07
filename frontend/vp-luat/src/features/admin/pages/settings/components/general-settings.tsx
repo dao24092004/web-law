@@ -71,7 +71,7 @@ export function GeneralSettingsForm({ value, loaded, onSubmit, isSubmitting }: P
         </h3>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 20 }}>
+      <div className="admin-grid-2" style={{ gap: 14, marginBottom: 20 }}>
         <FormFieldInput
           label="Tên website"
           required
@@ -133,7 +133,7 @@ export function GeneralSettingsForm({ value, loaded, onSubmit, isSubmitting }: P
         </h3>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 16 }}>
+      <div className="admin-grid-2" style={{ gap: 14, marginBottom: 16 }}>
         <FormFieldInput
           label="Giờ bắt đầu"
           type="time"

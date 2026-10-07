@@ -78,9 +78,7 @@ export function UserActivityDrawer({ user, onClose }: UserActivityDrawerProps) {
     >
       <div style={{ flex: 1, overflow: 'auto' }}>
         {/* User info summary */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
+        <div className="admin-grid-2" style={{
           gap: 8,
           marginBottom: 16,
           padding: 12,

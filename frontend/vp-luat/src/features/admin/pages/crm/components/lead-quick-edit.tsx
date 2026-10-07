@@ -72,12 +72,12 @@ export function LeadQuickEdit({ lead, lawyers, onClose, onSave, isSaving }: Lead
           </button>
         </div>
         <FormFieldInput label="Họ tên" required {...register('name')} error={errors.name?.message} />
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        <div className="admin-grid-2" style={{ gap: 12 }}>
           <FormFieldInput label="SĐT" required {...register('phone')} error={errors.phone?.message} />
           <FormFieldInput label="Email" type="email" required {...register('email')} error={errors.email?.message} />
         </div>
         <FormFieldInput label="Dịch vụ" required {...register('service')} error={errors.service?.message} />
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        <div className="admin-grid-2" style={{ gap: 12 }}>
           <FormFieldSelect label="Nguồn" required {...register('source')} error={errors.source?.message}>
             {SOURCE_OPTIONS.map((o) => (
               <option key={o.value} value={o.value}>{o.label}</option>

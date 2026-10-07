@@ -82,7 +82,7 @@ export function SmtpSettingsForm({ value, loaded, onSubmit, isSubmitting }: Prop
         </h3>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 14 }}>
+      <div className="admin-grid-2" style={{ gap: 14, marginBottom: 14 }}>
         <FormFieldInput
           label="Tên người gửi (From Name)"
           required
@@ -127,7 +127,7 @@ export function SmtpSettingsForm({ value, loaded, onSubmit, isSubmitting }: Prop
         />
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 20 }}>
+      <div className="admin-grid-2" style={{ gap: 14, marginBottom: 20 }}>
         <div>
           <label
             style={{

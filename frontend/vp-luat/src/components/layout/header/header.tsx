@@ -11,7 +11,7 @@ import { LanguageSwitcher } from './language-switcher';
 import { MobileMenu } from './mobile-menu';
 
 const HIDDEN_PREFIXES = ['/admin', '/staff', '/login', '/landing-builder'];
-const HIDDEN_EXACT = ['/booking'];
+const HIDDEN_EXACT: string[] = [];
 
 function shouldHide(pathname: string | null) {
   if (!pathname) return false;

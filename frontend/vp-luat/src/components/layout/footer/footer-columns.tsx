@@ -1,6 +1,25 @@
+'use client';
+
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { MapPin, Phone, Mail } from 'lucide-react';
+import { useFeaturedServices } from '@/features/services/hooks/use-services';
+import { usePublicSiteContent } from '@/features/home/hooks/use-site-content';
+
+const MAX_FOOTER_SERVICES = 5;
+
+function normalizeExternalUrl(value: string | undefined): string {
+  const trimmed = value?.trim() ?? '';
+  if (!trimmed) return '';
+
+  const candidate = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+  try {
+    const url = new URL(candidate);
+    return url.protocol === 'http:' || url.protocol === 'https:' ? url.toString() : '';
+  } catch {
+    return '';
+  }
+}
 
 function FacebookIcon({ size = 18 }: { size?: number }) {
   return (
@@ -35,26 +54,6 @@ function InstagramIcon({ size = 18 }: { size?: number }) {
 }
 
 const FOOTER_LINKS = {
-  services: {
-    title: 'Dịch vụ',
-    links: [
-      { label: 'Thành lập doanh nghiệp', href: '/services/thanh-lap-doanh-nghiep' },
-      { label: 'Tư vấn hợp đồng', href: '/services/tu-van-hop-dong' },
-      { label: 'Ly hôn & Gia đình', href: '/services/ly-hon-tranh-chap' },
-      { label: 'Tranh chấp đất đai', href: '/services/tranh-chap-dat-dai' },
-      { label: 'Đăng ký nhãn hiệu', href: '/services/dang-ky-nhan-hieu' },
-      { label: 'Xem tất cả dịch vụ', href: '/services' },
-    ],
-  },
-  company: {
-    title: 'Công ty',
-    links: [
-      { label: 'Đội ngũ luật sư', href: '/lawyers' },
-      { label: 'Tin tức & Blog', href: '/news' },
-      { label: 'Đặt lịch tư vấn', href: '/booking' },
-      { label: 'Liên hệ', href: '/contact' },
-    ],
-  },
   contact: {
     items: [
       { icon: MapPin, key: 'address' },
@@ -66,14 +65,16 @@ const FOOTER_LINKS = {
 
 export function FooterColumns() {
   const t = useTranslations('footer');
-  const serviceLinks = [
-    { label: 'service1', href: '/services/thanh-lap-doanh-nghiep' },
-    { label: 'service2', href: '/services/tu-van-hop-dong' },
-    { label: 'service3', href: '/services/ly-hon-tranh-chap' },
-    { label: 'service4', href: '/services/tranh-chap-dat-dai' },
-    { label: 'service5', href: '/services/dang-ky-nhan-hieu' },
-    { label: 'allServices', href: '/services' },
-  ];
+  const { data: featuredServices = [] } = useFeaturedServices();
+  const { data: siteContent } = usePublicSiteContent();
+  const contactValues = {
+    address: siteContent?.contact.address?.trim() ?? '',
+    hotline: siteContent?.contact.hotline?.trim() ?? '',
+    email: siteContent?.contact.email?.trim() ?? '',
+  };
+  const serviceLinks = featuredServices
+    .slice(0, MAX_FOOTER_SERVICES)
+    .map((service) => ({ label: service.name, href: `/services/${service.slug}` }));
   const companyLinks = [
     { label: 'lawyers', href: '/lawyers' },
     { label: 'news', href: '/news' },
@@ -88,9 +89,12 @@ export function FooterColumns() {
         <div className="footer__links">
           {serviceLinks.map((link) => (
             <Link key={link.href} href={link.href} className="footer__link">
-              {t(link.label)}
+              {link.label}
             </Link>
           ))}
+          <Link href="/services" className="footer__link">
+            {t('allServices')}
+          </Link>
         </div>
       </div>
 
@@ -111,7 +115,7 @@ export function FooterColumns() {
           {FOOTER_LINKS.contact.items.map((item, index) => (
             <div key={index} className="footer__contact-item">
               <item.icon className="footer__contact-icon" size={16} />
-              <span>{t(item.key)}</span>
+              <span>{contactValues[item.key as keyof typeof contactValues] || '—'}</span>
             </div>
           ))}
         </div>
@@ -122,6 +126,19 @@ export function FooterColumns() {
 
 export function FooterBrand() {
   const t = useTranslations('footer');
+  const { data: siteContent } = usePublicSiteContent();
+  const socialLinks = {
+    facebook: normalizeExternalUrl(siteContent?.socialLinks?.facebook) || 'https://facebook.com/vpluat',
+    linkedin: normalizeExternalUrl(siteContent?.socialLinks?.linkedin) || 'https://linkedin.com/company/vpluat',
+    youtube: normalizeExternalUrl(siteContent?.socialLinks?.youtube) || 'https://youtube.com/@vpluat',
+    instagram: normalizeExternalUrl(siteContent?.socialLinks?.instagram) || 'https://instagram.com/vpluat',
+  };
+  const socials = [
+    { label: 'Facebook', href: socialLinks.facebook, icon: FacebookIcon },
+    { label: 'LinkedIn', href: socialLinks.linkedin, icon: LinkedinIcon },
+    { label: 'YouTube', href: socialLinks.youtube, icon: YoutubeIcon },
+    { label: 'Instagram', href: socialLinks.instagram, icon: InstagramIcon },
+  ].filter((social) => social.href.trim());
 
   return (
     <div>
@@ -133,42 +150,18 @@ export function FooterBrand() {
         {t('description')}
       </p>
       <div className="footer__socials">
-        <a
-          href="https://facebook.com/vpluat"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="footer__social"
-          aria-label="Facebook"
-        >
-          <FacebookIcon size={18} />
-        </a>
-        <a
-          href="https://linkedin.com/company/vpluat"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="footer__social"
-          aria-label="LinkedIn"
-        >
-          <LinkedinIcon size={18} />
-        </a>
-        <a
-          href="https://youtube.com/@vpluat"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="footer__social"
-          aria-label="YouTube"
-        >
-          <YoutubeIcon size={18} />
-        </a>
-        <a
-          href="https://instagram.com/vpluat"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="footer__social"
-          aria-label="Instagram"
-        >
-          <InstagramIcon size={18} />
-        </a>
+        {socials.map(({ label, href, icon: Icon }) => (
+          <a
+            key={label}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footer__social"
+            aria-label={label}
+          >
+            <Icon size={18} />
+          </a>
+        ))}
       </div>
     </div>
   );

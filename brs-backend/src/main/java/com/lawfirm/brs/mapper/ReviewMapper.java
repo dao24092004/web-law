@@ -12,12 +12,14 @@ import java.util.List;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = {LawyerMapper.class, ServiceEntityMapper.class})
 public interface ReviewMapper {
 
+    @Mapping(target = "content", source = "contentVi")
     @Mapping(target = "lawyerId", source = "lawyer.id")
     @Mapping(target = "lawyerName", source = "lawyer.nameVi")
     @Mapping(target = "serviceId", source = "service.id")
     @Mapping(target = "serviceName", source = "service.slug")
     ReviewDTO toDTO(Review review);
 
+    @Mapping(target = "content", source = "contentVi")
     @Mapping(target = "lawyerId", source = "lawyer.id")
     @Mapping(target = "lawyerName", source = "lawyer.nameVi")
     @Mapping(target = "serviceId", source = "service.id")

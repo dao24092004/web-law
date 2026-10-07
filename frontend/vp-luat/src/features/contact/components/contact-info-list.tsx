@@ -9,9 +9,26 @@ export function ContactInfoList({ contact }: { contact: PublicSiteContent['conta
   const items = [
     { icon: MapPin, label: t('address'), value: contact.address, sub: t('addressSub') },
     { icon: Phone, label: t('phone'), value: contact.hotline, sub: t('phoneSub') },
-    { icon: Mail, label: t('emailSub'), value: contact.email, sub: t('emailSub') },
-    { icon: Clock, label: t('hours'), value: contact.workingHours, sub: t('hoursSub') },
+    { icon: Mail, label: t('email'), value: contact.email, sub: t('emailSub') },
+    { icon: Clock, label: t('hours'), value: t('hoursValue'), sub: t('hoursSub') },
   ];
 
-  return <div className="contact-info-list">{items.filter((item) => item.value).map(({ icon: Icon, label, value, sub }) => <div className="contact-info-item" key={label}><Icon size={20} /><div><strong>{label}</strong><span>{value}</span><small>{sub}</small></div></div>)}</div>;
+  return (
+    <div className="info-list">
+      {items
+        .filter((item) => item.value)
+        .map(({ icon: Icon, label, value, sub }) => (
+          <div className="info-card" key={label}>
+            <div className="info-card__icon">
+              <Icon size={20} />
+            </div>
+            <div className="info-card__content">
+              <div className="info-card__label">{label}</div>
+              <div className="info-card__value">{value}</div>
+              <div className="info-card__sub">{sub}</div>
+            </div>
+          </div>
+        ))}
+    </div>
+  );
 }

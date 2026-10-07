@@ -141,7 +141,7 @@ export default function ReportsPage() {
       {tab === 'revenue' && (
         <div>
           {/* Funnel summary */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8, marginBottom: 16 }}>
+          <div className="admin-grid-4" style={{ marginBottom: 16 }}>
             <FunnelCard label="Tong lead" value={conversionData?.total || 0} color="var(--primary)" />
             <FunnelCard label="Da lien he" value={conversionData?.contacted || 0} color="#2563EB" />
             <FunnelCard label="Duyet ho" value={conversionData?.qualified || 0} color="#7C3AED" />
@@ -215,7 +215,7 @@ export default function ReportsPage() {
                     <div style={{ fontWeight: 600 }}>{String(lawyer.name || 'Unknown')}</div>
                     <div style={{ fontSize: '0.75rem', color: 'var(--gray-500)' }}>{String(lawyer.email || '')}</div>
                   </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+                  <div className="admin-grid-3" style={{ gap: 16 }}>
                     <div style={{ textAlign: 'center' }}>
                       <div style={{ fontSize: '1.2rem', fontWeight: 700 }}>{String(lawyer.totalAppointments ?? 0)}</div>
                       <div style={{ fontSize: '0.68rem', color: 'var(--gray-500)' }}>Cuoc hen</div>
@@ -246,7 +246,7 @@ export default function ReportsPage() {
           {svcLoading ? (
             <div style={{ padding: 40, textAlign: 'center', color: 'var(--gray-400)' }}>Dang tai...</div>
           ) : donutSegments.length > 0 ? (
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+            <div className="admin-grid-2" style={{ gap: 16 }}>
               {/* Service donut */}
               <div style={{ background: 'white', border: '1px solid var(--gray-200)', borderRadius: 10, padding: 16 }}>
                 <div style={{ fontWeight: 600, marginBottom: 12 }}>Xu huong dich vu</div>

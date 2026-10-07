@@ -50,7 +50,7 @@ export interface IntegrationsSettings {
 export const DEFAULT_GENERAL: GeneralSettings = {
   siteName: 'ICRC Law - Công ty Luật TNHH ICRC',
   hotline: '0969 967 389 - 0975 967 364',
-  email: 'contact@icrclaw.com',
+  email: 'lienhe@icrclaw.com',
   address: '123 Nguyễn Trãi, Quận 1, TP.HCM',
   timezone: 'Asia/Ho_Chi_Minh',
   language: 'vi',
@@ -73,7 +73,7 @@ export const DEFAULT_BOOKING: BookingSettings = {
 export const DEFAULT_SMTP: SmtpSettings = {
   fromName: 'ICRC Law',
   fromEmail: 'noreply@icrclaw.com',
-  replyTo: 'contact@icrclaw.com',
+  replyTo: 'lienhe@icrclaw.com',
   smtpHost: 'smtp.gmail.com',
   smtpPort: 587,
   smtpUser: 'noreply@icrclaw.com',

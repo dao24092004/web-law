@@ -56,6 +56,20 @@ export default function LawyersPage() {
     return map;
   }, [lawyers]);
 
+  const heroStats = useMemo(() => {
+    const totalExperience = lawyers.reduce((sum, l) => sum + (l.experience ?? 0), 0);
+    const totalCases = lawyers.reduce((sum, l) => sum + (l.successfulCases ?? 0), 0);
+    const specialtySlugs = new Set<string>();
+    lawyers.forEach((l) => {
+      (l.serviceSlugs ?? l.specialties ?? []).forEach((s) => s && specialtySlugs.add(s));
+    });
+    return {
+      totalExperience,
+      totalCases,
+      specialtyCount: specialtySlugs.size,
+    };
+  }, [lawyers]);
+
   const filtered = useMemo(() => {
     if (active === 'all') return lawyers;
     return lawyers.filter((l) => {
@@ -80,7 +94,12 @@ export default function LawyersPage() {
 
   return (
     <>
-      <LawyersHero totalCount={lawyers.length || 0} />
+      <LawyersHero
+        totalCount={lawyers.length || 0}
+        totalExperience={heroStats.totalExperience}
+        totalCases={heroStats.totalCases}
+        specialtyCount={heroStats.specialtyCount}
+      />
       <LawyersFilterChips
         active={active}
         onChange={setActive}
@@ -91,7 +110,7 @@ export default function LawyersPage() {
 
       <section className="lawyers-section">
         <div className="container">
-          <div className="lawyers-grid">
+          <div className={`lawyers-grid${filtered.length > 0 && filtered.length <= 3 ? ' lawyers-grid--few' : ''}`}>
             {filtered.map((l) => (
               <LawyerCard
                 key={l.id}

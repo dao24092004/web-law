@@ -185,13 +185,8 @@ export default function NotificationsPage() {
         }}
       >
         <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '2fr 1fr 1fr',
-            gap: 8,
-            alignItems: 'end',
-            marginBottom: 12,
-          }}
+          className="admin-grid-3col-filter"
+          style={{ alignItems: 'end', marginBottom: 12 }}
         >
           <SearchBar value={search} onChange={setSearch} placeholder="Tìm trong tiêu đề / nội dung..." />
           <div>

@@ -1,115 +1,193 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import {
-  Save, Eye, Edit3, RefreshCw, Image as ImageIcon, Phone, Mail,
-  MapPin, Clock, Globe, ChevronDown
+  Save, Eye, Edit3, RefreshCw, BarChart3, Phone, Mail,
+  MapPin, Clock, Globe, HelpCircle, Plus, Trash2
 } from 'lucide-react';
 import { AdminPageHeader } from '@/features/admin/shared';
 import { useApiQuery, useApiMutation } from '@/lib/api/hooks';
-import { siteContentApi, type SiteContent } from '@/lib/api/admin-site-content';
+import {
+  EMPTY_SITE_CONTENT,
+  type SiteContent,
+  type SiteOffice,
+  type SiteSocialLinks,
+  type SiteFaq,
+} from '@/lib/api/admin-site-content';
 import { notifySuccess, notifyError } from '@/features/admin/lib';
 
-type Tab = 'hero' | 'about' | 'contact' | 'social';
+type Tab = 'stats' | 'contact' | 'social' | 'legal' | 'offices' | 'faqs';
+type Locale = 'vi' | 'en';
 
-const DEFAULT_CONTENT: SiteContent = {
-  hero: {
-    title: 'Van phong Luat su Uy tin',
-    subtitle: 'Dich vu phap ly chuyen nghiep, tan tam vi khach hang',
-    ctaText: 'Dat lich tu van mien phi',
-    ctaLink: '/booking',
-  },
-  about: {
-    title: 'Ve chung toi',
-    description: 'Van phong luat su voi hon 10 nam kinh nghiem trong linh vuc tu van phap ly',
-    mission: 'Mang den giai phap phap ly toi uu cho moi khach hang',
-    vision: 'Troe thanh van phong luat su hang dau tai Viet Nam',
-    yearsExperience: 10,
-  },
-  contact: {
-    address: '123 Nguyen Hue, Q.1, TP.HCM',
-    phone: '+84 901 234 567',
-    email: 'contact@icrclaw.com',
-    workingHours: 'T2 - T7: 8:00 - 17:30',
-  },
-  social: {
-    facebook: 'https://facebook.com/lawfirm',
-    youtube: 'https://youtube.com/lawfirm',
-    zalo: 'https://zalo.me/lawfirm',
-    linkedin: 'https://linkedin.com/company/lawfirm',
-  },
+/** Whole PUBLIC_SITE namespace: one SiteContent object per locale. */
+type SiteContentByLocale = Record<Locale, SiteContent>;
+
+const EMPTY_BY_LOCALE: SiteContentByLocale = {
+  vi: EMPTY_SITE_CONTENT,
+  en: EMPTY_SITE_CONTENT,
 };
 
+function normalizeSiteContent(value?: Partial<SiteContent>): SiteContent {
+  return {
+    ...EMPTY_SITE_CONTENT,
+    ...value,
+    contact: { ...EMPTY_SITE_CONTENT.contact, ...value?.contact },
+    socialLinks: { ...EMPTY_SITE_CONTENT.socialLinks, ...value?.socialLinks },
+    legalLinks: { ...EMPTY_SITE_CONTENT.legalLinks, ...value?.legalLinks },
+    heroStats: { ...EMPTY_SITE_CONTENT.heroStats, ...value?.heroStats },
+    offices: value?.offices ?? [],
+    processSteps: value?.processSteps ?? [],
+    faqs: value?.faqs ?? [],
+  };
+}
+
+function normalizeContentByLocale(value?: Partial<SiteContentByLocale>): SiteContentByLocale {
+  return {
+    vi: normalizeSiteContent(value?.vi),
+    en: normalizeSiteContent(value?.en),
+  };
+}
+
 export default function SiteContentPage() {
-  const [activeTab, setActiveTab] = useState<Tab>('hero');
-  const [locale, setLocale] = useState<'vi' | 'en'>('vi');
-  const [content, setContent] = useState<SiteContent>(DEFAULT_CONTENT);
+  const [activeTab, setActiveTab] = useState<Tab>('stats');
+  const [locale, setLocale] = useState<Locale>('vi');
+  const [content, setContent] = useState<SiteContentByLocale>(EMPTY_BY_LOCALE);
   const [editMode, setEditMode] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
+  const queryClient = useQueryClient();
 
-  const { data: serverContent, isLoading, refetch } = useApiQuery<SiteContent>(
-    ['site-content', locale],
-    `/public/site-content?locale=${locale}`,
+  const { data: serverContent, isLoading, refetch } = useApiQuery<SiteContentByLocale>(
+    ['admin', 'settings', 'PUBLIC_SITE'],
+    '/admin/settings/PUBLIC_SITE',
     {},
     { retry: false },
   );
 
-  const saveMutation = useApiMutation<unknown, { url: string; method: 'POST' | 'PATCH' | 'PUT'; body: unknown }>(
+  // Sync local edit buffer whenever fresh server data arrives (not during edit
+  // to avoid clobbering unsaved input while the admin is typing).
+  useEffect(() => {
+    if (serverContent && !editMode) {
+      setContent(normalizeContentByLocale(serverContent));
+    }
+  }, [serverContent, editMode]);
+
+  const saveMutation = useApiMutation<SiteContentByLocale, SiteContentByLocale>(
     'PUT',
-    (vars) => vars.url,
+    '/admin/settings/PUBLIC_SITE',
   );
 
-  // Load from server when available
-  if (serverContent) {
-    setContent(serverContent);
-  }
+  const current = normalizeSiteContent(content[locale]);
 
   const handleSave = async () => {
     try {
-      await saveMutation.mutateAsync({
-        url: '/admin/settings/site-content',
-        method: 'PUT',
-        body: content,
-      });
-      notifySuccess('Da luu noi dung');
+      // Backend PUT merges top-level keys (`vi`/`en`), so send the complete
+      // namespace to avoid losing the other locale's data.
+      const saved = await saveMutation.mutateAsync(content);
+      setContent(saved);
+      await queryClient.invalidateQueries({ queryKey: ['public', 'site-content'] });
+      notifySuccess('Đã lưu nội dung');
       setEditMode(false);
       refetch();
-    } catch {
-      notifyError('Loi luu noi dung');
+    } catch (error) {
+      notifyError('Lỗi lưu nội dung', error instanceof Error ? error.message : 'Không thể lưu nội dung');
     }
   };
 
-  const updateField = <K extends keyof SiteContent>(
-    section: K,
-    field: string,
-    value: string | number,
-  ) => {
+  const updateLocaleContent = (updater: (prev: SiteContent) => SiteContent) => {
     setContent((prev) => ({
       ...prev,
-      [section]: {
-        ...(prev[section] as Record<string, unknown>),
-        [field]: value,
-      },
+      [locale]: updater(prev[locale] ?? EMPTY_SITE_CONTENT),
+    }));
+  };
+
+  const updateStat = (field: keyof SiteContent['heroStats'], value: number) => {
+    updateLocaleContent((prev) => ({
+      ...prev,
+      heroStats: { ...prev.heroStats, [field]: value },
+    }));
+  };
+
+  const updateContact = (field: keyof SiteContent['contact'], value: string) => {
+    updateLocaleContent((prev) => ({
+      ...prev,
+      contact: { ...prev.contact, [field]: value },
+    }));
+  };
+
+  const updateSocial = (field: keyof SiteSocialLinks, value: string) => {
+    updateLocaleContent((prev) => ({
+      ...prev,
+      socialLinks: { ...prev.socialLinks, [field]: value },
+    }));
+  };
+
+  const updateOffice = (index: number, field: keyof SiteOffice, value: string | boolean) => {
+    updateLocaleContent((prev) => ({
+      ...prev,
+      offices: prev.offices.map((office, i) =>
+        i === index ? { ...office, [field]: value } : office,
+      ),
+    }));
+  };
+
+  const addOffice = () => {
+    updateLocaleContent((prev) => ({
+      ...prev,
+      offices: [
+        ...prev.offices,
+        { city: '', address: '', phone: '', email: '', workingHours: '', isMain: false },
+      ],
+    }));
+  };
+
+  const removeOffice = (index: number) => {
+    updateLocaleContent((prev) => ({
+      ...prev,
+      offices: prev.offices.filter((_, i) => i !== index),
+    }));
+  };
+
+  const updateFaq = (index: number, field: keyof SiteFaq, value: string) => {
+    updateLocaleContent((prev) => ({
+      ...prev,
+      faqs: prev.faqs.map((faq, i) => (i === index ? { ...faq, [field]: value } : faq)),
+    }));
+  };
+
+  const addFaq = () => {
+    updateLocaleContent((prev) => ({
+      ...prev,
+      faqs: [...prev.faqs, { id: crypto.randomUUID(), question: '', answer: '' }],
+    }));
+  };
+
+  const removeFaq = (index: number) => {
+    updateLocaleContent((prev) => ({
+      ...prev,
+      faqs: prev.faqs.filter((_, i) => i !== index),
     }));
   };
 
   const tabs: { value: Tab; label: string; icon: React.ReactNode }[] = [
-    { value: 'hero', label: 'Hero Banner', icon: <ImageIcon size={14} /> },
-    { value: 'about', label: 'Gioi thieu', icon: <Edit3 size={14} /> },
-    { value: 'contact', label: 'Lien he', icon: <Phone size={14} /> },
-    { value: 'social', label: 'Mang xa hoi', icon: <Globe size={14} /> },
+    { value: 'stats', label: 'Thống kê trang chủ', icon: <BarChart3 size={14} /> },
+    { value: 'contact', label: 'Liên hệ', icon: <Phone size={14} /> },
+    { value: 'social', label: 'Mạng xã hội', icon: <Globe size={14} /> },
+    { value: 'legal', label: 'Chính sách & Điều khoản', icon: <HelpCircle size={14} /> },
+    { value: 'offices', label: 'Văn phòng', icon: <MapPin size={14} /> },
+    { value: 'faqs', label: 'Câu hỏi thường gặp', icon: <HelpCircle size={14} /> },
   ];
 
   return (
     <div className="admin-view">
       <AdminPageHeader
-        title="Quan ly Noi dung Site"
-        subtitle="Chinh sua noi dung trang gioi thieu va lien he cua website"
+        title="Quản lý Nội dung Site"
+        subtitle="Chỉnh sửa thống kê trang chủ, liên hệ, văn phòng và FAQ của website"
         actions={
           <div style={{ display: 'flex', gap: 8 }}>
             <select
               value={locale}
-              onChange={(e) => setLocale(e.target.value as 'vi' | 'en')}
+              onChange={(e) => setLocale(e.target.value as Locale)}
               style={{
                 padding: '6px 12px',
                 border: '1px solid var(--gray-300)',
@@ -118,23 +196,29 @@ export default function SiteContentPage() {
                 background: 'white',
               }}
             >
-              <option value="vi">Tieng Viet</option>
+              <option value="vi">Tiếng Việt</option>
               <option value="en">English</option>
             </select>
             <button onClick={() => setShowPreview(true)} className="action-btn">
-              <Eye size={14} /> Xem truoc
+              <Eye size={14} /> Xem trước
             </button>
             {editMode ? (
               <>
-                <button onClick={() => setEditMode(false)} className="action-btn">
-                  Huy
+                <button
+                  onClick={() => {
+                    setEditMode(false);
+                    if (serverContent) setContent(normalizeContentByLocale(serverContent));
+                  }}
+                  className="action-btn"
+                >
+                  Hủy
                 </button>
                 <button
                   onClick={handleSave}
                   className="action-btn action-btn--primary"
                   disabled={saveMutation.isPending}
                 >
-                  <Save size={14} /> Luu
+                  <Save size={14} /> {saveMutation.isPending ? 'Đang lưu...' : 'Lưu'}
                 </button>
               </>
             ) : (
@@ -142,7 +226,7 @@ export default function SiteContentPage() {
                 onClick={() => setEditMode(true)}
                 className="action-btn action-btn--primary"
               >
-                <Edit3 size={14} /> Chinh sua
+                <Edit3 size={14} /> Chỉnh sửa
               </button>
             )}
           </div>
@@ -188,170 +272,117 @@ export default function SiteContentPage() {
       {isLoading ? (
         <div style={{ padding: 60, textAlign: 'center', color: 'var(--gray-500)' }}>
           <RefreshCw size={24} className="animate-spin" style={{ margin: '0 auto 12px' }} />
-          Dang tai noi dung...
+          Đang tải nội dung...
         </div>
       ) : (
-        <div style={{
+        <div className="admin-content-panel" style={{
           background: 'white',
           border: '1px solid var(--gray-200)',
           borderRadius: 10,
-          padding: 24,
           maxWidth: 800,
         }}>
-          {activeTab === 'hero' && (
+          {activeTab === 'stats' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <h3 style={{ margin: 0, fontSize: '1rem' }}>Hero Banner</h3>
-              <Field label="Tieu de chinh">
-                <input
-                  type="text"
-                  value={content.hero.title}
-                  onChange={(e) => updateField('hero', 'title', e.target.value)}
-                  disabled={!editMode}
-                  className="admin-input"
-                />
-              </Field>
-              <Field label="Phu de">
-                <input
-                  type="text"
-                  value={content.hero.subtitle}
-                  onChange={(e) => updateField('hero', 'subtitle', e.target.value)}
-                  disabled={!editMode}
-                  className="admin-input"
-                />
-              </Field>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-                <Field label="Text nut CTA">
+              <h3 style={{ margin: 0, fontSize: '1rem' }}>Thống kê hiển thị ở trang chủ</h3>
+              <p style={{ margin: 0, fontSize: '0.8rem', color: 'var(--gray-500)' }}>
+                Các số liệu này hiển thị ở banner trang chủ (vụ việc thành công, tỷ lệ thành công,
+                số năm kinh nghiệm, số khách hàng).
+              </p>
+              <div className="admin-grid-2">
+                <Field label="Số vụ việc thành công">
                   <input
-                    type="text"
-                    value={content.hero.ctaText}
-                    onChange={(e) => updateField('hero', 'ctaText', e.target.value)}
+                    type="number"
+                    min={0}
+                    value={current.heroStats.successfulCases}
+                    onChange={(e) => updateStat('successfulCases', parseInt(e.target.value, 10) || 0)}
                     disabled={!editMode}
                     className="admin-input"
                   />
                 </Field>
-                <Field label="Lien ket CTA">
+                <Field label="Tỷ lệ thành công (%)">
                   <input
-                    type="text"
-                    value={content.hero.ctaLink}
-                    onChange={(e) => updateField('hero', 'ctaLink', e.target.value)}
+                    type="number"
+                    min={0}
+                    max={100}
+                    value={current.heroStats.successRate}
+                    onChange={(e) => updateStat('successRate', parseInt(e.target.value, 10) || 0)}
+                    disabled={!editMode}
+                    className="admin-input"
+                  />
+                </Field>
+                <Field label="Số năm kinh nghiệm">
+                  <input
+                    type="number"
+                    min={0}
+                    value={current.heroStats.yearsExperience}
+                    onChange={(e) => updateStat('yearsExperience', parseInt(e.target.value, 10) || 0)}
+                    disabled={!editMode}
+                    className="admin-input"
+                  />
+                </Field>
+                <Field label="Số khách hàng đã phục vụ">
+                  <input
+                    type="number"
+                    min={0}
+                    value={current.heroStats.clients}
+                    onChange={(e) => updateStat('clients', parseInt(e.target.value, 10) || 0)}
                     disabled={!editMode}
                     className="admin-input"
                   />
                 </Field>
               </div>
-              <Field label="Anh nen (URL)">
-                <input
-                  type="text"
-                  value={content.hero.backgroundImage || ''}
-                  onChange={(e) => updateField('hero', 'backgroundImage', e.target.value)}
-                  disabled={!editMode}
-                  className="admin-input"
-                  placeholder="https://..."
-                />
-              </Field>
-            </div>
-          )}
-
-          {activeTab === 'about' && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <h3 style={{ margin: 0, fontSize: '1rem' }}>Gioi thieu</h3>
-              <Field label="Tieu de">
-                <input
-                  type="text"
-                  value={content.about.title}
-                  onChange={(e) => updateField('about', 'title', e.target.value)}
-                  disabled={!editMode}
-                  className="admin-input"
-                />
-              </Field>
-              <Field label="Mo ta">
-                <textarea
-                  value={content.about.description}
-                  onChange={(e) => updateField('about', 'description', e.target.value)}
-                  disabled={!editMode}
-                  rows={3}
-                  className="admin-input"
-                />
-              </Field>
-              <Field label="Su menh (Mission)">
-                <textarea
-                  value={content.about.mission}
-                  onChange={(e) => updateField('about', 'mission', e.target.value)}
-                  disabled={!editMode}
-                  rows={2}
-                  className="admin-input"
-                />
-              </Field>
-              <Field label="Tam nhin (Vision)">
-                <textarea
-                  value={content.about.vision}
-                  onChange={(e) => updateField('about', 'vision', e.target.value)}
-                  disabled={!editMode}
-                  rows={2}
-                  className="admin-input"
-                />
-              </Field>
-              <Field label="So nam kinh nghiem">
-                <input
-                  type="number"
-                  value={content.about.yearsExperience}
-                  onChange={(e) => updateField('about', 'yearsExperience', parseInt(e.target.value))}
-                  disabled={!editMode}
-                  className="admin-input"
-                />
-              </Field>
             </div>
           )}
 
           {activeTab === 'contact' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <h3 style={{ margin: 0, fontSize: '1rem' }}>Thong tin lien he</h3>
-              <Field label="Dia chi" icon={<MapPin size={14} />}>
+              <h3 style={{ margin: 0, fontSize: '1rem' }}>Thông tin liên hệ</h3>
+              <Field label="Hotline" icon={<Phone size={14} />}>
                 <input
                   type="text"
-                  value={content.contact.address}
-                  onChange={(e) => updateField('contact', 'address', e.target.value)}
+                  value={current.contact.hotline}
+                  onChange={(e) => updateContact('hotline', e.target.value)}
                   disabled={!editMode}
                   className="admin-input"
                 />
               </Field>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-                <Field label="So dien thoai" icon={<Phone size={14} />}>
+              <div className="admin-grid-2">
+                <Field label="Email" icon={<Mail size={14} />}>
                   <input
-                    type="text"
-                    value={content.contact.phone}
-                    onChange={(e) => updateField('contact', 'phone', e.target.value)}
+                    type="email"
+                    value={current.contact.email}
+                    onChange={(e) => updateContact('email', e.target.value)}
                     disabled={!editMode}
                     className="admin-input"
                   />
                 </Field>
-                <Field label="Email" icon={<Mail size={14} />}>
+                <Field label="Giờ làm việc" icon={<Clock size={14} />}>
                   <input
-                    type="email"
-                    value={content.contact.email}
-                    onChange={(e) => updateField('contact', 'email', e.target.value)}
+                    type="text"
+                    value={current.contact.workingHours}
+                    onChange={(e) => updateContact('workingHours', e.target.value)}
                     disabled={!editMode}
                     className="admin-input"
                   />
                 </Field>
               </div>
-              <Field label="Gio lam viec" icon={<Clock size={14} />}>
+              <Field label="Địa chỉ" icon={<MapPin size={14} />}>
                 <input
                   type="text"
-                  value={content.contact.workingHours}
-                  onChange={(e) => updateField('contact', 'workingHours', e.target.value)}
+                  value={current.contact.address}
+                  onChange={(e) => updateContact('address', e.target.value)}
                   disabled={!editMode}
                   className="admin-input"
                 />
               </Field>
-              <Field label="Google Maps Embed (iframe URL)">
-                <textarea
-                  value={content.contact.mapEmbed || ''}
-                  onChange={(e) => updateField('contact', 'mapEmbed', e.target.value)}
+              <Field label="Zalo URL">
+                <input
+                  type="text"
+                  value={current.contact.zaloUrl}
+                  onChange={(e) => updateContact('zaloUrl', e.target.value)}
                   disabled={!editMode}
-                  rows={2}
                   className="admin-input"
-                  placeholder="https://www.google.com/maps/embed?..."
+                  placeholder="https://zalo.me/..."
                 />
               </Field>
             </div>
@@ -359,145 +390,272 @@ export default function SiteContentPage() {
 
           {activeTab === 'social' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <h3 style={{ margin: 0, fontSize: '1rem' }}>Mang xa hoi</h3>
-              <Field label="Facebook">
+              <h3 style={{ margin: 0, fontSize: '1rem' }}>Liên kết mạng xã hội trên footer</h3>
+              <p style={{ margin: 0, fontSize: '0.8rem', color: 'var(--gray-500)' }}>
+                Chỉ nhập URL chính thức. Để trống nếu không muốn hiển thị một mạng xã hội.
+              </p>
+              {([
+                ['facebook', 'Facebook', 'https://facebook.com/...'],
+                ['linkedin', 'LinkedIn', 'https://linkedin.com/company/...'],
+                ['youtube', 'YouTube', 'https://youtube.com/@...'],
+                ['instagram', 'Instagram', 'https://instagram.com/...'],
+              ] as const).map(([field, label, placeholder]) => (
+                <Field key={field} label={label} icon={<Globe size={14} />}>
+                  <input
+                    type="url"
+                    value={current.socialLinks[field]}
+                    onChange={(e) => updateSocial(field, e.target.value)}
+                    disabled={!editMode}
+                    className="admin-input"
+                    placeholder={placeholder}
+                  />
+                </Field>
+              ))}
+            </div>
+          )}
+
+          {activeTab === 'legal' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <h3 style={{ margin: 0, fontSize: '1rem' }}>Chính sách và điều khoản trên footer</h3>
+              <p style={{ margin: 0, fontSize: '0.8rem', color: 'var(--gray-500)' }}>
+                Nhập URL trang nội dung tương ứng. Để trống nếu chưa muốn hiển thị liên kết.
+              </p>
+              <Field label="Chính sách bảo mật">
                 <input
-                  type="text"
-                  value={content.social.facebook || ''}
-                  onChange={(e) => updateField('social', 'facebook', e.target.value)}
+                  type="url"
+                  value={current.legalLinks.privacyPolicy}
+                  onChange={(e) => updateLocaleContent((prev) => ({
+                    ...prev,
+                    legalLinks: { ...prev.legalLinks, privacyPolicy: e.target.value },
+                  }))}
                   disabled={!editMode}
                   className="admin-input"
+                  placeholder="https://... hoặc /privacy-policy"
                 />
               </Field>
-              <Field label="YouTube">
+              <Field label="Điều khoản sử dụng">
                 <input
-                  type="text"
-                  value={content.social.youtube || ''}
-                  onChange={(e) => updateField('social', 'youtube', e.target.value)}
+                  type="url"
+                  value={current.legalLinks.termsOfUse}
+                  onChange={(e) => updateLocaleContent((prev) => ({
+                    ...prev,
+                    legalLinks: { ...prev.legalLinks, termsOfUse: e.target.value },
+                  }))}
                   disabled={!editMode}
                   className="admin-input"
+                  placeholder="https://... hoặc /terms-of-use"
                 />
               </Field>
-              <Field label="Zalo">
-                <input
-                  type="text"
-                  value={content.social.zalo || ''}
-                  onChange={(e) => updateField('social', 'zalo', e.target.value)}
-                  disabled={!editMode}
-                  className="admin-input"
-                />
-              </Field>
-              <Field label="LinkedIn">
-                <input
-                  type="text"
-                  value={content.social.linkedin || ''}
-                  onChange={(e) => updateField('social', 'linkedin', e.target.value)}
-                  disabled={!editMode}
-                  className="admin-input"
-                />
-              </Field>
+            </div>
+          )}
+
+          {activeTab === 'offices' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <h3 style={{ margin: 0, fontSize: '1rem' }}>Văn phòng</h3>
+                {editMode && (
+                  <button onClick={addOffice} className="action-btn">
+                    <Plus size={14} /> Thêm văn phòng
+                  </button>
+                )}
+              </div>
+              {current.offices.length === 0 && (
+                <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--gray-500)' }}>
+                  Chưa có văn phòng nào.
+                </p>
+              )}
+              {current.offices.map((office, index) => (
+                <div
+                  key={index}
+                  style={{
+                    border: '1px solid var(--gray-200)',
+                    borderRadius: 8,
+                    padding: 16,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 12,
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <strong style={{ fontSize: '0.85rem' }}>
+                      Văn phòng {index + 1}{office.isMain ? ' (chính)' : ''}
+                    </strong>
+                    {editMode && (
+                      <button onClick={() => removeOffice(index)} className="action-btn action-btn--danger">
+                        <Trash2 size={14} />
+                      </button>
+                    )}
+                  </div>
+                  <div className="admin-grid-2">
+                    <Field label="Thành phố">
+                      <input
+                        type="text"
+                        value={office.city}
+                        onChange={(e) => updateOffice(index, 'city', e.target.value)}
+                        disabled={!editMode}
+                        className="admin-input"
+                      />
+                    </Field>
+                    <Field label="Điện thoại">
+                      <input
+                        type="text"
+                        value={office.phone}
+                        onChange={(e) => updateOffice(index, 'phone', e.target.value)}
+                        disabled={!editMode}
+                        className="admin-input"
+                      />
+                    </Field>
+                  </div>
+                  <Field label="Địa chỉ">
+                    <input
+                      type="text"
+                      value={office.address}
+                      onChange={(e) => updateOffice(index, 'address', e.target.value)}
+                      disabled={!editMode}
+                      className="admin-input"
+                    />
+                  </Field>
+                  <div className="admin-grid-2">
+                    <Field label="Email">
+                      <input
+                        type="email"
+                        value={office.email}
+                        onChange={(e) => updateOffice(index, 'email', e.target.value)}
+                        disabled={!editMode}
+                        className="admin-input"
+                      />
+                    </Field>
+                    <Field label="Giờ làm việc">
+                      <input
+                        type="text"
+                        value={office.workingHours}
+                        onChange={(e) => updateOffice(index, 'workingHours', e.target.value)}
+                        disabled={!editMode}
+                        className="admin-input"
+                      />
+                    </Field>
+                  </div>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: '0.8rem' }}>
+                    <input
+                      type="checkbox"
+                      checked={!!office.isMain}
+                      onChange={(e) => updateOffice(index, 'isMain', e.target.checked)}
+                      disabled={!editMode}
+                    />
+                    Văn phòng chính
+                  </label>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {activeTab === 'faqs' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <h3 style={{ margin: 0, fontSize: '1rem' }}>Câu hỏi thường gặp</h3>
+                {editMode && (
+                  <button onClick={addFaq} className="action-btn">
+                    <Plus size={14} /> Thêm câu hỏi
+                  </button>
+                )}
+              </div>
+              {current.faqs.length === 0 && (
+                <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--gray-500)' }}>
+                  Chưa có câu hỏi nào.
+                </p>
+              )}
+              {current.faqs.map((faq, index) => (
+                <div
+                  key={faq.id}
+                  style={{
+                    border: '1px solid var(--gray-200)',
+                    borderRadius: 8,
+                    padding: 16,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 12,
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <strong style={{ fontSize: '0.85rem' }}>Câu hỏi {index + 1}</strong>
+                    {editMode && (
+                      <button onClick={() => removeFaq(index)} className="action-btn action-btn--danger">
+                        <Trash2 size={14} />
+                      </button>
+                    )}
+                  </div>
+                  <Field label="Câu hỏi">
+                    <input
+                      type="text"
+                      value={faq.question}
+                      onChange={(e) => updateFaq(index, 'question', e.target.value)}
+                      disabled={!editMode}
+                      className="admin-input"
+                    />
+                  </Field>
+                  <Field label="Trả lời">
+                    <textarea
+                      value={faq.answer}
+                      onChange={(e) => updateFaq(index, 'answer', e.target.value)}
+                      disabled={!editMode}
+                      rows={3}
+                      className="admin-input"
+                    />
+                  </Field>
+                </div>
+              ))}
             </div>
           )}
         </div>
       )}
 
-      {/* Preview modal */}
       {showPreview && (
-        <div style={{
-          position: 'fixed',
-          inset: 0,
-          background: 'rgba(0,0,0,0.6)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 1000,
-          padding: 20,
-        }}>
-          <div style={{
-            background: 'white',
-            borderRadius: 12,
-            maxWidth: 900,
-            width: '100%',
-            maxHeight: '90vh',
-            overflow: 'auto',
-          }}>
-            <div style={{
-              padding: '14px 20px',
-              borderBottom: '1px solid var(--gray-200)',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              position: 'sticky',
-              top: 0,
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(0,0,0,0.5)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1000,
+            padding: 16,
+          }}
+          onClick={() => setShowPreview(false)}
+        >
+          <div
+            style={{
               background: 'white',
-              zIndex: 1,
-            }}>
-              <h3 style={{ margin: 0, fontSize: '1rem' }}>Preview trang public ({locale})</h3>
-              <button onClick={() => setShowPreview(false)} className="action-btn">
-                Dong
-              </button>
-            </div>
-
-            {/* Hero preview */}
-            <div style={{
-              background: content.hero.backgroundImage 
-                ? `url(${content.hero.backgroundImage}) center/cover` 
-                : 'linear-gradient(135deg, var(--primary), #1a3a6e)',
-              color: 'white',
-              padding: '60px 40px',
-              textAlign: 'center',
-            }}>
-              <h1 style={{ fontSize: '2rem', marginBottom: 12 }}>{content.hero.title}</h1>
-              <p style={{ fontSize: '1rem', opacity: 0.9, marginBottom: 24 }}>{content.hero.subtitle}</p>
-              <button style={{
-                padding: '12px 24px',
-                background: 'white',
-                color: 'var(--primary)',
-                border: 'none',
+              borderRadius: 10,
+              padding: 24,
+              maxWidth: 480,
+              width: '100%',
+              maxHeight: '85vh',
+              overflowY: 'auto',
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 style={{ margin: '0 0 12px', fontSize: '1rem' }}>Xem trước nội dung ({locale})</h3>
+            <pre
+              style={{
+                fontSize: '0.75rem',
+                background: 'var(--gray-100)',
+                padding: 12,
                 borderRadius: 6,
-                fontSize: '0.95rem',
-                fontWeight: 600,
-                cursor: 'pointer',
-              }}>
-                {content.hero.ctaText}
-              </button>
-            </div>
-
-            {/* About preview */}
-            <div style={{ padding: '40px' }}>
-              <h2 style={{ fontSize: '1.5rem', marginBottom: 16 }}>{content.about.title}</h2>
-              <p style={{ color: 'var(--gray-600)', marginBottom: 20 }}>{content.about.description}</p>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
-                <div style={{ padding: 16, background: 'var(--gray-50)', borderRadius: 8 }}>
-                  <strong>Su menh:</strong> {content.about.mission}
-                </div>
-                <div style={{ padding: 16, background: 'var(--gray-50)', borderRadius: 8 }}>
-                  <strong>Tam nhin:</strong> {content.about.vision}
-                </div>
-              </div>
-              <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--primary)' }}>
-                {content.about.yearsExperience}+ nam kinh nghiem
-              </div>
-            </div>
-
-            {/* Contact preview */}
-            <div style={{ padding: '40px', background: 'var(--gray-50)' }}>
-              <h2 style={{ fontSize: '1.5rem', marginBottom: 16 }}>Lien he voi chung toi</h2>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16 }}>
-                <ContactItem icon={<MapPin size={16} />} label="Dia chi" value={content.contact.address} />
-                <ContactItem icon={<Phone size={16} />} label="Dien thoai" value={content.contact.phone} />
-                <ContactItem icon={<Mail size={16} />} label="Email" value={content.contact.email} />
-                <ContactItem icon={<Clock size={16} />} label="Gio lam viec" value={content.contact.workingHours} />
-              </div>
-            </div>
-
-            {/* Social preview */}
-            <div style={{ padding: '24px 40px', display: 'flex', justifyContent: 'center', gap: 16 }}>
-              {content.social.facebook && <SocialBtn label="Facebook" />}
-              {content.social.youtube && <SocialBtn label="YouTube" />}
-              {content.social.zalo && <SocialBtn label="Zalo" />}
-              {content.social.linkedin && <SocialBtn label="LinkedIn" />}
-            </div>
+                overflowX: 'auto',
+                whiteSpace: 'pre-wrap',
+                wordBreak: 'break-word',
+              }}
+            >
+              {JSON.stringify(current, null, 2)}
+            </pre>
+            <button
+              onClick={() => setShowPreview(false)}
+              className="action-btn"
+              style={{ marginTop: 12 }}
+            >
+              Đóng
+            </button>
           </div>
         </div>
       )}
@@ -505,49 +663,32 @@ export default function SiteContentPage() {
   );
 }
 
-function Field({ label, icon, children }: { label: string; icon?: React.ReactNode; children: React.ReactNode }) {
+function Field({
+  label,
+  icon,
+  children,
+}: {
+  label: string;
+  icon?: React.ReactNode;
+  children: React.ReactNode;
+}) {
   return (
     <div>
-      <label style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: 6,
-        fontSize: '0.78rem',
-        fontWeight: 600,
-        marginBottom: 6,
-        color: 'var(--gray-700)',
-      }}>
+      <label
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 6,
+          fontSize: '0.78rem',
+          fontWeight: 600,
+          marginBottom: 6,
+          color: 'var(--gray-700)',
+        }}
+      >
         {icon}
         {label}
       </label>
       {children}
     </div>
-  );
-}
-
-function ContactItem({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
-  return (
-    <div style={{ padding: 12, background: 'white', borderRadius: 8 }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'var(--primary)', marginBottom: 6 }}>
-        {icon}
-        <strong style={{ fontSize: '0.78rem' }}>{label}</strong>
-      </div>
-      <div style={{ fontSize: '0.85rem', color: 'var(--gray-700)' }}>{value}</div>
-    </div>
-  );
-}
-
-function SocialBtn({ label }: { label: string }) {
-  return (
-    <button style={{
-      padding: '8px 16px',
-      border: '1px solid var(--gray-300)',
-      borderRadius: 20,
-      background: 'white',
-      cursor: 'pointer',
-      fontSize: '0.85rem',
-    }}>
-      {label}
-    </button>
   );
 }

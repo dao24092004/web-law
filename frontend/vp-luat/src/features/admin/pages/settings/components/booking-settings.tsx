@@ -46,7 +46,7 @@ export function BookingSettingsForm({ value, loaded, onSubmit, isSubmitting }: P
       }}
     >
       <Section icon={<Clock size={16} />} title="Slot & Lead time">
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 14 }}>
+        <div className="admin-grid-3" style={{ gap: 14 }}>
           <FormFieldSelect
             label="Thời lượng slot"
             required

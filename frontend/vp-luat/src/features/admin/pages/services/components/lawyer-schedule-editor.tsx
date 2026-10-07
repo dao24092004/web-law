@@ -194,7 +194,7 @@ export function LawyerScheduleEditor({
           Vui lòng chọn luật sư để chỉnh sửa lịch làm việc.
         </div>
       ) : (
-        <div style={{ padding: 16, display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: 8 }}>
+        <div className="admin-grid-week">
           {DAYS_OF_WEEK.map((label, dow) => {
             const day = local[dow];
             return (

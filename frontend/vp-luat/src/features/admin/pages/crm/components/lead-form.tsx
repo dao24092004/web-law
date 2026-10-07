@@ -122,7 +122,7 @@ export function LeadForm({ isOpen, onClose, onSubmit, initial, lawyers, isLoadin
           {...register('name')}
           error={errors.name?.message}
         />
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        <div className="admin-grid-2" style={{ gap: 12 }}>
           <FormFieldInput
             label="Số điện thoại"
             required
@@ -153,7 +153,7 @@ export function LeadForm({ isOpen, onClose, onSubmit, initial, lawyers, isLoadin
             </FormFieldSelect>
           )}
         />
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        <div className="admin-grid-2" style={{ gap: 12 }}>
           <Controller
             control={control}
             name="source"

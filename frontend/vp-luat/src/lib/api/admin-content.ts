@@ -1,5 +1,5 @@
 // lib/api/admin-content.ts
-// Posts, documents, audit log, chatbot sessions, reports, landing pages, CRM.
+// Posts, documents, audit log, chatbot sessions, reports, CRM.
 
 import { api } from './hooks';
 import type { PageResponse } from './hooks';

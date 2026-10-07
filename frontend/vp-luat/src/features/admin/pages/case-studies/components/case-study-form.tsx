@@ -307,7 +307,7 @@ export function CaseStudyForm({
             </fieldset>
 
             {/* Common fields */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+            <div className="admin-grid-2" style={{ gap: 16 }}>
               <div>
                 <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 500, marginBottom: 4 }}>
                   Slug <span style={{ color: '#DC2626' }}>*</span>

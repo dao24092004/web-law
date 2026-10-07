@@ -2,7 +2,6 @@
 
 import { BookingFooter } from './booking-footer';
 import { BookingHero } from './booking-hero';
-import { BookingMiniNav } from './booking-mini-nav';
 import { BookingProgress } from './booking-progress';
 import type { BookingStep } from '../types';
 
@@ -15,7 +14,6 @@ export function BookingShell({
 }) {
   return (
     <main className="min-h-screen bg-[var(--off-white)] text-[var(--primary)]">
-      <BookingMiniNav />
       <BookingHero />
       <BookingProgress step={step} />
       <div className="mx-auto max-w-[1100px] px-4 py-10 pb-20">{children}</div>

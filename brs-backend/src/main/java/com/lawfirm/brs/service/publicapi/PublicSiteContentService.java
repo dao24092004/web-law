@@ -23,19 +23,43 @@ public class PublicSiteContentService {
         }
         JsonNode localized = site.get(locale == null ? "vi" : locale.toLowerCase());
         if (localized != null && localized.isObject()) {
-            return localized;
+            return withSocialLinkDefaults((ObjectNode) localized);
         }
         JsonNode vietnamese = site.get("vi");
-        return vietnamese != null && vietnamese.isObject() ? vietnamese : emptyContent();
+        return vietnamese != null && vietnamese.isObject()
+            ? withSocialLinkDefaults((ObjectNode) vietnamese)
+            : emptyContent();
+    }
+
+    private JsonNode withSocialLinkDefaults(ObjectNode content) {
+        ObjectNode result = content.deepCopy();
+        JsonNode existing = result.get("socialLinks");
+        ObjectNode socialLinks = existing != null && existing.isObject()
+            ? (ObjectNode) existing
+            : result.putObject("socialLinks");
+
+        putDefaultIfBlank(socialLinks, "facebook", "https://facebook.com/vpluat");
+        putDefaultIfBlank(socialLinks, "linkedin", "https://linkedin.com/company/vpluat");
+        putDefaultIfBlank(socialLinks, "youtube", "https://youtube.com/@vpluat");
+        putDefaultIfBlank(socialLinks, "instagram", "https://instagram.com/vpluat");
+        return result;
+    }
+
+    private void putDefaultIfBlank(ObjectNode node, String field, String defaultValue) {
+        JsonNode current = node.get(field);
+        if (current == null || !current.isTextual() || current.asText().isBlank()) {
+            node.put(field, defaultValue);
+        }
     }
 
     private JsonNode emptyContent() {
         ObjectNode empty = objectMapper.createObjectNode();
         empty.putObject("contact");
+        empty.putObject("socialLinks");
         empty.putArray("offices");
         empty.putObject("heroStats");
         empty.putArray("processSteps");
         empty.putArray("faqs");
-        return empty;
+        return withSocialLinkDefaults(empty);
     }
 }

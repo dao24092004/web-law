@@ -55,9 +55,6 @@ export type {
   AuditLogEntry,
 } from './admin-core';
 
-export { landingPageApi } from './admin-landing-pages';
-export type { LandingPage, LandingPageBlock, LandingPageStats } from './admin-landing-pages';
-
 export { jobsApi } from './admin-jobs';
 export type { JobPosting, JobApplication } from './admin-jobs';
 
