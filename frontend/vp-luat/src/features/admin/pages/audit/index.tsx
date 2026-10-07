@@ -235,14 +235,7 @@ export default function AuditPage() {
         }
       />
 
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: 8,
-          marginBottom: 12,
-        }}
-      >
+      <div className="admin-grid-4" style={{ marginBottom: 12 }}>
         <StatBox
           icon={<Activity size={14} />}
           label="Tổng log"
@@ -278,14 +271,7 @@ export default function AuditPage() {
           marginBottom: 12,
         }}
       >
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr 1fr auto',
-            gap: 8,
-            alignItems: 'end',
-          }}
-        >
+        <div className="admin-filter-grid">
           <SearchBar
             value={search}
             onChange={(v) => {
@@ -604,9 +590,8 @@ function LogDetail({ log }: { log: AuditLog }) {
                   </span>
                 </div>
                 <div
+                  className="admin-grid-2"
                   style={{
-                    display: 'grid',
-                    gridTemplateColumns: '1fr 1fr',
                     gap: 1,
                     background: 'var(--gray-200)',
                   }}

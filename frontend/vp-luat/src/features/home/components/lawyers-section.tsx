@@ -128,11 +128,16 @@ function LawyerCardItem({
         <h3 className="lawyer-card__name">{lawyer.name}</h3>
         <p className="lawyer-card__position">{lawyer.position}</p>
         <div className="lawyer-card__tags">
-          {tags.map((tag, i) => (
+          {tags.slice(0, 3).map((tag, i) => (
             <span key={`${tag}-${i}`} className="lawyer-card__tag">
               {tag}
             </span>
           ))}
+          {tags.length > 3 && (
+            <span className="lawyer-card__tag lawyer-card__tag--more">
+              +{tags.length - 3}
+            </span>
+          )}
         </div>
         <div className="lawyer-card__experience">
           <span className="lawyer-card__exp-icon">

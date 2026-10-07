@@ -997,6 +997,13 @@
   color: var(--text-secondary);
 }
 
+.lawyer-card__tag--more {
+  background: var(--gray-100);
+  border-color: var(--gray-200);
+  color: var(--accent-dark);
+  font-weight: 700;
+}
+
 .lawyer-card__experience {
   display: flex;
   align-items: center;
@@ -2126,6 +2133,10 @@
     display: flex;
   }
 
+  .navbar__cta {
+    display: none;
+  }
+
   .mobile-menu {
     display: block;
   }
@@ -3237,6 +3248,28 @@ body.has-open-chatbot .floating-widgets:hover {
   }
 }
 
+/* Tablet / large phone: chat window scales with viewport instead of
+   staying fixed at 380px (which could crowd the right edge or overflow
+   on narrower tablets/landscape phones between 481px and 768px). */
+@media (max-width: 768px) and (min-width: 481px) {
+  .chatbot-widget {
+    right: 16px;
+  }
+
+  .chat-window {
+    width: min(380px, calc(100vw - 32px));
+    max-height: min(580px, calc(100vh - 140px));
+  }
+
+  .chatbot__fab {
+    right: 16px;
+  }
+
+  .bubble-popup {
+    right: 16px;
+  }
+}
+
 @media (max-width: 480px) {
   .chat-window {
     position: fixed;
@@ -3633,11 +3666,20 @@ body.has-open-chatbot .floating-widgets:hover {
   justify-content: space-between;
   margin-bottom: 24px;
   gap: 16px;
+  flex-wrap: wrap;
 }
 
 .admin-page-header__left {
   display: flex;
   flex-direction: column;
+  min-width: 0;
+}
+
+.admin-page-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .admin-page-header__title {
@@ -3666,12 +3708,84 @@ body.has-open-chatbot .floating-widgets:hover {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .admin-card__title {
   font-size: 0.9rem;
   font-weight: 700;
   color: var(--primary, #1E3A5F);
+}
+
+/* Generic responsive grid helpers for admin pages.
+   Use these instead of inline style={{ display:'grid', gridTemplateColumns: ... }}
+   so breakpoints below can collapse them on tablet/mobile. */
+.admin-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.admin-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.admin-grid-main-side {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 16px;
+}
+
+.admin-filter-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr auto;
+  gap: 8px;
+  align-items: end;
+}
+
+.admin-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+
+.admin-grid-sidebar {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 16px;
+}
+
+.admin-grid-3col-filter {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 8px;
+}
+
+.admin-grid-week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  padding: 16px;
+}
+
+.admin-content-panel {
+  padding: 24px;
+}
+
+.revenue-highlight {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 480px) {
+  .admin-content-panel {
+    padding: 16px;
+  }
 }
 
 .admin-card__action {
@@ -3896,6 +4010,7 @@ body.has-open-chatbot .floating-widgets:hover {
 .action-btns {
   display: flex;
   gap: 6px;
+  flex-wrap: wrap;
 }
 
 .action-btn {
@@ -4200,6 +4315,7 @@ body.has-open-chatbot .floating-widgets:hover {
   padding: 0 12px;
   margin-bottom: 16px;
   max-width: 320px;
+  width: 100%;
   transition: border-color 0.2s ease;
 }
 
@@ -4254,6 +4370,7 @@ body.has-open-chatbot .floating-widgets:hover {
   justify-content: space-between;
   padding: 12px 0;
   gap: 12px;
+  flex-wrap: wrap;
 }
 
 .pagination__info {
@@ -4432,11 +4549,47 @@ body.has-open-chatbot .floating-widgets:hover {
   .kanban {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .admin-grid-main-side,
+  .admin-grid-sidebar {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-filter-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .admin-grid-week {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
   :root {
     --sidebar-w: 240px;
+  }
+
+  .admin-grid-week {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .admin-grid-2,
+  .admin-grid-4,
+  .admin-grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .admin-grid-sidebar {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-filter-grid,
+  .admin-grid-3col-filter {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .search-bar {
+    max-width: none;
   }
 
   .admin-sidebar {
@@ -4481,12 +4634,57 @@ body.has-open-chatbot .floating-widgets:hover {
     grid-template-columns: 1fr;
   }
 
+  .admin-grid-2,
+  .admin-grid-4,
+  .admin-grid-3,
+  .admin-filter-grid,
+  .admin-grid-3col-filter,
+  .admin-grid-week,
+  .kanban {
+    grid-template-columns: 1fr;
+  }
+
   .admin-content {
     padding: 16px;
   }
 
   .admin-topbar {
     padding: 0 16px;
+  }
+
+  .admin-page-header__actions {
+    width: 100%;
+  }
+
+  .admin-page-header__actions > * {
+    flex: 1 1 auto;
+  }
+
+  /* Avoid showing the date twice (title-group + right side) on narrow screens. */
+  .admin-topbar__right > .admin-topbar__date {
+    display: none;
+  }
+
+  .admin-topbar__title {
+    font-size: 0.95rem;
+  }
+
+  .modal {
+    padding: 16px;
+    max-height: 85vh;
+  }
+
+  .modal-overlay {
+    padding: 12px;
+  }
+
+  .pagination {
+    justify-content: center;
+  }
+
+  .pagination__controls {
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
 
@@ -5036,6 +5234,11 @@ body.has-open-chatbot .floating-widgets:hover {
   color: var(--gray-600);
   line-height: 1.7;
   margin-bottom: 18px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
 }
 .service-card__list {
   margin-bottom: 20px;
@@ -5043,18 +5246,26 @@ body.has-open-chatbot .floating-widgets:hover {
 }
 .service-card__list-item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 8px;
   padding: 5px 0;
   font-size: 0.82rem;
   color: var(--gray-600);
   border-bottom: 1px dashed var(--gray-200);
 }
+.service-card__list-item span {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  overflow: hidden;
+}
 .service-card__list-item:last-child { border-bottom: none; }
 .service-card__list-icon {
   width: 16px;
   height: 16px;
   padding: 3px;
+  margin-top: 2px;
   background: rgba(201, 168, 76, 0.12);
   border-radius: 50%;
   color: var(--accent-dark);
@@ -5325,6 +5536,12 @@ body.has-open-chatbot .floating-widgets:hover {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 28px;
+}
+.lawyers-grid--few {
+  grid-template-columns: repeat(auto-fit, minmax(0, 320px));
+  max-width: 700px;
+  margin: 0 auto;
+  justify-content: center;
 }
 .lawyers-empty {
   grid-column: 1 / -1;
@@ -6728,26 +6945,10 @@ body.has-open-chatbot .floating-widgets:hover {
 .article-related__grid { display: flex; flex-direction: column; }
 
 /* ────────────────────────────────────────────────────────────
-   LAWYER DETAIL
+   LAWYER DETAIL (legacy, unused — superseded by Redesign block below)
    ──────────────────────────────────────────────────────────── */
-
+/*
 .lawyer-detail-header { padding: 100px 0 24px; background: var(--gray-50); }
-.lawyer-detail-section { padding: 48px 0 80px; }
-.lawyer-detail-grid {
-  display: grid;
-  grid-template-columns: 360px 1fr;
-  gap: 40px;
-  align-items: start;
-}
-.lawyer-detail-card {
-  background: var(--white);
-  border: 1px solid var(--gray-200);
-  border-radius: var(--radius-xl, 16px);
-  padding: 32px 24px;
-  text-align: center;
-  position: sticky;
-  top: 88px;
-}
 .lawyer-detail__avatar {
   width: 140px;
   height: 140px;
@@ -6875,6 +7076,7 @@ body.has-open-chatbot .floating-widgets:hover {
   margin: 0;
 }
 .lawyer-detail__tags { display: flex; flex-wrap: wrap; gap: 8px; }
+*/
 
 /* ────────────────────────────────────────────────────────────
    LAWYER DETAIL PAGE (Redesign)

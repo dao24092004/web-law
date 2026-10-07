@@ -123,7 +123,7 @@ export function ChatbotIntentForm({
     >
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+          <div className="admin-grid-2" style={{ gap: 12 }}>
             <FormFieldInput
               label="Tên intent"
               required

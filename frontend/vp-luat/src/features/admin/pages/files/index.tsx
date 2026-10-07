@@ -18,7 +18,6 @@ const FOLDER_OPTIONS = [
   { value: 'services', label: 'Services' },
   { value: 'lawyers', label: 'Lawyers' },
   { value: 'case-studies', label: 'Case Studies' },
-  { value: 'landing-pages', label: 'Landing Pages' },
   { value: 'jobs', label: 'Jobs' },
 ];
 

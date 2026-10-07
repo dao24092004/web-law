@@ -1,6 +1,5 @@
 package com.lawfirm.brs.service.admin;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -48,7 +47,7 @@ public class SystemSettingsService {
             .orElseGet(() -> {
                 SystemSetting created = new SystemSetting();
                 created.setNamespace(namespace);
-                created.setValueJson("{}");
+                created.setValueJson(objectMapper.createObjectNode());
                 return created;
             });
 
@@ -62,31 +61,19 @@ public class SystemSettingsService {
             }
             merged.set(entry.getKey(), entry.getValue());
         });
-        setting.setValueJson(writeJson(merged));
+        setting.setValueJson(merged);
         repository.save(setting);
         return getStoredValue(merged, namespace);
     }
 
-    private ObjectNode readJson(String valueJson) {
-        try {
-            JsonNode parsed = valueJson == null || valueJson.isBlank()
-                ? objectMapper.createObjectNode()
-                : objectMapper.readTree(valueJson);
-            if (!parsed.isObject()) {
-                throw new BusinessException("INVALID_SETTINGS", "Stored settings must be a JSON object");
-            }
-            return (ObjectNode) parsed;
-        } catch (JsonProcessingException ex) {
-            throw new BusinessException("INVALID_SETTINGS", "Stored settings contain invalid JSON");
+    private ObjectNode readJson(JsonNode valueJson) {
+        JsonNode parsed = valueJson == null || valueJson.isNull()
+            ? objectMapper.createObjectNode()
+            : valueJson;
+        if (!parsed.isObject()) {
+            throw new BusinessException("INVALID_SETTINGS", "Stored settings must be a JSON object");
         }
-    }
-
-    private String writeJson(JsonNode value) {
-        try {
-            return objectMapper.writeValueAsString(value);
-        } catch (JsonProcessingException ex) {
-            throw new BusinessException("INVALID_SETTINGS", "Unable to serialize settings");
-        }
+        return (ObjectNode) parsed;
     }
 
     private JsonNode getStoredValue(ObjectNode value, SettingsNamespace namespace) {

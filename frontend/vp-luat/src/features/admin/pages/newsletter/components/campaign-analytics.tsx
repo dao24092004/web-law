@@ -46,14 +46,7 @@ export function CampaignAnalytics({ campaign }: CampaignAnalyticsProps) {
   }
 
   return (
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(4, 1fr)',
-        gap: 8,
-        marginBottom: 12,
-      }}
-    >
+    <div className="admin-grid-4" style={{ marginBottom: 12 }}>
       <StatCard
         icon={<Send size={12} />}
         label="Open rate"

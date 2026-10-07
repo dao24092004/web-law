@@ -2,10 +2,22 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { FooterBrand, FooterColumns } from './footer-columns';
+import { usePublicSiteContent } from '@/features/home/hooks/use-site-content';
+
+function LegalLink({ href, label }: { href: string; label: string }) {
+  if (/^https?:\/\//i.test(href)) {
+    return <a href={href} target="_blank" rel="noopener noreferrer">{label}</a>;
+  }
+  return <Link href={href}>{label}</Link>;
+}
 
 export function Footer() {
   const pathname = usePathname();
+  const t = useTranslations('footer');
+  const { data: siteContent } = usePublicSiteContent();
+  const legalLinks = siteContent?.legalLinks ?? { privacyPolicy: '', termsOfUse: '' };
   const hidden =
     pathname?.startsWith('/admin') ||
     pathname?.startsWith('/staff') ||
@@ -26,8 +38,12 @@ export function Footer() {
             &copy; {new Date().getFullYear()} Công ty Luật TNHH ICRC. Giữ bản quyền.
           </p>
           <div className="footer__legal">
-            <Link href="/contact" aria-label="Liên hệ về chính sách bảo mật">Chính sách bảo mật</Link>
-            <Link href="/contact" aria-label="Liên hệ về điều khoản sử dụng">Điều khoản sử dụng</Link>
+            {legalLinks.privacyPolicy.trim() && (
+              <LegalLink href={legalLinks.privacyPolicy.trim()} label={t('privacy')} />
+            )}
+            {legalLinks.termsOfUse.trim() && (
+              <LegalLink href={legalLinks.termsOfUse.trim()} label={t('terms')} />
+            )}
           </div>
         </div>
       </div>

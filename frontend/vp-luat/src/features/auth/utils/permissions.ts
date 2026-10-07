@@ -33,10 +33,6 @@ export type Permission =
   | 'chatbot:config'
   | 'newsletter:read'
   | 'newsletter:send'
-  | 'landing_pages:read'
-  | 'landing_pages:write'
-  | 'landing_pages:publish'
-  | 'landing_pages:delete'
   | 'users:read'
   | 'users:write'
   | 'users:delete'
@@ -54,7 +50,6 @@ const ALL_PERMISSIONS: Permission[] = [
   'reviews:moderate',
   'chatbot:read_logs', 'chatbot:config',
   'newsletter:read', 'newsletter:send',
-  'landing_pages:read', 'landing_pages:write', 'landing_pages:publish', 'landing_pages:delete',
   'users:read', 'users:write', 'users:delete',
   'settings:read', 'settings:write',
 ];
@@ -71,13 +66,11 @@ const ROLE_PERMISSIONS: Record<Role, Permission[]> = {
     'reviews:moderate',
     'chatbot:read_logs', 'chatbot:config',
     'newsletter:read', 'newsletter:send',
-    'landing_pages:read', 'landing_pages:write', 'landing_pages:publish', 'landing_pages:delete',
     'users:read', 'users:write',
     'settings:read', 'settings:write',
   ],
   EDITOR: [
     'posts:read', 'posts:write', 'posts:publish',
-    'landing_pages:read', 'landing_pages:write',
   ],
   CSKH: [
     'dashboard:read',

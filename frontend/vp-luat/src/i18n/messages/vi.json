@@ -33,7 +33,8 @@
       "management": "Quản lý",
       "system": "Hệ thống",
       "work": "Công việc",
-      "personal": "Cá nhân"
+      "personal": "Cá nhân",
+      "reports": "Báo cáo"
     },
     "staffPortal": "Cổng nhân viên",
     "nav": {
@@ -46,7 +47,6 @@
       "reviews": "Đánh giá khách hàng",
       "chatbot": "Chatbot Logs",
       "newsletter": "Newsletter",
-      "landing_pages": "Landing Pages",
       "jobs": "Tuyển dụng",
       "users": "Nguoi dung va Phan quyen",
       "roles": "Roles va Permissions",
@@ -157,6 +157,7 @@
     "unavailableToday": "Hết lịch hôm nay",
     "serviceTitle": "Bạn cần tư vấn về lĩnh vực nào?",
     "serviceSubtitle": "Chọn lĩnh vực pháp lý bạn cần hỗ trợ để được kết nối với luật sư chuyên môn.",
+    "serviceSubtitleWithLawyer": "Chọn dịch vụ bạn muốn đặt lịch với luật sư {name}.",
     "lawyerTitle": "Chọn luật sư bạn muốn tư vấn",
     "next": "Tiếp theo",
     "summaryTitle": "Tóm tắt lịch hẹn",
@@ -289,7 +290,7 @@
     }
   },
   "contactPage": {
-    "info": { "address": "Văn phòng chính", "addressSub": "Tầng 8, Tòa nhà ICRC Law", "phone": "Hotline 24/7", "phoneSub": "Miễn phí tư vấn lần đầu", "emailSub": "Phản hồi trong vòng 30 phút", "hours": "Giờ làm việc", "hoursValue": "T2 - T7: 8:00 - 18:00", "hoursSub": "Ngoài giờ: Hỗ trợ qua hotline" },
+    "info": { "address": "Văn phòng chính", "addressSub": "Tầng 8, Tòa nhà ICRC Law", "phone": "Hotline 24/7", "phoneSub": "Miễn phí tư vấn lần đầu", "email": "Email", "emailSub": "Phản hồi trong vòng 30 phút", "hours": "Giờ làm việc", "hoursValue": "T2 - T7: 8:00 - 18:00", "hoursSub": "Ngoài giờ: Hỗ trợ qua hotline" },
     "quick": { "call": "Gọi ngay" },
     "faq": { "label": "Câu hỏi thường gặp", "title": "Giải đáp nhanh", "items": { "1": { "question": "Tôi có thể được tư vấn miễn phí không?", "answer": "Có. Chúng tôi cung cấp buổi tư vấn đầu tiên hoàn toàn miễn phí trong 30 phút. Bạn có thể đến trực tiếp văn phòng, gọi điện, hoặc trao đổi qua video call." }, "2": { "question": "Thời gian phản hồi email là bao lâu?", "answer": "Chúng tôi cam kết phản hồi email trong vòng 30 phút trong giờ làm việc và trong vòng 4 giờ ngoài giờ. Với các trường hợp khẩn cấp, vui lòng gọi hotline 0969 967 389 - 0975 967 364." }, "3": { "question": "ICRC Law có hỗ trợ làm việc ngoài giờ không?", "answer": "Có. Hotline 0969 967 389 - 0975 967 364 hoạt động 24/7 để hỗ trợ các trường hợp khẩn cấp. Đội ngũ luật sư sẵn sàng hỗ trợ bạn bất kỳ lúc nào." }, "4": { "question": "Có thể đến văn phòng mà không cần hẹn trước không?", "answer": "Chúng tôi khuyến khích bạn đặt lịch trước để được phục vụ tốt nhất. Tuy nhiên, bạn vẫn có thể đến trực tiếp và lễ tân sẽ hỗ trợ sắp xếp." } } },
     "offices": { "label": "Văn phòng", "title": "Hệ thống 3 chi nhánh", "mainBadge": "Trụ sở chính", "workingHours": "T2 - T7: 8:00 - 18:00", "workingHoursShort": "T2 - T7: 8:00 - 17:30", "follow": "Theo dõi chúng tôi" }
@@ -316,6 +317,14 @@
         "so-huu-tri-tue": "Sở hữu trí tuệ",
         "thuong-mai": "Thương mại",
         "tu-van-phap-ly": "Tư vấn pháp lý",
+        "dai-dien-phap-ly": "Đại diện pháp lý",
+        "to-cao-khieu-nai": "Tố cáo & Khiếu nại",
+        "thu-tuc-hanh-chinh": "Thủ tục hành chính",
+        "nha-dat": "Nhà đất",
+        "tu-van-hop-dong": "Tư vấn hợp đồng",
+        "ly-hon": "Ly hôn & Gia đình",
+        "ma": "M&A - Mua bán & Sáp nhập",
+        "fdi": "FDI - Đầu tư nước ngoài",
         "other": "Khác"
       }
     },
@@ -364,6 +373,7 @@
     "lawyers": {
       "hero": { "eyebrow": "Đội ngũ luật sư", "title": "Đội ngũ luật sư tận tâm", "highlight": "tận tâm", "subtitle": "Hơn 20 năm kinh nghiệm, đội ngũ luật sư của chúng tôi tự hào đồng hành cùng khách hàng trong mọi tình huống pháp lý phức tạp nhất." },
       "breadcrumb": { "home": "Trang chủ", "current": "Luật sư" },
+      "stats": { "lawyers": "Luật sư", "experience": "Năm kinh nghiệm", "cases": "Vụ việc thành công", "specialties": "Lĩnh vực chuyên môn" },
       "empty": "Chưa có luật sư nào thuộc chuyên môn này."
     },
     "lawyerCard": { "verified": "Đã xác minh", "reviews": "đánh giá", "yearsExperience": "năm kinh nghiệm", "successfulCases": "vụ thành công", "viewProfile": "Xem hồ sơ", "book": "Đặt lịch" },
@@ -435,5 +445,5 @@
   "reviews": {
     "label": "Đánh giá", "title": "Khách Hàng Nói Gì Về Chúng Tôi", "subtitle": "Những đánh giá chân thực từ khách hàng đã sử dụng dịch vụ", "loading": "Đang tải đánh giá...", "error": "Không thể tải đánh giá. Vui lòng thử lại sau.", "empty": "Chưa có đánh giá nào từ khách hàng. Hãy là người đầu tiên chia sẻ trải nghiệm của bạn.", "customer": "Khách hàng", "serviceCustomer": "Khách hàng {service}", "previous": "Đánh giá trước", "next": "Đánh giá tiếp theo", "item": "Đánh giá {number}"
   },
-  "footer": { "brandName": "Công ty Luật TNHH ICRC", "services":  "Dịch vụ", "service1": "Thành lập doanh nghiệp", "service2": "Tư vấn hợp đồng", "service3": "Ly hôn và Gia đình", "service4": "Tranh chấp đất đai", "service5": "Đăng ký nhãn hiệu", "company": "Công ty", "contact": "Liên hệ", "allServices": "Xem tất cả dịch vụ", "lawyers": "Đội ngũ luật sư", "news": "Tin tức và Blog", "booking": "Đặt lịch tư vấn", "privacy": "Chính sách bảo mật", "terms": "Điều khoản sử dụng", "copyright": "Giữ bản quyền", "description": "Đoàn luật sư hàng đầu Việt Nam với hơn 15 năm kinh nghiệm tư vấn pháp lý cho cá nhân và doanh nghiệp. Cam kết bảo vệ quyền lợi hợp pháp của khách hàng.", "address": "Đường 381, Xã Nguyễn Văn Linh, Tỉnh Hưng Yên", "hotline": "0969 967 389 - 0975 967 364", "email": "contact@icrclaw.com" }
+  "footer": { "brandName": "Công ty Luật TNHH ICRC", "services":  "Dịch vụ", "company": "Công ty", "contact": "Liên hệ", "allServices": "Xem tất cả dịch vụ", "lawyers": "Đội ngũ luật sư", "news": "Tin tức và Blog", "booking": "Đặt lịch tư vấn", "privacy": "Chính sách bảo mật", "terms": "Điều khoản sử dụng", "copyright": "Giữ bản quyền", "description": "Đoàn luật sư hàng đầu Việt Nam với hơn 15 năm kinh nghiệm tư vấn pháp lý cho cá nhân và doanh nghiệp. Cam kết bảo vệ quyền lợi hợp pháp của khách hàng.", "address": "Đường 381, Xã Nguyễn Văn Linh, Tỉnh Hưng Yên", "hotline": "0969 967 389 - 0975 967 364", "email": "lienhe@icrclaw.com" }
 }

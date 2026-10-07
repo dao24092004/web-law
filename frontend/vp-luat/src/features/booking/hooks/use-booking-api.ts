@@ -4,6 +4,7 @@ import { useCallback, useEffect } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   fetchAvailability,
+  fetchLawyerById,
   fetchLawyers,
   releaseReservation,
   reserveSlot,
@@ -18,6 +19,15 @@ export function useLawyersQuery(serviceSlug?: string) {
     queryKey: ['booking-lawyers', serviceSlug],
     queryFn: () => fetchLawyers(serviceSlug),
     staleTime: 5 * 60 * 1000, // 5 minutes
+  });
+}
+
+export function useLawyerByIdQuery(lawyerId: string | null) {
+  return useQuery({
+    queryKey: ['booking-lawyer', lawyerId],
+    queryFn: () => fetchLawyerById(lawyerId!),
+    enabled: Boolean(lawyerId),
+    staleTime: 5 * 60 * 1000,
   });
 }
 

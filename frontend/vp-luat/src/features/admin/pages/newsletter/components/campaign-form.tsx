@@ -151,7 +151,7 @@ export function CampaignForm({
     >
       <form onSubmit={handleSubmit(handleSave)} noValidate>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+          <div className="admin-grid-2" style={{ gap: 12 }}>
             <FormFieldInput
               label="Tên campaign (nội bộ)"
               required
@@ -168,7 +168,7 @@ export function CampaignForm({
             />
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+          <div className="admin-grid-2" style={{ gap: 12 }}>
             <FormFieldSelect
               label="Template"
               {...register('templateId')}

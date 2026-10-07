@@ -163,7 +163,7 @@ export function UserForm({ isOpen, onClose, onSubmit, initial, isLoading, hidePa
             {...register('phone')}
             error={errors.phone?.message}
           />
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+          <div className="admin-grid-2" style={{ gap: 10 }}>
             <div>
               <label style={labelStyle()}>Vai trò</label>
               <select {...register('role')} className="action-btn" style={inputStyle()}>

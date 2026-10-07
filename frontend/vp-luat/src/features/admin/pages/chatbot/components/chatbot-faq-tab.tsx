@@ -606,7 +606,7 @@ function FaqEditor({
             <input type="hidden" {...register('suggestedFor')} />
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+          <div className="admin-grid-2" style={{ gap: 12 }}>
             <FormFieldInput
               label="Thứ tự hiển thị"
               type="number"

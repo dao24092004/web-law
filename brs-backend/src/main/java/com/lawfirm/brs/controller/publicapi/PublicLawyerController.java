@@ -55,6 +55,13 @@ public class PublicLawyerController {
         return ResponseEntity.ok(ApiResponse.success(lawyer));
     }
 
+    @GetMapping("/by-id/{id}")
+    @Operation(summary = "Get lawyer by id")
+    public ResponseEntity<ApiResponse<LawyerDTO>> getLawyerById(@PathVariable java.util.UUID id) {
+        LawyerDTO lawyer = lawyerService.getLawyerById(id);
+        return ResponseEntity.ok(ApiResponse.success(lawyer));
+    }
+
     @GetMapping("/search")
     @Operation(summary = "Search lawyers")
     public ResponseEntity<ApiResponse<List<LawyerDTO>>> searchLawyers(@RequestParam String query) {

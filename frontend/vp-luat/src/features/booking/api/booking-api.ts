@@ -19,6 +19,12 @@ export interface LawyerApiResponse {
   positionEn?: string;
   avatarUrl?: string;
   isFeatured?: boolean;
+  rating?: number;
+  reviewCount?: number;
+  isAvailableToday?: boolean;
+  serviceIds?: string[];
+  serviceNames?: string[];
+  serviceSlugs?: string[];
 }
 
 export interface AvailabilitySlot {
@@ -149,5 +155,15 @@ export async function fetchLawyers(serviceSlug?: string): Promise<LawyerApiRespo
 
   const response = await apiClient.get<{ data: { content: LawyerApiResponse[] } }>('/public/lawyers', { params });
   return unwrap(response.data).content;
+}
+
+export async function fetchLawyerById(lawyerId: string): Promise<LawyerApiResponse | null> {
+  try {
+    const response = await apiClient.get<{ data: LawyerApiResponse }>(`/public/lawyers/by-id/${lawyerId}`);
+    return unwrap(response.data) ?? null;
+  } catch (error) {
+    console.error('Failed to fetch lawyer by id:', error);
+    return null;
+  }
 }
 

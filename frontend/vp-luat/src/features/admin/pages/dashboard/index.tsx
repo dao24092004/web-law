@@ -1024,7 +1024,6 @@ const ENTITY_LABEL: Record<string, string> = {
   campaign: 'campaign',
   user: 'người dùng',
   subscriber: 'subscriber',
-  landing_page: 'landing page',
   service: 'dịch vụ',
   lawyer: 'luật sư',
 };
@@ -1610,12 +1609,8 @@ export default function DashboardPage() {
 
       {/* Extended Stats Row */}
       <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: 8,
-          marginBottom: 12,
-        }}
+        className="admin-grid-4"
+        style={{ marginBottom: 12 }}
       >
         <MiniStat
           icon={<AlertCircle size={14} />}
@@ -1649,15 +1644,13 @@ export default function DashboardPage() {
 
       {/* Revenue Highlight */}
       <div
+        className="revenue-highlight"
         style={{
           background: 'linear-gradient(135deg, #1E3A5F 0%, #2C5282 100%)',
           color: 'white',
           borderRadius: 10,
           padding: 16,
           marginBottom: 12,
-          display: 'flex',
-          alignItems: 'center',
-          gap: 16,
         }}
       >
         <div
@@ -1669,11 +1662,12 @@ export default function DashboardPage() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            flexShrink: 0,
           }}
         >
           <DollarSign size={20} />
         </div>
-        <div style={{ flex: 1 }}>
+        <div style={{ flex: '1 1 160px', minWidth: 0 }}>
           <div style={{ fontSize: '0.7rem', opacity: 0.8, fontWeight: 600, textTransform: 'uppercase' }}>
             Doanh thu ({DASHBOARD_RANGES.find((r) => r.value === dateRange)?.label ?? '7 ngày'})
           </div>
@@ -1691,6 +1685,8 @@ export default function DashboardPage() {
             padding: '6px 12px',
             background: 'rgba(255,255,255,0.15)',
             borderRadius: 6,
+            flexShrink: 0,
+            whiteSpace: 'nowrap',
           }}
         >
           Xem báo cáo chi tiết →
@@ -1740,12 +1736,8 @@ export default function DashboardPage() {
 
       {/* Kanban + Activity */}
       <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1.4fr 1fr',
-          gap: 16,
-          marginBottom: 24,
-        }}
+        className="admin-grid-main-side"
+        style={{ marginBottom: 24 }}
       >
         <KanbanTabs range={dateRange} />
         <RecentActivity range={dateRange} />

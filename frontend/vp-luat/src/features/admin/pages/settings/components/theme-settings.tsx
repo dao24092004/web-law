@@ -66,7 +66,7 @@ export function ThemeSettingsForm({ value, loaded, onSubmit, isSubmitting }: Pro
       }}
     >
       <Section icon={<Palette size={16} />} title="Màu sắc thương hiệu">
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+        <div className="admin-grid-2" style={{ gap: 14 }}>
           <ColorPicker
             label="Màu chính (Primary)"
             value={primary}
@@ -109,7 +109,7 @@ export function ThemeSettingsForm({ value, loaded, onSubmit, isSubmitting }: Pro
       </Section>
 
       <Section icon={<ImageIcon size={16} />} title="Logo & Favicon">
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+        <div className="admin-grid-2" style={{ gap: 14 }}>
           <div>
             <label
               style={{

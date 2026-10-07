@@ -196,7 +196,7 @@ export function BookingForm({
           )}
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        <div className="admin-grid-2" style={{ gap: 12 }}>
           <FormFieldInput
             label="Họ tên"
             required
@@ -234,7 +234,7 @@ export function BookingForm({
             </FormFieldSelect>
           )}
         />
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        <div className="admin-grid-2" style={{ gap: 12 }}>
           <Controller
             control={control}
             name="lawyer"
@@ -263,7 +263,7 @@ export function BookingForm({
             )}
           />
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
+        <div className="admin-grid-3" style={{ gap: 12 }}>
           <FormFieldInput
             label="Ngày"
             type="date"

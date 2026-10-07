@@ -265,12 +265,8 @@ function ReviewsTab({
   return (
     <>
       <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 320px',
-          gap: 16,
-          marginBottom: 16,
-        }}
+        className="admin-grid-sidebar"
+        style={{ marginBottom: 16 }}
       >
         <div
           className="admin-card"

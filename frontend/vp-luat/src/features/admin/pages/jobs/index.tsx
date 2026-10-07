@@ -74,7 +74,7 @@ export default function JobsPage() {
       />
 
       {/* Stats */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8, marginBottom: 12 }}>
+      <div className="admin-grid-4" style={{ marginBottom: 12 }}>
         <StatCard label="Tong tin" value={stats.totalJobs} color="var(--primary)" />
         <StatCard label="Dang mo" value={stats.openJobs} color="var(--success)" />
         <StatCard label="Ho so" value={stats.totalApps} color="var(--blue)" />

@@ -33,7 +33,8 @@
       "management": "Management",
       "system": "System",
       "work": "Work",
-      "personal": "Personal"
+      "personal": "Personal",
+      "reports": "Reports"
     },
     "staffPortal": "Staff portal",
     "nav": {
@@ -46,7 +47,6 @@
       "reviews": "Client reviews",
       "chatbot": "Chatbot logs",
       "newsletter": "Newsletter",
-      "landing_pages": "Landing Pages",
       "jobs": "Jobs",
       "users": "Users and Permissions",
       "roles": "Roles and Permissions",
@@ -157,6 +157,7 @@
     "unavailableToday": "No availability today",
     "serviceTitle": "What do you need legal advice about?",
     "serviceSubtitle": "Choose the legal area you need help with to connect with a specialist lawyer.",
+    "serviceSubtitleWithLawyer": "Choose the service you'd like to book with {name}.",
     "lawyerTitle": "Choose a lawyer to consult",
     "next": "Next",
     "summaryTitle": "Appointment summary",
@@ -260,7 +261,7 @@
     "contact": { "label": "Quick contact", "title": "Book a consultation now", "subtitle": "Send us your details and we will call you back within 30 minutes", "requestTitle": "Consultation request", "requestSubtitle": "Free initial consultation · Reply within 30 minutes", "success": "Your request has been sent. We will contact you within 30 minutes.", "namePlaceholder": "Enter your full name", "servicePlaceholder": "-- Select an area of law --", "serviceLabel": "Area of law", "submit": "Send consultation request", "submitting": "Sending...", "nameError": "Name must contain at least 2 characters", "phoneError": "Invalid phone number", "serviceError": "Please select an area of law", "officeTitle": "Office information", "address": "Address", "hours": "Working hours", "workingHours": "Mon – Fri: 8:00 – 18:00\nSat: 8:00 – 12:00", "officeAddress": "381 Street, Nguyen Van Linh Commune, Hung Yen Province", "email": "Email", "hotline": "Hotline", "zalo": "Chat on Zalo", "call": "Call 0969 967 389 - 0975 967 364", "successToast": "Request sent. We will contact you within 30 minutes.", "errorToast": "Could not send your request. Please try again or call 0969 967 389 - 0975 967 364.", "requestSubject": "Consultation request: {service}", "requestMessage": "Client is interested in {service}. Please contact them within 30 minutes." }
   },
   "contactPage": {
-    "info": { "address": "Main office", "addressSub": "8th Floor, ICRC Law Building", "phone": "24/7 Hotline", "phoneSub": "Free initial consultation", "emailSub": "Reply within 30 minutes", "hours": "Working hours", "hoursValue": "Mon - Sat: 8:00 - 18:00", "hoursSub": "After hours: Hotline support" },
+    "info": { "address": "Main office", "addressSub": "8th Floor, ICRC Law Building", "phone": "24/7 Hotline", "phoneSub": "Free initial consultation", "email": "Email", "emailSub": "Reply within 30 minutes", "hours": "Working hours", "hoursValue": "Mon - Sat: 8:00 - 18:00", "hoursSub": "After hours: Hotline support" },
     "quick": { "call": "Call now" },
     "faq": { "label": "Frequently asked questions", "title": "Quick answers", "items": { "1": { "question": "Can I receive a free consultation?", "answer": "Yes. We offer a completely free 30-minute initial consultation. You can visit our office, call us, or speak with a lawyer by video call." }, "2": { "question": "How long does an email response take?", "answer": "We reply to emails within 30 minutes during working hours and within 4 hours outside working hours. For urgent matters, please call 0969 967 389 - 0975 967 364." }, "3": { "question": "Does ICRC Law offer after-hours support?", "answer": "Yes. Hotline 0969 967 389 - 0975 967 364 operates 24/7 for urgent matters. Our lawyers are ready to support you whenever you need us." }, "4": { "question": "Can I visit the office without an appointment?", "answer": "We recommend booking in advance for the best service. However, you may still visit directly and our reception team will help arrange support." } } },
     "offices": { "label": "Our offices", "title": "Three office locations", "mainBadge": "Head office", "workingHours": "Mon - Sat: 8:00 - 18:00", "workingHoursShort": "Mon - Sat: 8:00 - 17:30", "follow": "Follow us" }
@@ -287,6 +288,14 @@
         "so-huu-tri-tue": "Intellectual property",
         "thuong-mai": "Commercial law",
         "tu-van-phap-ly": "Legal consulting",
+        "dai-dien-phap-ly": "Legal representation",
+        "to-cao-khieu-nai": "Complaints & Denunciations",
+        "thu-tuc-hanh-chinh": "Administrative procedures",
+        "nha-dat": "Real estate",
+        "tu-van-hop-dong": "Contract consulting",
+        "ly-hon": "Divorce & Family",
+        "ma": "M&A - Mergers & Acquisitions",
+        "fdi": "FDI - Foreign Investment",
         "other": "Other"
       }
     },
@@ -334,6 +343,7 @@
     "lawyers": {
       "hero": { "eyebrow": "Our lawyers", "title": "A dedicated legal team", "highlight": "dedicated", "subtitle": "With more than 20 years of experience, our lawyers proudly support clients through their most complex legal matters." },
       "breadcrumb": { "home": "Home", "current": "Lawyers" },
+      "stats": { "lawyers": "Lawyers", "experience": "Years of experience", "cases": "Successful cases", "specialties": "Practice areas" },
       "empty": "No lawyers match this area of practice."
     },
     "lawyerCard": { "verified": "Verified", "reviews": "reviews", "yearsExperience": "years of experience", "successfulCases": "successful cases", "viewProfile": "View profile", "book": "Book" },
@@ -405,5 +415,5 @@
   "reviews": {
     "label": "Reviews", "title": "What Our Clients Say", "subtitle": "Authentic feedback from clients who have used our services", "loading": "Loading reviews...", "error": "Could not load reviews. Please try again later.", "empty": "There are no client reviews yet. Be the first to share your experience.", "customer": "Client", "serviceCustomer": "{service} client", "previous": "Previous review", "next": "Next review", "item": "Review {number}"
   },
-  "footer": { "brandName": "ICRC Law Company Limited", "services":  "Services", "service1": "Business formation", "service2": "Contract advice", "service3": "Divorce and family law", "service4": "Land disputes", "service5": "Trademark registration", "company": "Company", "contact": "Contact", "allServices": "View all services", "lawyers": "Our lawyers", "news": "News and Blog", "booking": "Book a consultation", "privacy": "Privacy policy", "terms": "Terms of use", "copyright": "All rights reserved", "description": "A leading Vietnamese law firm with more than 15 years of experience advising individuals and businesses. We are committed to protecting our clients' lawful interests.", "address": "381 Street, Nguyen Van Linh Commune, Hung Yen Province", "hotline": "0969 967 389 - 0975 967 364", "email": "contact@icrclaw.com" }
+  "footer": { "brandName": "ICRC Law Company Limited", "services":  "Services", "company": "Company", "contact": "Contact", "allServices": "View all services", "lawyers": "Our lawyers", "news": "News and Blog", "booking": "Book a consultation", "privacy": "Privacy policy", "terms": "Terms of use", "copyright": "All rights reserved", "description": "A leading Vietnamese law firm with more than 15 years of experience advising individuals and businesses. We are committed to protecting our clients' lawful interests.", "address": "381 Street, Nguyen Van Linh Commune, Hung Yen Province", "hotline": "0969 967 389 - 0975 967 364", "email": "lienhe@icrclaw.com" }
 }

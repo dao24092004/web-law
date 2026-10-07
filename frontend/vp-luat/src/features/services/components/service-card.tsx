@@ -53,7 +53,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
 
       {features.length > 0 && (
         <ul className="service-card__list">
-          {features.slice(0, 4).map((f, i) => (
+          {features.slice(0, 3).map((f, i) => (
             <li key={`${f}-${i}`} className="service-card__list-item">
               <Check size={12} strokeWidth={3} className="service-card__list-icon" aria-hidden="true" />
               <span>{f}</span>

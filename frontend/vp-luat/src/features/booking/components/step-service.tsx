@@ -1,10 +1,11 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { ArrowRight } from 'lucide-react';
 import { trackBookingLawyerSelected, trackBookingServiceSelected } from '../analytics';
-import { useBookingStore, useLawyersQuery } from '../hooks';
+import { useBookingStore, useLawyerByIdQuery, useLawyersQuery } from '../hooks';
 import { useBookingServices } from '../hooks/use-booking-services';
 import { ServiceGrid } from './service-grid';
 import { LawyerSection } from './lawyer-section';
@@ -68,30 +69,72 @@ function toBookingLawyerOption(lawyer: {
 
 export function StepService({ onNext }: { onNext: () => void }) {
   const t = useTranslations('booking');
+  const searchParams = useSearchParams();
+  const presetLawyerId = searchParams.get('lawyer');
+
   const service = useBookingStore((state) => state.service);
   const lawyer = useBookingStore((state) => state.lawyer);
   const setService = useBookingStore((state) => state.setService);
   const setLawyer = useBookingStore((state) => state.setLawyer);
 
-  const { services: bookingServices } = useBookingServices();
+  const { services: allServices } = useBookingServices();
 
-  // Fetch lawyers filtered by selected service slug
-  const { data: rawLawyers = [], refetch } = useLawyersQuery(service?.slug);
+  // When arriving from a lawyer's profile ("Đặt lịch tư vấn"), the lawyer is
+  // preset via ?lawyer=<id> — fetch that lawyer's own data instead of making
+  // the user pick a lawyer again.
+  const isLawyerPreset = Boolean(presetLawyerId);
+  const { data: presetLawyer } = useLawyerByIdQuery(presetLawyerId);
+
+  // Fetch lawyers filtered by selected service slug (only used in the
+  // "no preset lawyer" flow where the user picks service then lawyer).
+  const { data: rawLawyers = [], refetch } = useLawyersQuery(
+    isLawyerPreset ? undefined : service?.slug,
+  );
 
   // Refetch when service changes to get relevant lawyers
   useEffect(() => {
-    if (service?.slug) {
+    if (!isLawyerPreset && service?.slug) {
       refetch();
     }
-  }, [service?.slug, refetch]);
+  }, [isLawyerPreset, service?.slug, refetch]);
 
-  // Reset lawyer selection when service changes
+  // Reset lawyer selection when service changes (only relevant to the
+  // manual-pick flow; the preset lawyer must never be cleared this way).
   const prevServiceId = useBookingStore((state) => state.service?.id);
   useEffect(() => {
-    if (prevServiceId && service?.id && prevServiceId !== service.id) {
+    if (!isLawyerPreset && prevServiceId && service?.id && prevServiceId !== service.id) {
       setLawyer(null as unknown as BookingLawyerOption);
     }
-  }, [service?.id, prevServiceId, setLawyer]);
+  }, [isLawyerPreset, service?.id, prevServiceId, setLawyer]);
+
+  // Lock the preset lawyer into the store as soon as it's fetched.
+  const appliedPresetLawyerId = useRef<string | null>(null);
+  useEffect(() => {
+    if (!isLawyerPreset || !presetLawyer) {
+      return;
+    }
+    if (appliedPresetLawyerId.current === presetLawyer.id && lawyer?.id === presetLawyer.id) {
+      return;
+    }
+    appliedPresetLawyerId.current = presetLawyer.id;
+    setLawyer(toBookingLawyerOption(presetLawyer, (key) => t(key)));
+  }, [isLawyerPreset, presetLawyer, lawyer?.id, setLawyer, t]);
+
+  // Narrow the service list down to only the services this lawyer actually
+  // offers, so the user "just has to pick a service".
+  const bookingServices = useMemo(() => {
+    if (!isLawyerPreset) {
+      return allServices;
+    }
+    if (!presetLawyer) {
+      return [];
+    }
+    const slugs = new Set(presetLawyer.serviceSlugs ?? []);
+    if (slugs.size === 0) {
+      return allServices;
+    }
+    return allServices.filter((svc) => slugs.has(svc.slug));
+  }, [isLawyerPreset, allServices, presetLawyer]);
 
   const bookingLawyers: BookingLawyerOption[] = rawLawyers.map((lawyer) =>
     toBookingLawyerOption(lawyer, (key) => t(key)),
@@ -119,7 +162,9 @@ export function StepService({ onNext }: { onNext: () => void }) {
         {t('serviceTitle')}
       </h2>
       <p className="mb-7 text-[0.875rem] text-[var(--gray-500)]">
-        {t('serviceSubtitle')}
+        {isLawyerPreset && presetLawyer
+          ? t('serviceSubtitleWithLawyer', { name: presetLawyer.nameVi || presetLawyer.nameEn || '' })
+          : t('serviceSubtitle')}
       </p>
 
       <ServiceGrid
@@ -128,12 +173,14 @@ export function StepService({ onNext }: { onNext: () => void }) {
         onSelect={handleSelectService}
       />
 
-      <LawyerSection
-        lawyers={bookingLawyers}
-        visible={Boolean(service)}
-        selectedLawyerId={lawyer?.id ?? null}
-        onSelect={handleSelectLawyer}
-      />
+      {!isLawyerPreset && (
+        <LawyerSection
+          lawyers={bookingLawyers}
+          visible={Boolean(service)}
+          selectedLawyerId={lawyer?.id ?? null}
+          onSelect={handleSelectLawyer}
+        />
+      )}
 
       <div className="mt-8 flex justify-end border-t border-[var(--gray-100)] pt-6">
         <button
