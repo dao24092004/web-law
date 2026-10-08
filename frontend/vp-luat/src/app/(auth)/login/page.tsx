@@ -176,7 +176,7 @@ function LoginForm() {
             </li>
             <li className="flex items-center gap-3">
               <Phone size={18} className="text-[var(--accent)]" />
-              {t('support')}: <a href="tel:0969967389" className="underline">0969 967 389 - 0975 967 364</a>
+              {t('support')}: <a href="tel:0969967389" className="underline">0969 967 389</a>
             </li>
             <li className="flex items-center gap-3">
               <MapPin size={18} className="text-[var(--accent)]" />

@@ -29,6 +29,8 @@ public class AppProperties {
     @Setter
     public static class Seed {
         private boolean enabled = false;
+        /** Seeds ICRC company profile (contact info, services, team) once at startup. */
+        private boolean profileEnabled = true;
         private String key = "initial-content-v1";
         private Mode mode = Mode.IF_EMPTY;
         private String adminEmail;

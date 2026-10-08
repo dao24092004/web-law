@@ -11,6 +11,7 @@ export interface SiteContactInfo {
   address: string;
   workingHours: string;
   zaloUrl?: string;
+  mapUrl?: string;
 }
 
 export interface SiteSocialLinks {
