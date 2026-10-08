@@ -2,7 +2,7 @@ import { apiClient } from '@/lib/api/client';
 import type { ApiResponse } from '@/types/api';
 
 export interface PublicSiteContent {
-  contact: { hotline: string; email: string; address: string; workingHours: string; zaloUrl: string };
+  contact: { hotline: string; email: string; address: string; workingHours: string; zaloUrl: string; mapUrl?: string };
   socialLinks: { facebook: string; linkedin: string; youtube: string; instagram: string };
   legalLinks: { privacyPolicy: string; termsOfUse: string };
   offices: Array<{ city: string; address: string; phone: string; email: string; workingHours: string; isMain?: boolean }>;

@@ -124,7 +124,7 @@ export default function LawyerDetailPage({ params }: { params: Promise<{ id: str
   const showImage = Boolean(lawyer.avatar) && !imageFailed;
   const workingDays = getWorkingDays(lawyer.workingHours);
   const workingHoursLabel = getWorkingHoursLabel(lawyer.workingHours);
-  const phoneDisplay = lawyer.phone || '0969 967 389 - 0975 967 364';
+  const phoneDisplay = lawyer.phone || '0969 967 389';
   const emailDisplay = lawyer.email || 'contact@icrclaw.com';
 
   return (
@@ -399,7 +399,7 @@ export default function LawyerDetailPage({ params }: { params: Promise<{ id: str
                     <div>
                       <span>Văn phòng</span>
                       <span className="lawyer-detail-contact__value">
-                        ICRC Law - Tầng 8, Hưng Yên
+                        ICRC Law - Đường 381, Xã Nguyễn Văn Linh, Tỉnh Hưng Yên
                       </span>
                     </div>
                   </li>
