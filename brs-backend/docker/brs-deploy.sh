@@ -104,8 +104,8 @@ ok "Pull xong ($(elapsed)s)"
 # File compose da commit tro toi "brs-backend:latest". Ghi de bang image
 # co tag theo SHA de biet dang chay phien ban nao.
 info "5. Cap nhat file compose tro toi image moi"
-sed -i "s|image: brs-backend:.*|image: ${BACKEND_REF}|" docker-compose.prod.yml
-sed -i "s|image: brs-frontend:.*|image: ${FRONTEND_REF}|" docker-compose.prod.yml
+sed -i -E "s|^(\\s*image:\\s+).*brs-backend:.*|\\1${BACKEND_REF}|" docker-compose.prod.yml
+sed -i -E "s|^(\\s*image:\\s+).*brs-frontend:.*|\\1${FRONTEND_REF}|" docker-compose.prod.yml
 grep -n 'image:.*brs-' docker-compose.prod.yml
 
 # ---------- 6. Khoi dong ----------
