@@ -128,9 +128,10 @@ jobs:
           chmod 644 ~/.ssh/known_hosts
 
       # Dong bo ban script deploy moi nhat tu repo len VPS.
-      # Dung container chay san (brs-nginx) de copy: container chay duoi
-      # user nobody nhung quyen cua no tren host la root, nen "docker cp"
-      # ghi duoc /usr/local/bin ma can quyen root - khong can mat khau.
+      # Script duoc dat o /opt/brs/brs-deploy.sh (thu muc do deployer
+      # so huu, khong can sudo). Truoc day dat o /usr/local/bin nhung
+      # file do root so huu, workflow khong ghi de duoc -> script cu
+      # van chay, container khong bao gio duoc recreate.
       - name: Dong bo script deploy len VPS
         env:
           VPS_HOST: ${{ secrets.VPS_HOST }}
@@ -138,17 +139,18 @@ jobs:
           VPS_PORT: ${{ secrets.VPS_PORT }}
         run: |
           set -euo pipefail
+          # Cat noi dung file tu repo, pipe qua ssh, ghi vao
+          # /opt/brs/brs-deploy.sh (deployer-owned, deployer ghi duoc).
+          # Buoc "rm -f" de file cu khong anh huong quyen.
           cat brs-backend/docker/brs-deploy.sh \
             | ssh -i ~/.ssh/id_deploy -p "$VPS_PORT" \
                 -o IdentitiesOnly=yes \
                 -o StrictHostKeyChecking=yes \
                 -o UserKnownHostsFile=~/.ssh/known_hosts \
                 "$VPS_USER@$VPS_HOST" \
-                'cat > /tmp/brs-deploy.new && docker cp /tmp/brs-deploy.new \
-                   brs-nginx:/tmp/brs-deploy.new \
-                 && docker exec brs-nginx cp /tmp/brs-deploy.new /usr/local/bin/brs-deploy \
-                 && docker exec brs-nginx chmod 755 /usr/local/bin/brs-deploy \
-                 && rm -f /tmp/brs-deploy.new && echo "Script deploy da dong bo"'
+                'mkdir -p /opt/brs && cat > /opt/brs/brs-deploy.sh \
+                 && chmod 755 /opt/brs/brs-deploy.sh \
+                 && echo "Script deploy da dong bo len /opt/brs/brs-deploy.sh"'
 
       # Image da build xong va push len registry o job "build".
       # Job nay chi tai no ve VPS va khoi dong lai.
@@ -191,7 +193,7 @@ jobs:
               -o UserKnownHostsFile=~/.ssh/known_hosts \
               "$VPS_USER@$VPS_HOST" \
               "GHCR_USER=\$(cat /tmp/.ghcr_user) GHCR_TOKEN=\$(cat /tmp/.ghcr_token) \
-               /usr/local/bin/brs-deploy '$BACKEND_REF' '$FRONTEND_REF' '${{ github.sha }}'"
+               /opt/brs/brs-deploy '$BACKEND_REF' '$FRONTEND_REF' '${{ github.sha }}'"
           # Don file tam tren VPS
           ssh -i ~/.ssh/id_deploy -p "$VPS_PORT" \
               -o IdentitiesOnly=yes \
