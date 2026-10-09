@@ -19,6 +19,20 @@ COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
 
+# Next.js inline cac bien NEXT_PUBLIC_* vao bundle luc build. Neu
+# khong set o day, code se fallback ve 'http://localhost:8080/api' /
+# 'https://vuplat.vn' (gia tri mac dinh trong code) -> trinh duyet
+# goi API vao localhost khong the resolve duoc.
+#
+# Gia tri mac dinh o duoi la production. Co the ghi de khi build
+# bang: docker build --build-arg NEXT_PUBLIC_API_URL=...
+ARG NEXT_PUBLIC_API_URL=https://icrclaw.com/api
+ARG NEXT_PUBLIC_SITE_URL=https://icrclaw.com
+ARG NEXTAUTH_URL=https://icrclaw.com
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
+ENV NEXTAUTH_URL=$NEXTAUTH_URL
+
 RUN npm run build
 
 # Stage 3: Runtime (standalone)
