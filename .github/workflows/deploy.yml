@@ -128,10 +128,11 @@ jobs:
           chmod 644 ~/.ssh/known_hosts
 
       # Dong bo ban script deploy moi nhat tu repo len VPS.
-      # Script duoc dat o /opt/brs/brs-deploy.sh (thu muc do deployer
-      # so huu, khong can sudo). Truoc day dat o /usr/local/bin nhung
+      # Script dat o /home/deployer/brs-deploy.sh (deployer-owned,
+      # writable, persistent). Truoc day dat o /usr/local/bin nhung
       # file do root so huu, workflow khong ghi de duoc -> script cu
-      # van chay, container khong bao gio duoc recreate.
+      # van chay, container khong bao gio duoc recreate. /opt/brs
+      # cung do root so huu nen khong ghi duoc.
       - name: Dong bo script deploy len VPS
         env:
           VPS_HOST: ${{ secrets.VPS_HOST }}
@@ -139,18 +140,14 @@ jobs:
           VPS_PORT: ${{ secrets.VPS_PORT }}
         run: |
           set -euo pipefail
-          # Cat noi dung file tu repo, pipe qua ssh, ghi vao
-          # /opt/brs/brs-deploy.sh (deployer-owned, deployer ghi duoc).
-          # Buoc "rm -f" de file cu khong anh huong quyen.
           cat brs-backend/docker/brs-deploy.sh \
             | ssh -i ~/.ssh/id_deploy -p "$VPS_PORT" \
                 -o IdentitiesOnly=yes \
                 -o StrictHostKeyChecking=yes \
                 -o UserKnownHostsFile=~/.ssh/known_hosts \
                 "$VPS_USER@$VPS_HOST" \
-                'mkdir -p /opt/brs && cat > /opt/brs/brs-deploy.sh \
-                 && chmod 755 /opt/brs/brs-deploy.sh \
-                 && echo "Script deploy da dong bo len /opt/brs/brs-deploy.sh"'
+                'install -m 755 -D /dev/stdin /home/deployer/brs-deploy.sh \
+                 && echo "Script deploy da dong bo len /home/deployer/brs-deploy.sh"'
 
       # Image da build xong va push len registry o job "build".
       # Job nay chi tai no ve VPS va khoi dong lai.
@@ -193,7 +190,7 @@ jobs:
               -o UserKnownHostsFile=~/.ssh/known_hosts \
               "$VPS_USER@$VPS_HOST" \
               "GHCR_USER=\$(cat /tmp/.ghcr_user) GHCR_TOKEN=\$(cat /tmp/.ghcr_token) \
-               /opt/brs/brs-deploy '$BACKEND_REF' '$FRONTEND_REF' '${{ github.sha }}'"
+               /home/deployer/brs-deploy.sh '$BACKEND_REF' '$FRONTEND_REF' '${{ github.sha }}'"
           # Don file tam tren VPS
           ssh -i ~/.ssh/id_deploy -p "$VPS_PORT" \
               -o IdentitiesOnly=yes \
