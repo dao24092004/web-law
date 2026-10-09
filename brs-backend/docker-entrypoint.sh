@@ -11,8 +11,12 @@ echo "  Profile: ${SPRING_PROFILES_ACTIVE:-prod}"
 echo "  JAR: /app/app.jar"
 echo "=========================================="
 
-# Ensure writable dirs exist (log path differs between base and prod profile)
+# Dam bao cac thu muc ghi duoc ton tai. Volume /app/uploads duoc
+# Docker tao voi quyen root:root 755, neu container chay user brs
+# thi khong ghi duoc. Entry chay voi root de chown, sau do moi
+# chay java voi user brs.
 mkdir -p /app/logs /app/uploads /var/log/brs 2>/dev/null || true
+chown -R brs:brs /app/logs /app/uploads /var/log/brs 2>/dev/null || true
 
 # Container-aware JVM sizing: use 75% of the container memory limit.
 # JAVA_OPTS may override these values when set in the environment.
@@ -22,6 +26,9 @@ DEFAULT_OPTS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0 -XX:InitialRAMP
 # logs survive container restarts.
 LOG_OPTS="-Dlogging.file.name=/app/logs/brs-backend.log"
 
-exec java $DEFAULT_OPTS $LOG_OPTS $JAVA_OPTS \
-    -Dspring.profiles.active="${SPRING_PROFILES_ACTIVE:-prod}" \
-    -jar /app/app.jar
+# Drop xuong user brs de chay java. setpriv co san trong busybox cua
+# alpine, dam bao khong bi loi TTY nhu 'su'.
+exec setpriv --reuid=100 --regid=101 --init-groups -- \
+    java $DEFAULT_OPTS $LOG_OPTS $JAVA_OPTS \
+        -Dspring.profiles.active="${SPRING_PROFILES_ACTIVE:-prod}" \
+        -jar /app/app.jar "$@"

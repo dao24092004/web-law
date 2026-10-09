@@ -42,8 +42,10 @@ RUN chmod +x /docker-entrypoint.sh
 # Create logs directory
 RUN mkdir -p /app/logs && chown -R brs:brs /app
 
-# Switch to non-root user
-USER brs
+# Container mac dinh chay voi user root de entrypoint co the chown
+# volume (Docker tao volume voi quyen root). Entry se drop xuong
+# user brs truoc khi exec java.
+# USER brs
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
