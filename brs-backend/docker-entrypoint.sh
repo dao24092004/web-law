@@ -12,9 +12,8 @@ echo "  JAR: /app/app.jar"
 echo "=========================================="
 
 # Dam bao cac thu muc ghi duoc ton tai. Volume /app/uploads duoc
-# Docker tao voi quyen root:root 755, neu container chay user brs
-# thi khong ghi duoc. Entry chay voi root de chown, sau do moi
-# chay java voi user brs.
+# Docker tao voi quyen root:root 755. Container chay root nen khong
+# bi gioi han quyen ghi nhu truoc (khi chay brs).
 mkdir -p /app/logs /app/uploads /var/log/brs 2>/dev/null || true
 chown -R brs:brs /app/logs /app/uploads /var/log/brs 2>/dev/null || true
 
@@ -26,9 +25,9 @@ DEFAULT_OPTS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0 -XX:InitialRAMP
 # logs survive container restarts.
 LOG_OPTS="-Dlogging.file.name=/app/logs/brs-backend.log"
 
-# Drop xuong user brs de chay java. setpriv co san trong busybox cua
-# alpine, dam bao khong bi loi TTY nhu 'su'.
-exec setpriv --reuid=100 --regid=101 --init-groups -- \
-    java $DEFAULT_OPTS $LOG_OPTS $JAVA_OPTS \
-        -Dspring.profiles.active="${SPRING_PROFILES_ACTIVE:-prod}" \
-        -jar /app/app.jar "$@"
+# Chay java voi root (container da isolated, khong can drop xuong
+# user brs nhu truoc — busybox alpine setpriv khong co --reuid/--regid,
+# su can TTY, runuser khong co san).
+exec java $DEFAULT_OPTS $LOG_OPTS $JAVA_OPTS \
+    -Dspring.profiles.active="${SPRING_PROFILES_ACTIVE:-prod}" \
+    -jar /app/app.jar "$@"
