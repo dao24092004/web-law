@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { MapPin, Phone, Mail } from 'lucide-react';
 import { useFeaturedServices } from '@/features/services/hooks/use-services';
 import { usePublicSiteContent } from '@/features/home/hooks/use-site-content';
+import { BrandLogo } from '@/components/layout/brand-logo';
 
 const MAX_FOOTER_SERVICES = 5;
 
@@ -143,7 +144,7 @@ export function FooterBrand() {
   return (
     <div>
       <div className="footer__brand-logo">
-        <div className="footer__brand-icon">VP</div>
+        <BrandLogo variant="footer" showText={false} />
         <span className="footer__brand-name">{t('brandName')}</span>
       </div>
       <p className="footer__brand-desc">

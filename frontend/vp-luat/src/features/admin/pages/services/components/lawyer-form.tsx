@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, type KeyboardEvent, type ClipboardEvent } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Save, X, Camera, Loader2 } from 'lucide-react';
@@ -110,6 +110,50 @@ export function LawyerForm({
   };
 
   const specialtiesRaw = watch('specialties');
+  const [specialtyDraft, setSpecialtyDraft] = useState('');
+
+  const addSpecialty = (raw: string) => {
+    const value = raw.trim();
+    if (!value) return;
+    const current = watch('specialties');
+    if (current.includes(value)) {
+      setSpecialtyDraft('');
+      return;
+    }
+    setValue('specialties', [...current, value], { shouldValidate: true, shouldDirty: true });
+    setSpecialtyDraft('');
+  };
+
+  const removeSpecialty = (tag: string) => {
+    const current = watch('specialties');
+    setValue(
+      'specialties',
+      current.filter((s) => s !== tag),
+      { shouldValidate: true, shouldDirty: true },
+    );
+  };
+
+  const handleSpecialtyKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' || e.key === ',') {
+      e.preventDefault();
+      addSpecialty(specialtyDraft);
+    } else if (e.key === 'Backspace' && !specialtyDraft && specialtiesRaw.length > 0) {
+      removeSpecialty(specialtiesRaw[specialtiesRaw.length - 1]);
+    }
+  };
+
+  const handleSpecialtyPaste = (e: ClipboardEvent<HTMLInputElement>) => {
+    const text = e.clipboardData.getData('text');
+    if (!text) return;
+    if (text.includes(',') || text.includes('\n')) {
+      e.preventDefault();
+      text
+        .split(/[,\n]/)
+        .map((s) => s.trim())
+        .filter(Boolean)
+        .forEach((tag) => addSpecialty(tag));
+    }
+  };
 
   return (
     <Modal
@@ -246,19 +290,81 @@ export function LawyerForm({
                 marginBottom: 6,
               }}
             >
-              Chuyên môn (phân cách bằng dấu phẩy)
+              Chuyên môn
             </label>
-            <FormFieldInput
-              placeholder="VD: Doanh nghiệp, Sở hữu trí tuệ"
-              value={specialtiesRaw.join(', ')}
-              onChange={(e) => {
-                const list = e.target.value
-                  .split(',')
-                  .map((s) => s.trim())
-                  .filter(Boolean);
-                setValue('specialties', list);
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: 6,
+                padding: 6,
+                background: 'white',
+                border: '1px solid var(--gray-200)',
+                borderRadius: 6,
+                minHeight: 42,
+                alignItems: 'center',
               }}
-            />
+            >
+              {specialtiesRaw.map((tag) => (
+                <span
+                  key={tag}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 4,
+                    padding: '4px 8px',
+                    borderRadius: 999,
+                    background: 'var(--primary)',
+                    color: 'white',
+                    fontSize: '0.78rem',
+                    fontWeight: 600,
+                  }}
+                >
+                  {tag}
+                  <button
+                    type="button"
+                    onClick={() => removeSpecialty(tag)}
+                    aria-label={`Xóa ${tag}`}
+                    style={{
+                      background: 'transparent',
+                      border: 0,
+                      color: 'white',
+                      cursor: 'pointer',
+                      padding: 0,
+                      lineHeight: 1,
+                      fontSize: '0.9rem',
+                      fontWeight: 700,
+                    }}
+                  >
+                    ×
+                  </button>
+                </span>
+              ))}
+              <input
+                type="text"
+                value={specialtyDraft}
+                onChange={(e) => setSpecialtyDraft(e.target.value)}
+                onKeyDown={handleSpecialtyKeyDown}
+                onPaste={handleSpecialtyPaste}
+                onBlur={() => {
+                  if (specialtyDraft.trim()) addSpecialty(specialtyDraft);
+                }}
+                placeholder={
+                  specialtiesRaw.length === 0
+                    ? 'VD: Doanh nghiệp, Sở hữu trí tuệ (Enter hoặc , để thêm)'
+                    : ''
+                }
+                style={{
+                  flex: 1,
+                  minWidth: 180,
+                  border: 0,
+                  outline: 'none',
+                  padding: '6px 8px',
+                  fontSize: '0.85rem',
+                  background: 'transparent',
+                }}
+              />
+            </div>
           </div>
 
           <div className="admin-grid-2" style={{ gap: 12 }}>

@@ -77,7 +77,8 @@
   "header": {
     "bookConsultation": "Book a consultation",
     "toggleMenu": "Open navigation menu",
-    "navigationMenu": "Navigation menu"
+    "navigationMenu": "Navigation menu",
+    "brandSubline": "Law Firm"
   },
   "home": {
     "badge": "15+ years of legal consulting experience",

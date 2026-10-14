@@ -8988,4 +8988,67 @@ body.has-open-chatbot .floating-widgets:hover {
   }
 }
 
+/* ============================================================
+   BRAND LOGO
+   Replaces the legacy "VP" square placeholders with the real
+   ICRC Law logo image across navbar, footer and sidebars.
+   ============================================================ */
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: inherit;
+  flex-shrink: 0;
+}
+
+.brand-logo__img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* ---- Header (transparent navbar over hero) ---- */
+.brand-logo--header .brand-logo__img { width: 40px; height: 40px; }
+.brand-logo--header .brand-logo__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+.brand-logo--header .brand-logo__name {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--white);
+  transition: color var(--transition-base);
+}
+.brand-logo--header .brand-logo__sub {
+  font-size: 0.65rem;
+  color: var(--accent);
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: color var(--transition-base);
+}
+.navbar.scrolled .brand-logo--header .brand-logo__name { color: var(--primary); }
+.navbar.scrolled .brand-logo--header .brand-logo__sub { color: var(--accent-dark); }
+
+/* ---- Footer (dark) ---- */
+.brand-logo--footer .brand-logo__img { width: 56px; height: 56px; }
+
+/* ---- Sidebar (admin / staff, dark) ---- */
+.brand-logo--sidebar .brand-logo__img { width: 36px; height: 36px; }
+
+/* Responsive tweaks */
+@media (max-width: 640px) {
+  .brand-logo--header .brand-logo__img { width: 36px; height: 36px; }
+  .brand-logo--header .brand-logo__name { font-size: 0.95rem; }
+  .brand-logo--header .brand-logo__sub { font-size: 0.6rem; letter-spacing: 1px; }
+  .brand-logo--footer .brand-logo__img { width: 44px; height: 44px; }
+  .brand-logo--sidebar .brand-logo__img { width: 32px; height: 32px; }
+}
+
 
