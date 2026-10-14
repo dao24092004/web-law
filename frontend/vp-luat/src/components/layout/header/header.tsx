@@ -9,6 +9,7 @@ import { useUIStore } from '@/stores/ui.store';
 import { NavLinks } from './nav-links';
 import { LanguageSwitcher } from './language-switcher';
 import { MobileMenu } from './mobile-menu';
+import { BrandLogo } from '@/components/layout/brand-logo';
 
 const HIDDEN_PREFIXES = ['/admin', '/staff', '/login', '/landing-builder'];
 const HIDDEN_EXACT: string[] = [];
@@ -41,13 +42,7 @@ export function Header() {
       <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
         <div className="container navbar__inner">
           {/* Logo */}
-          <Link href="/" className="navbar__logo">
-            <div className="navbar__logo-icon">VP</div>
-            <div className="navbar__logo-text">
-              <span className="navbar__logo-name">ICRC Law</span>
-              <span className="navbar__logo-sub">Law Firm</span>
-            </div>
-          </Link>
+          <BrandLogo variant="header" subline={t('brandSubline')} />
 
           {/* Desktop Menu */}
           <NavLinks layout="desktop" />

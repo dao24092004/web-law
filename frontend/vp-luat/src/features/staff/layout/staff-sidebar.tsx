@@ -6,11 +6,12 @@ import { signOut, useSession } from 'next-auth/react';
 import { useAdminUIStore } from '@/features/admin/store';
 import { getStaffNavSections, getNavItemByHref } from '@/features/staff/constants';
 import { useSidebarBadges } from '@/features/admin/lib/use-sidebar-badges';
-import { Scale, LogOut } from 'lucide-react';
+import { LogOut } from 'lucide-react';
 import { clearAuthToken, setLoggingOut, callServerLogout } from '@/lib/api/client';
 import { useTranslations } from 'next-intl';
 import { RoleDisplayNames } from '@/features/auth/utils/permissions';
 import type { Role } from '@/features/auth/utils/permissions';
+import { BrandLogo } from '@/components/layout/brand-logo';
 
 function LogoutButton() {
   const { closeSidebar } = useAdminUIStore();
@@ -99,9 +100,7 @@ export function StaffSidebar() {
       >
         {/* Logo */}
         <div className="admin-sidebar__logo">
-          <div className="admin-sidebar__logo-icon">
-            <Scale size={18} strokeWidth={2.5} />
-          </div>
+          <BrandLogo variant="sidebar" showText={false} />
           <div className="admin-sidebar__logo-text">
             <div className="admin-sidebar__logo-name">ICRC Law</div>
             <div className="admin-sidebar__logo-sub">{t('staffPortal')}</div>
