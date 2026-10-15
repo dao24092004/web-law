@@ -154,7 +154,7 @@ export default function ServiceDetailPage({ params }: { params: Promise<{ slug: 
                 <div className="service-detail__card-label">Liên hệ tư vấn</div>
                 <div className="service-detail__meta-row">
                   <Phone size={16} />
-                  <span>Hotline: 0969 967 389</span>
+                  <span>Hotline: 0969967389</span>
                 </div>
                 <div className="service-detail__meta-row">
                   <Mail size={16} />
@@ -162,7 +162,7 @@ export default function ServiceDetailPage({ params }: { params: Promise<{ slug: 
                 </div>
                 <div className="service-detail__meta-row">
                   <MapPin size={16} />
-                  <span>Hà Nội, TP.HCM, Đà Nẵng</span>
+                  <span>Đường 381, Xã Nguyễn Văn Linh, Tỉnh Hưng Yên</span>
                 </div>
               </div>
 

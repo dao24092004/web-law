@@ -49,8 +49,8 @@ public class IcrcProfileSeedRunner implements ApplicationRunner {
     private static final long ADVISORY_LOCK_KEY = 4_824_915_732L;
 
     private static final String ADDRESS_VI = "Đường 381, Xã Nguyễn Văn Linh, Tỉnh Hưng Yên";
-    private static final String ADDRESS_EN = "381 Street, Nguyen Van Linh Commune, Hung Yen Province";
-    private static final String HOTLINE = "0969 967 389";
+    private static final String ADDRESS_EN = "Road 381, Nguyen Van Linh Commune, Hung Yen Province";
+    private static final String HOTLINE = "0969967389";
     private static final String EMAIL = "icrclawhy@gmail.com";
     private static final String MAP_URL = "https://maps.app.goo.gl/XoRAtjkQM9PTaqLU7?g_st=iz";
     private static final String FACEBOOK = "https://web.facebook.com/dichvuhotrodoanhnghiephn";

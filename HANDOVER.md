@@ -4,8 +4,8 @@
 **Tên thương hiệu hiển thị:** ICRC Law
 **Tên pháp lý:** Công ty Luật TNHH ICRC
 **Domain chính:** icrclaw.com
-**Email liên hệ:** contact@icrclaw.com
-**Hotline:** 0969 967 389 - 0975 967 364
+**Email liên hệ:** icrclawhy@gmail.com
+**Hotline:** 0969967389
 **Địa chỉ chuẩn hiển thị:** Đường 381, Xã Nguyễn Văn Linh, Tỉnh Hưng Yên
 **Phiên bản tài liệu:** 3.0  
 **Ngày rà soát:** 05/10/2026  
@@ -62,7 +62,7 @@ Kết quả kiểm tra tại máy phát triển:
    - Tên thương hiệu hiển thị: **ICRC Law**.
    - Tên pháp lý: **Công ty Luật TNHH ICRC**.
    - Domain chính: **icrclaw.com**; email liên hệ: **contact@icrclaw.com**.
-   - Hotline: **0969 967 389 - 0975 967 364**; địa chỉ hiển thị: **Đường 381, Xã Nguyễn Văn Linh, Tỉnh Hưng Yên**.
+   - Hotline: **0969967389**; địa chỉ hiển thị: **Đường 381, Xã Nguyễn Văn Linh, Tỉnh Hưng Yên**.
    - Các định danh kỹ thuật như thư mục `vp-luat` và package Java được giữ nguyên để không ảnh hưởng build/deployment.
 
 5. **Chưa có nghiệm thu hạ tầng thật.**

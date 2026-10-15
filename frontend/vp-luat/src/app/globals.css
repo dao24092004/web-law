@@ -9012,7 +9012,7 @@ body.has-open-chatbot .floating-widgets:hover {
 }
 
 /* ---- Header (transparent navbar over hero) ---- */
-.brand-logo--header .brand-logo__img { width: 40px; height: 40px; }
+.brand-logo--header .brand-logo__img { width: 48px; height: 48px; }
 .brand-logo--header .brand-logo__text {
   display: flex;
   flex-direction: column;
@@ -9020,13 +9020,13 @@ body.has-open-chatbot .floating-widgets:hover {
 }
 .brand-logo--header .brand-logo__name {
   font-family: var(--font-heading);
-  font-size: 1.05rem;
+  font-size: 1.2rem;
   font-weight: 700;
   color: var(--white);
   transition: color var(--transition-base);
 }
 .brand-logo--header .brand-logo__sub {
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   color: var(--accent);
   font-weight: 500;
   letter-spacing: 1.5px;
@@ -9037,18 +9037,18 @@ body.has-open-chatbot .floating-widgets:hover {
 .navbar.scrolled .brand-logo--header .brand-logo__sub { color: var(--accent-dark); }
 
 /* ---- Footer (dark) ---- */
-.brand-logo--footer .brand-logo__img { width: 56px; height: 56px; }
+.brand-logo--footer .brand-logo__img { width: 64px; height: 64px; }
 
 /* ---- Sidebar (admin / staff, dark) ---- */
-.brand-logo--sidebar .brand-logo__img { width: 36px; height: 36px; }
+.brand-logo--sidebar .brand-logo__img { width: 44px; height: 44px; }
 
 /* Responsive tweaks */
 @media (max-width: 640px) {
-  .brand-logo--header .brand-logo__img { width: 36px; height: 36px; }
-  .brand-logo--header .brand-logo__name { font-size: 0.95rem; }
-  .brand-logo--header .brand-logo__sub { font-size: 0.6rem; letter-spacing: 1px; }
-  .brand-logo--footer .brand-logo__img { width: 44px; height: 44px; }
-  .brand-logo--sidebar .brand-logo__img { width: 32px; height: 32px; }
+  .brand-logo--header .brand-logo__img { width: 42px; height: 42px; }
+  .brand-logo--header .brand-logo__name { font-size: 1.05rem; }
+  .brand-logo--header .brand-logo__sub { font-size: 0.68rem; letter-spacing: 1px; }
+  .brand-logo--footer .brand-logo__img { width: 52px; height: 52px; }
+  .brand-logo--sidebar .brand-logo__img { width: 40px; height: 40px; }
 }
 
 

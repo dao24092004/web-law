@@ -23,7 +23,7 @@ export const BOOKING_CONSULTATION_TYPES: Array<{
   {
     id: 'office',
     title: 'Tại văn phòng',
-    description: 'Tầng 12, 123 Lê Lợi, Q.1, TP.HCM',
+    description: 'Đường 381, Xã Nguyễn Văn Linh, Tỉnh Hưng Yên',
     icon: 'building',
   },
   {

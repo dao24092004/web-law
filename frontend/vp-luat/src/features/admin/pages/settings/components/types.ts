@@ -49,7 +49,7 @@ export interface IntegrationsSettings {
 
 export const DEFAULT_GENERAL: GeneralSettings = {
   siteName: 'ICRC Law - Công ty Luật TNHH ICRC',
-  hotline: '0969 967 389',
+  hotline: '0969967389',
   email: 'icrclawhy@gmail.com',
   address: 'Đường 381, Xã Nguyễn Văn Linh, Tỉnh Hưng Yên',
   timezone: 'Asia/Ho_Chi_Minh',
