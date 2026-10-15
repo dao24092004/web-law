@@ -4,7 +4,6 @@ import { useEffect, useRef } from 'react';
 import { useEditor, EditorContent, Editor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Image from '@tiptap/extension-image';
-import Link from '@tiptap/extension-link';
 import Placeholder from '@tiptap/extension-placeholder';
 import {
   Bold,
@@ -252,20 +251,20 @@ export function RichEditor({
     extensions: [
       StarterKit.configure({
         heading: { levels: [1, 2, 3] },
+        link: {
+          openOnClick: false,
+          autolink: true,
+          HTMLAttributes: {
+            rel: 'noopener noreferrer',
+            target: '_blank',
+            class: 'rich-editor__link',
+          },
+        },
       }),
       Image.configure({
         inline: false,
         allowBase64: true,
         HTMLAttributes: { class: 'rich-editor__image' },
-      }),
-      Link.configure({
-        openOnClick: false,
-        autolink: true,
-        HTMLAttributes: {
-          rel: 'noopener noreferrer',
-          target: '_blank',
-          class: 'rich-editor__link',
-        },
       }),
       Placeholder.configure({
         placeholder,

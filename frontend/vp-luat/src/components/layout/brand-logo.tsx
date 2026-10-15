@@ -19,9 +19,9 @@ const DIMENSIONS: Record<
   BrandLogoVariant,
   { width: number; height: number }
 > = {
-  header: { width: 40, height: 40 },
-  footer: { width: 56, height: 56 },
-  sidebar: { width: 36, height: 36 },
+  header: { width: 48, height: 48 },
+  footer: { width: 64, height: 64 },
+  sidebar: { width: 44, height: 44 },
 };
 
 export function BrandLogo({

@@ -19,6 +19,8 @@ interface PostTagsProps {
   isDeleting?: boolean;
 }
 
+const DEFAULT_TAG_COLOR = '#1E3A5F';
+
 const PRESET_COLORS = [
   '#1E3A5F',
   '#C9A84C',
@@ -58,7 +60,7 @@ export function PostTags({
               width: 12,
               height: 12,
               borderRadius: 3,
-              background: t.color,
+              background: t.color || DEFAULT_TAG_COLOR,
             }}
             aria-hidden
           />
@@ -84,7 +86,7 @@ export function PostTags({
             borderRadius: 4,
           }}
         >
-          {t.color.toUpperCase()}
+          {(t.color || DEFAULT_TAG_COLOR).toUpperCase()}
         </code>
       ),
     },
@@ -263,13 +265,13 @@ export function TagForm({ isOpen, onClose, initial, onSubmit, isLoading }: TagFo
     defaultValues: {
       name: initial?.name ?? '',
       slug: initial?.slug ?? '',
-      color: initial?.color ?? '#1E3A5F',
+      color: initial?.color || DEFAULT_TAG_COLOR,
     },
   });
 
   const name = watch('name');
   const slug = watch('slug');
-  const color = watch('color');
+  const color = watch('color') || DEFAULT_TAG_COLOR;
 
   return (
     <Modal

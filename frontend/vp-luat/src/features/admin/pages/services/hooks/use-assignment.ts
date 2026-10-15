@@ -78,7 +78,11 @@ export function useAssignment() {
         ? (lwy.serviceIds ?? []).filter((id) => id !== serviceId)
         : [...(lwy.serviceIds ?? []), serviceId];
 
-      updateServiceMutation.mutate({ id: serviceId, body: { lawyerIds: newServiceLawyerIds } });
+      // Backend ServiceRequest requires slug + name (@NotBlank), so send them along.
+      updateServiceMutation.mutate({
+        id: serviceId,
+        body: { slug: svc.slug, name: svc.name, lawyerIds: newServiceLawyerIds },
+      });
       updateLawyerMutation.mutate({ id: lawyerId, body: { serviceIds: newLawyerServiceIds } });
 
       ghiAudit({
@@ -106,7 +110,10 @@ export function useAssignment() {
           ) {
             continue;
           }
-          updateServiceMutation.mutate({ id: serviceId, body: { lawyerIds } });
+          updateServiceMutation.mutate({
+            id: serviceId,
+            body: { slug: svc.slug, name: svc.name, lawyerIds },
+          });
           for (const lid of lawyerIds) {
             const lwy = lawyers.find((l) => l.id === lid);
             if (lwy && !(lwy.serviceIds ?? []).includes(serviceId)) {

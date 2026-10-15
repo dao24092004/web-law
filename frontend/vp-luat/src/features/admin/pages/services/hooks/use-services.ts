@@ -8,6 +8,7 @@ import { ghiAudit, notifySuccess, notifyError } from '@/features/admin/lib';
 // ─── Types matching backend ServiceDTO ───────────────────────────
 export interface Service {
   id: string;
+  slug?: string;
   name: string;
   description: string;
   price?: number;
@@ -68,6 +69,7 @@ interface PageResponse<T> {
 function mapToService(raw: Record<string, unknown>): Service {
   return {
     id: String(raw.id ?? ''),
+    slug: typeof raw.slug === 'string' ? raw.slug : undefined,
     name: String(raw.name ?? raw.slug ?? ''),
     description: typeof raw.description === 'string' ? raw.description : '',
     price: typeof raw.price === 'number' || typeof raw.price === 'string'

@@ -170,7 +170,7 @@ public class NotificationService {
 
         if (phone != null) {
             String smsMessage = String.format(
-                "Nhac nho: %s, Gap %s. Den dung gio hoac lien he 0969 967 389 - 0975 967 364 de doi lich.",
+                "Nhac nho: %s, Gap %s. Den dung gio hoac lien he 0969967389 de doi lich.",
                 dateTime, lawyerName
             );
             smsService.sendSms(phone, smsMessage);

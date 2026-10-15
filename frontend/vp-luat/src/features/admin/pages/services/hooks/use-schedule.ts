@@ -56,7 +56,7 @@ export function useLawyerSchedule(lawyerId: string | null | undefined) {
   }, [lawyerId, queryResult.data]);
 
   // Bound saveSchedule — closes over lawyerId so callers only pass updates
-  const saveScheduleMutation = useApiMutation<unknown, { lawyerId: string; updates: SlotUpdate[] }>(
+  const saveScheduleMutation = useApiMutation<unknown, { lawyerId: string; body: SlotUpdate[] }>(
     'PUT',
     (vars) => `/admin/lawyers/${vars.lawyerId}/schedule`,
     {
@@ -86,7 +86,7 @@ export function useLawyerSchedule(lawyerId: string | null | undefined) {
       }));
       return new Promise<void>((resolve, reject) => {
         saveScheduleMutation.mutate(
-          { lawyerId, updates: slotUpdates },
+          { lawyerId, body: slotUpdates },
           {
             onSuccess: () => resolve(),
             onError: (e) => reject(e),
@@ -108,7 +108,7 @@ export function useLawyerSchedule(lawyerId: string | null | undefined) {
 export function useSaveSchedule() {
   const qc = useQueryClient();
 
-  const mutation = useApiMutation<unknown, { lawyerId: string; updates: SlotUpdate[] }>(
+  const mutation = useApiMutation<unknown, { lawyerId: string; body: SlotUpdate[] }>(
     'PUT',
     (vars) => `/admin/lawyers/${vars.lawyerId}/schedule`,
     {
@@ -130,7 +130,7 @@ export function useSaveSchedule() {
 
   return useCallback(
     (lawyerId: string, updates: SlotUpdate[]) =>
-      mutation.mutate({ lawyerId, updates }),
+      mutation.mutate({ lawyerId, body: updates }),
     [mutation],
   );
 }

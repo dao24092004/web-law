@@ -4,7 +4,6 @@ import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Image from '@tiptap/extension-image';
-import Link from '@tiptap/extension-link';
 import Placeholder from '@tiptap/extension-placeholder';
 import { ArrowLeft, Save, Eye, History, X, Globe, Clock } from 'lucide-react';
 import { postSchema, type PostFormValues } from '@/features/admin/schema';
@@ -167,20 +166,20 @@ export function PostEditor({
     extensions: [
       StarterKit.configure({
         heading: { levels: [1, 2, 3] },
+        link: {
+          openOnClick: false,
+          autolink: true,
+          HTMLAttributes: {
+            rel: 'noopener noreferrer',
+            target: '_blank',
+            class: 'pe-editor__link',
+          },
+        },
       }),
       Image.configure({
         inline: false,
         allowBase64: true,
         HTMLAttributes: { class: 'pe-editor__image' },
-      }),
-      Link.configure({
-        openOnClick: false,
-        autolink: true,
-        HTMLAttributes: {
-          rel: 'noopener noreferrer',
-          target: '_blank',
-          class: 'pe-editor__link',
-        },
       }),
       Placeholder.configure({
         placeholder: 'Bắt đầu viết nội dung bài viết...',
